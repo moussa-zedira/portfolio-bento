@@ -1,0 +1,177 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <%- include('partials/head') %>
+</head>
+<body>
+
+    <!-- Animated background -->
+    <div class="bg-grid"></div>
+    <div class="bg-glow bg-glow-1"></div>
+    <div class="bg-glow bg-glow-2"></div>
+
+    <!-- Navbar -->
+    <%- include('partials/navbar') %>
+
+    <!-- Bento Grid -->
+    <main class="bento-container">
+
+        <!-- Hero - Large card -->
+        <section class="bento-card card-hero" id="about">
+            <div class="card-inner">
+                <div class="hero-badge">Disponible pour missions</div>
+                <h1 class="hero-name"><%= portfolio.name.split(' ')[0] %><br><span class="accent"><%= portfolio.name.split(' ')[1] %></span></h1>
+                <p class="hero-title"><%= portfolio.title %></p>
+                <p class="hero-subtitle"><%= portfolio.subtitle %></p>
+                <div class="hero-cta">
+                    <a href="#contact" class="btn btn-primary">Me contacter</a>
+                    <a href="#projects" class="btn btn-ghost">Voir mes projets</a>
+                </div>
+            </div>
+            <div class="hero-decoration">
+                <div class="orbit"><div class="orbit-dot"></div></div>
+                <div class="orbit orbit-2"><div class="orbit-dot"></div></div>
+            </div>
+        </section>
+
+        <!-- Status card -->
+        <section class="bento-card card-status">
+            <div class="card-inner">
+                <div class="status-indicator">
+                    <span class="status-dot"></span>
+                    En ligne
+                </div>
+                <div class="status-stats">
+                    <div class="stat">
+                        <span class="stat-number" data-count="<%= portfolio.stats.experience %>">0</span><span class="stat-suffix">+</span>
+                        <span class="stat-label">Annees XP</span>
+                    </div>
+                    <div class="stat">
+                        <span class="stat-number" data-count="<%= portfolio.stats.projects %>">0</span><span class="stat-suffix">+</span>
+                        <span class="stat-label">Projets</span>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Tech Stack card -->
+        <section class="bento-card card-stack" id="skills">
+            <div class="card-inner">
+                <h2 class="card-title">Tech Stack</h2>
+                <div class="stack-grid">
+                    <% portfolio.stack.forEach(function(tech) { %>
+                    <div class="stack-item" data-tooltip="<%= tech.name %>">
+                        <%- include('partials/icons', { icon: tech.icon }) %>
+                    </div>
+                    <% }); %>
+                </div>
+            </div>
+        </section>
+
+        <!-- About card -->
+        <section class="bento-card card-about">
+            <div class="card-inner">
+                <h2 class="card-title">A propos</h2>
+                <p class="about-text"><%= portfolio.about %></p>
+                <div class="about-tags">
+                    <% portfolio.tags.forEach(function(tag) { %>
+                    <span class="tag"><%= tag %></span>
+                    <% }); %>
+                </div>
+            </div>
+        </section>
+
+        <!-- Skills Bars card -->
+        <section class="bento-card card-skills">
+            <div class="card-inner">
+                <h2 class="card-title">Competences</h2>
+                <div class="skills-list">
+                    <% portfolio.skills.forEach(function(skill) { %>
+                    <div class="skill-item">
+                        <div class="skill-header">
+                            <span><%= skill.name %></span>
+                            <span><%= skill.level %>%</span>
+                        </div>
+                        <div class="skill-bar"><div class="skill-fill" data-width="<%= skill.level %>"></div></div>
+                    </div>
+                    <% }); %>
+                </div>
+            </div>
+        </section>
+
+        <!-- Project Cards -->
+        <% portfolio.projects.forEach(function(project) { %>
+        <section class="bento-card card-project" <%= project.id === '01' ? 'id="projects"' : '' %>>
+            <div class="card-inner">
+                <div class="project-icon"><%= project.id %></div>
+                <h3 class="project-title"><%= project.title %></h3>
+                <p class="project-desc"><%= project.desc %></p>
+                <div class="project-tech">
+                    <% project.tech.forEach(function(t) { %>
+                    <span><%= t %></span>
+                    <% }); %>
+                </div>
+            </div>
+        </section>
+        <% }); %>
+
+        <!-- Quote card -->
+        <section class="bento-card card-quote">
+            <div class="card-inner">
+                <svg class="quote-icon" viewBox="0 0 24 24" fill="currentColor"><path d="M4.583 17.321C3.553 16.227 3 15 3 13.011c0-3.5 2.457-6.637 6.03-8.188l.893 1.378c-3.335 1.804-3.987 4.145-4.247 5.621.537-.278 1.24-.375 1.929-.311 1.804.167 3.226 1.648 3.226 3.489a3.5 3.5 0 0 1-3.5 3.5 3.871 3.871 0 0 1-2.748-1.179zm10 0C13.553 16.227 13 15 13 13.011c0-3.5 2.457-6.637 6.03-8.188l.893 1.378c-3.335 1.804-3.987 4.145-4.247 5.621.537-.278 1.24-.375 1.929-.311 1.804.167 3.226 1.648 3.226 3.489a3.5 3.5 0 0 1-3.5 3.5 3.871 3.871 0 0 1-2.748-1.179z"/></svg>
+                <p class="quote-text">Le futur appartient a ceux qui allient technologie et creativite.</p>
+            </div>
+        </section>
+
+        <!-- Contact card -->
+        <section class="bento-card card-contact" id="contact">
+            <div class="card-inner">
+                <h2 class="card-title">Contact</h2>
+                <form class="contact-form" id="contactForm">
+                    <input type="text" name="name" placeholder="Votre nom" required>
+                    <input type="email" name="email" placeholder="Votre email" required>
+                    <textarea name="message" placeholder="Votre message" rows="3" required></textarea>
+                    <button type="submit" class="btn btn-primary">Envoyer</button>
+                </form>
+            </div>
+        </section>
+
+        <!-- Social links card -->
+        <section class="bento-card card-social">
+            <div class="card-inner">
+                <h2 class="card-title">Retrouvez-moi</h2>
+                <div class="social-links">
+                    <a href="<%= portfolio.socials.github %>" class="social-link" aria-label="GitHub">
+                        <svg viewBox="0 0 24 24" fill="currentColor"><path d="M12 .297c-6.63 0-12 5.373-12 12 0 5.303 3.438 9.8 8.205 11.385.6.113.82-.258.82-.577 0-.285-.01-1.04-.015-2.04-3.338.724-4.042-1.61-4.042-1.61C4.422 18.07 3.633 17.7 3.633 17.7c-1.087-.744.084-.729.084-.729 1.205.084 1.838 1.236 1.838 1.236 1.07 1.835 2.809 1.305 3.495.998.108-.776.417-1.305.76-1.605-2.665-.3-5.466-1.332-5.466-5.93 0-1.31.465-2.38 1.235-3.22-.135-.303-.54-1.523.105-3.176 0 0 1.005-.322 3.3 1.23.96-.267 1.98-.399 3-.405 1.02.006 2.04.138 3 .405 2.28-1.552 3.285-1.23 3.285-1.23.645 1.653.24 2.873.12 3.176.765.84 1.23 1.91 1.23 3.22 0 4.61-2.805 5.625-5.475 5.92.42.36.81 1.096.81 2.22 0 1.606-.015 2.896-.015 3.286 0 .315.21.69.825.57C20.565 22.092 24 17.592 24 12.297c0-6.627-5.373-12-12-12"/></svg>
+                    </a>
+                    <a href="<%= portfolio.socials.linkedin %>" class="social-link" aria-label="LinkedIn">
+                        <svg viewBox="0 0 24 24" fill="currentColor"><path d="M20.447 20.452h-3.554v-5.569c0-1.328-.027-3.037-1.852-3.037-1.853 0-2.136 1.445-2.136 2.939v5.667H9.351V9h3.414v1.561h.046c.477-.9 1.637-1.85 3.37-1.85 3.601 0 4.267 2.37 4.267 5.455v6.286zM5.337 7.433a2.062 2.062 0 0 1-2.063-2.065 2.064 2.064 0 1 1 2.063 2.065zm1.782 13.019H3.555V9h3.564v11.452zM22.225 0H1.771C.792 0 0 .774 0 1.729v20.542C0 23.227.792 24 1.771 24h20.451C23.2 24 24 23.227 24 22.271V1.729C24 .774 23.2 0 22.222 0h.003z"/></svg>
+                    </a>
+                    <a href="mailto:<%= portfolio.socials.email %>" class="social-link" aria-label="Email">
+                        <svg viewBox="0 0 24 24" fill="currentColor"><path d="M24 5.457v13.909c0 .904-.732 1.636-1.636 1.636h-3.819V11.73L12 16.64l-6.545-4.91v9.273H1.636A1.636 1.636 0 0 1 0 19.366V5.457c0-2.023 2.309-3.178 3.927-1.964L5.455 4.64 12 9.548l6.545-4.91 1.528-1.145C21.69 2.28 24 3.434 24 5.457z"/></svg>
+                    </a>
+                </div>
+            </div>
+        </section>
+
+        <!-- Location card -->
+        <section class="bento-card card-location">
+            <div class="card-inner">
+                <div class="location-pin">
+                    <svg viewBox="0 0 24 24" fill="currentColor" width="32" height="32"><path d="M12 2C8.13 2 5 5.13 5 9c0 5.25 7 13 7 13s7-7.75 7-13c0-3.87-3.13-7-7-7zm0 9.5a2.5 2.5 0 0 1 0-5 2.5 2.5 0 0 1 0 5z"/></svg>
+                </div>
+                <p class="location-text">France</p>
+                <p class="location-sub">Disponible en remote</p>
+            </div>
+        </section>
+
+    </main>
+
+    <!-- Footer -->
+    <footer class="footer">
+        <p>&copy; 2026 <%= portfolio.name %>. Tous droits reserves.</p>
+    </footer>
+
+    <script src="/js/script.js"></script>
+</body>
+</html>
