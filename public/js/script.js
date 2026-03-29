@@ -292,41 +292,6 @@ document.addEventListener('DOMContentLoaded', () => {
         });
     });
 
-    // ---- Custom Cursor ----
-    const cursor = document.getElementById('customCursor');
-    const trail = document.getElementById('cursorTrail');
-    if (cursor && trail && window.innerWidth > 768) {
-        let cx = 0, cy = 0, tx = 0, ty = 0;
-
-        document.addEventListener('mousemove', (e) => {
-            tx = e.clientX;
-            ty = e.clientY;
-            cursor.style.left = tx + 'px';
-            cursor.style.top = ty + 'px';
-        });
-
-        // Trail follows with delay
-        function trailLoop() {
-            cx += (tx - cx) * 0.15;
-            cy += (ty - cy) * 0.15;
-            trail.style.left = cx + 'px';
-            trail.style.top = cy + 'px';
-            requestAnimationFrame(trailLoop);
-        }
-        trailLoop();
-
-        // Hover effect on interactive elements
-        document.querySelectorAll('a, button, .btn, .social-link, .stack-item, .card-project').forEach(el => {
-            el.addEventListener('mouseenter', () => cursor.classList.add('hover'));
-            el.addEventListener('mouseleave', () => cursor.classList.remove('hover'));
-        });
-
-        // Hide default cursor
-        document.documentElement.style.cursor = 'none';
-        document.querySelectorAll('a, button, .btn, .social-link, .stack-item, .card-project').forEach(el => {
-            el.style.cursor = 'none';
-        });
-    }
 
     // ---- Scroll Progress Bar ----
     const scrollProgress = document.getElementById('scrollProgress');
