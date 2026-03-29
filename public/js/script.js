@@ -4,6 +4,18 @@
 
 document.addEventListener('DOMContentLoaded', () => {
 
+    // ---- Loader ----
+    const loader = document.getElementById('loader');
+    window.addEventListener('load', () => {
+        setTimeout(() => {
+            loader.classList.add('hidden');
+        }, 1200);
+    });
+    // Fallback if load already fired
+    if (document.readyState === 'complete') {
+        setTimeout(() => loader.classList.add('hidden'), 1200);
+    }
+
     // ---- Floating Particles ----
     const canvas = document.createElement('canvas');
     canvas.id = 'particles';
