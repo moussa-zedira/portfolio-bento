@@ -5,15 +5,15 @@ const router = express.Router();
 const portfolio = {
     name: 'Zedira Moussa',
     title: 'Technicien Support Informatique',
-    subtitle: 'Support IT • Reseaux • Python & SQL • IA Generative',
-    seeking: 'Recherche stage Support IT / Helpdesk en Ile-de-France',
-    about: `Etudiant en formation Technicien d'Assistance Informatique (TIP) a Doranco,
+    subtitle: 'Support IT • Réseaux • Python & SQL • IA Générative',
+    seeking: 'Recherche stage Support IT / Helpdesk en Île-de-France',
+    about: `Étudiant en formation Technicien d'Assistance Informatique (TIP) à Doranco,
             je recherche un stage en support IT / helpdesk pour mettre en pratique mes
-            competences : assistance utilisateurs, depannage, configuration reseau,
-            gestion de tickets (GLPI) et automatisation. Certifie Cisco Networking
-            Academy, je suis aussi a l'aise avec Python, SQL et les outils d'IA.`,
-    tags: ['Support IT', 'Cybersecurite', 'Python', 'SQL', 'IA', 'Reseaux'],
-    location: 'Argenteuil, Ile-de-France',
+            compétences : assistance utilisateurs, dépannage, configuration réseau,
+            gestion de tickets (GLPI) et automatisation. Certifié Cisco Networking
+            Academy, je suis aussi à l'aise avec Python, SQL et les outils d'IA.`,
+    tags: ['Support IT', 'Cybersécurité', 'Python', 'SQL', 'IA', 'Réseaux'],
+    location: 'Argenteuil, Île-de-France',
     stats: {
         experience: 2,
         projects: 5
@@ -26,8 +26,8 @@ const portfolio = {
         },
         {
             year: '2025',
-            title: 'Niveau Baccalaureat General',
-            detail: 'Mathematiques, NSI, Sciences de l\'ingenieur',
+            title: 'Niveau Baccalauréat Général',
+            detail: 'Mathématiques, NSI, Sciences de l\'ingénieur',
             school: 'Argenteuil'
         },
         {
@@ -39,15 +39,15 @@ const portfolio = {
     certifications: [
         'Cisco Networking Academy - Cybersecurity, Networking Essentials',
         'Python Essentials, Linux Unhatched',
-        'IA Generative Anthropic (Claude) - Prompt Engineering'
+        'IA Générative Anthropic (Claude) - Prompt Engineering'
     ],
     skills: [
-        { name: 'Support IT & Depannage', level: 85 },
-        { name: 'Reseaux (TCP/IP, Cisco)', level: 75 },
+        { name: 'Support IT & Dépannage', level: 85 },
+        { name: 'Réseaux (TCP/IP, Cisco)', level: 75 },
         { name: 'Python & SQL', level: 80 },
-        { name: 'Cybersecurite', level: 70 },
+        { name: 'Cybersécurité', level: 70 },
         { name: 'IA & Automatisation', level: 75 },
-        { name: 'Systemes (Windows, Linux)', level: 80 }
+        { name: 'Systèmes (Windows, Linux)', level: 80 }
     ],
     stack: [
         { name: 'Python', icon: 'python' },
@@ -62,7 +62,7 @@ const portfolio = {
     experiences: [
         {
             period: '2025 - 2026',
-            title: 'Gerant / Independant',
+            title: 'Gérant / Indépendant',
             company: 'Prestations de services'
         },
         {
@@ -81,50 +81,50 @@ const portfolio = {
             id: '01',
             slug: 'cyberdef',
             title: 'CyberDef',
-            desc: 'Plateforme de cybersecurite tout-en-un : SIEM, detection, reponse automatisee, threat intel et pentest.',
+            desc: 'Plateforme de cybersécurité tout-en-un : SIEM, détection, réponse automatisée, threat intel et pentest.',
             tech: ['Python', 'FastAPI', 'Next.js', 'PostgreSQL', 'Redis', 'Celery'],
             color: '#ef4444',
             detail: {
-                subtitle: 'Plateforme de cybersecurite tout-en-un',
-                overview: `Au lieu d'avoir 5-6 outils differents (un SIEM pour surveiller, un scanner pour tester,
-                    un outil pour repondre aux incidents...), CyberDef reunit tout dans une seule application web.
+                subtitle: 'Plateforme de cybersécurité tout-en-un',
+                overview: `Au lieu d'avoir 5-6 outils différents (un SIEM pour surveiller, un scanner pour tester,
+                    un outil pour répondre aux incidents...), CyberDef réunit tout dans une seule application web.
                     C'est comme fusionner Splunk + Burp Suite + Metasploit + TheHive + OpenCTI dans un seul dashboard.`,
                 features: [
                     {
                         icon: '01',
                         title: 'SIEM — Surveillance',
-                        desc: 'Reception et analyse automatique de logs de securite (firewall, serveurs, endpoints). Pipeline de 13 etapes : parsing, enrichissement (geolocalisation IP, reputation, assets), scoring de menace, detection de regles, correlation.',
-                        highlight: 'Langage de recherche CQL integre, similaire a Splunk SPL'
+                        desc: 'Réception et analyse automatique de logs de sécurité (firewall, serveurs, endpoints). Pipeline de 13 étapes : parsing, enrichissement (géolocalisation IP, réputation, assets), scoring de menace, détection de règles, corrélation.',
+                        highlight: 'Langage de recherche CQL intégré, similaire à Splunk SPL'
                     },
                     {
                         icon: '02',
                         title: 'Detection Engine',
-                        desc: 'Regles SIGMA (standard ouvert), correlation multi-etapes pour detecter les attaques complexes (ex: brute force + login success + lateral movement = compromission).',
-                        highlight: 'Scoring 0-100 base sur la Threat Intel, la severite et la criticite'
+                        desc: 'Règles SIGMA (standard ouvert), corrélation multi-étapes pour détecter les attaques complexes (ex: brute force + login success + lateral movement = compromission).',
+                        highlight: 'Scoring 0-100 basé sur la Threat Intel, la sévérité et la criticité'
                     },
                     {
                         icon: '03',
-                        title: 'SOAR — Reponse automatisee',
-                        desc: 'Quand une menace est detectee, des playbooks automatiques se declenchent : bloquer une IP, isoler une machine, creer un ticket, notifier l\'equipe.',
-                        highlight: '15 playbooks pre-configures, 41 actions disponibles'
+                        title: 'SOAR — Réponse automatisée',
+                        desc: 'Quand une menace est détectée, des playbooks automatiques se déclenchent : bloquer une IP, isoler une machine, créer un ticket, notifier l\'équipe.',
+                        highlight: '15 playbooks pré-configurés, 41 actions disponibles'
                     },
                     {
                         icon: '04',
                         title: 'Threat Intelligence',
-                        desc: 'Base de donnees d\'indicateurs malveillants (IPs, domaines, hash). 8 feeds automatiques : abuse.ch, EmergingThreats, PhishTank, OTX...',
-                        highlight: 'Compatibilite STIX/TAXII avec serveur integre'
+                        desc: 'Base de données d\'indicateurs malveillants (IPs, domaines, hash). 8 feeds automatiques : abuse.ch, EmergingThreats, PhishTank, OTX...',
+                        highlight: 'Compatibilité STIX/TAXII avec serveur intégré'
                     },
                     {
                         icon: '05',
                         title: 'Pentest Lab — 76 modules',
-                        desc: 'Orchestrateur automatique : tu entres une cible, choisis un profil (quick scan a red team complet), et il enchaine scan ports, decouverte vulns, exploitation, post-exploitation, rapport.',
-                        highlight: 'SQLi, XSS, SSRF, LFI, brute force, privesc, lateral movement, fuzzer intelligent avec detection WAF'
+                        desc: 'Orchestrateur automatique : tu entres une cible, choisis un profil (quick scan à red team complet), et il enchaîne scan ports, découverte vulns, exploitation, post-exploitation, rapport.',
+                        highlight: 'SQLi, XSS, SSRF, LFI, brute force, privesc, lateral movement, fuzzer intelligent avec détection WAF'
                     },
                     {
                         icon: '06',
                         title: 'DevSecOps',
-                        desc: 'Scan SAST (code source), SCA (dependances), secrets, containers, IaC. Export SARIF, quality gates.',
-                        highlight: 'Generateurs CI pour GitHub Actions, GitLab CI, Jenkins'
+                        desc: 'Scan SAST (code source), SCA (dépendances), secrets, containers, IaC. Export SARIF, quality gates.',
+                        highlight: 'Générateurs CI pour GitHub Actions, GitLab CI, Jenkins'
                     }
                 ],
                 architecture: {
@@ -132,7 +132,7 @@ const portfolio = {
                     backend: 'FastAPI (Python) — 750+ endpoints, 250+ fichiers',
                     database: 'PostgreSQL',
                     cache: 'Redis',
-                    queue: 'Celery (taches asynchrones)'
+                    queue: 'Celery (tâches asynchrones)'
                 },
                 stats: [
                     { label: 'Endpoints API', value: '750+' },
@@ -140,7 +140,7 @@ const portfolio = {
                     { label: 'Pages Frontend', value: '80+' },
                     { label: 'Actions SOAR', value: '41' },
                     { label: 'Feeds Threat Intel', value: '8' },
-                    { label: 'Etapes Pipeline', value: '13' }
+                    { label: 'Étapes Pipeline', value: '13' }
                 ]
             }
         },
@@ -148,53 +148,53 @@ const portfolio = {
             id: '02',
             slug: 'chapitres',
             title: 'Chapitres',
-            desc: 'Plateforme educative gratuite pour lyceens : 504+ chapitres, quiz interactifs, annales du Bac.',
+            desc: 'Plateforme éducative gratuite pour lycéens : 504+ chapitres, quiz interactifs, annales du Bac.',
             tech: ['Next.js', 'React', 'Vercel', 'KaTeX', 'OAuth'],
             color: '#818cf8',
             link: 'https://meschapitres.fr',
             detail: {
-                subtitle: 'Plateforme de revision gratuite pour le Baccalaureat',
-                overview: `Chapitres est une plateforme educative 100% gratuite destinee aux lyceens
-                    qui preparent le Baccalaureat. Elle couvre l'integralite du programme officiel
-                    (Bulletin Officiel 2025-2026) de la Seconde a la Terminale, avec des fiches de
-                    revision structurees, des quiz interactifs chronometes et les annales du Bac.
-                    Cree pour les lyceens, par les lyceens.`,
+                subtitle: 'Plateforme de révision gratuite pour le Baccalauréat',
+                overview: `Chapitres est une plateforme éducative 100% gratuite destinée aux lycéens
+                    qui préparent le Baccalauréat. Elle couvre l'intégralité du programme officiel
+                    (Bulletin Officiel 2025-2026) de la Seconde à la Terminale, avec des fiches de
+                    révision structurées, des quiz interactifs chronométrés et les annales du Bac.
+                    Créé pour les lycéens, par les lycéens.`,
                 features: [
                     {
                         icon: '01',
                         title: 'Programme complet — 504+ chapitres',
-                        desc: 'Couverture integrale du programme officiel : Seconde (112 chapitres), Premiere (185 chapitres), Terminale (207 chapitres). 16 matieres en Terminale, du tronc commun aux specialites (Maths, NSI, Physique, SVT, SES, HGGSP...).',
-                        highlight: 'Aligne sur le Bulletin Officiel 2025-2026'
+                        desc: 'Couverture intégrale du programme officiel : Seconde (112 chapitres), Première (185 chapitres), Terminale (207 chapitres). 16 matières en Terminale, du tronc commun aux spécialités (Maths, NSI, Physique, SVT, SES, HGGSP...).',
+                        highlight: 'Aligné sur le Bulletin Officiel 2025-2026'
                     },
                     {
                         icon: '02',
-                        title: 'Fiches de revision',
-                        desc: 'Fiches structurees et synthetiques pour chaque chapitre. Concepts essentiels resumes en une page, avec rendu mathematique KaTeX pour les formules.',
-                        highlight: 'Comprends. Revise. Reussis.'
+                        title: 'Fiches de révision',
+                        desc: 'Fiches structurées et synthétiques pour chaque chapitre. Concepts essentiels résumés en une page, avec rendu mathématique KaTeX pour les formules.',
+                        highlight: 'Comprends. Révise. Réussis.'
                     },
                     {
                         icon: '03',
                         title: 'Quiz interactifs',
-                        desc: 'QCM chronometes avec choix de duree (30s, 60s ou 90s par question). Score detaille et corrections completes a la fin de chaque quiz.',
-                        highlight: 'Suivi de progression par matiere'
+                        desc: 'QCM chronométrés avec choix de durée (30s, 60s ou 90s par question). Score détaillé et corrections complètes à la fin de chaque quiz.',
+                        highlight: 'Suivi de progression par matière'
                     },
                     {
                         icon: '04',
                         title: 'Annales du Bac 2021-2024',
-                        desc: 'Sujets d\'examen classes par matiere, annee et session geographique (Metropole, Polynesie, Amerique du Nord, Asie, Liban...). Durees et coefficients indiques.',
-                        highlight: '8 sessions geographiques disponibles'
+                        desc: 'Sujets d\'examen classés par matière, année et session géographique (Métropole, Polynésie, Amérique du Nord, Asie, Liban...). Durées et coefficients indiqués.',
+                        highlight: '8 sessions géographiques disponibles'
                     },
                     {
                         icon: '05',
                         title: 'Hub Bac 2026',
-                        desc: 'Page dediee avec le calendrier complet des epreuves, les coefficients, la repartition des notes (60% examen final / 40% controle continu) et les ressources de revision.',
-                        highlight: 'Calendrier, coefficients et planning de revision'
+                        desc: 'Page dédiée avec le calendrier complet des épreuves, les coefficients, la répartition des notes (60% examen final / 40% contrôle continu) et les ressources de révision.',
+                        highlight: 'Calendrier, coefficients et planning de révision'
                     },
                     {
                         icon: '06',
-                        title: 'Blog & Methodologie',
-                        desc: '10 articles de conseils : methode de dissertation en philo, formules essentielles en maths, erreurs courantes en physique, preparation du Grand Oral, planning de revision...',
-                        highlight: 'Articles de 6 a 10 min de lecture'
+                        title: 'Blog & Méthodologie',
+                        desc: '10 articles de conseils : méthode de dissertation en philo, formules essentielles en maths, erreurs courantes en physique, préparation du Grand Oral, planning de révision...',
+                        highlight: 'Articles de 6 à 10 min de lecture'
                     }
                 ],
                 architecture: {
@@ -207,7 +207,7 @@ const portfolio = {
                 },
                 stats: [
                     { label: 'Chapitres', value: '504+' },
-                    { label: 'Matieres', value: '16' },
+                    { label: 'Matières', value: '16' },
                     { label: 'Niveaux', value: '3' },
                     { label: 'Sessions Annales', value: '8' },
                     { label: 'Articles Blog', value: '10' },
@@ -219,65 +219,65 @@ const portfolio = {
             id: '03',
             slug: 'gdchess',
             title: 'GDChess',
-            desc: 'Jeu d\'echecs complet avec IA multi-niveaux (Minimax alpha-beta), 3 themes visuels, developpe en Godot 4.',
+            desc: 'Jeu d\'échecs complet avec IA multi-niveaux (Minimax alpha-beta), 3 thèmes visuels, développé en Godot 4.',
             tech: ['Godot 4', 'GDScript', 'Minimax', 'Alpha-Beta'],
             color: '#34d399',
             detail: {
-                subtitle: 'Jeu d\'echecs 2D avec IA multi-niveaux, developpe en Godot 4.6',
-                overview: `Jeu d'echecs 2D developpe de zero en Godot 4.6 avec GDScript. Le projet
-                    implemente l'integralite des regles officielles FIDE, une IA a 3 niveaux de
-                    difficulte basee sur l'algorithme Minimax avec elagage alpha-beta, un systeme
-                    de timer configurable, et 3 themes visuels complets (Medieval, Moderne, Bois Classique).`,
+                subtitle: 'Jeu d\'échecs 2D avec IA multi-niveaux, développé en Godot 4.6',
+                overview: `Jeu d'échecs 2D développé de zéro en Godot 4.6 avec GDScript. Le projet
+                    implémente l'intégralité des règles officielles FIDE, une IA à 3 niveaux de
+                    difficulté basée sur l'algorithme Minimax avec élagage alpha-beta, un système
+                    de timer configurable, et 3 thèmes visuels complets (Médiéval, Moderne, Bois Classique).`,
                 features: [
                     {
                         icon: '01',
-                        title: 'Regles completes FIDE',
-                        desc: 'Tous les mouvements, captures, roque (petit et grand), prise en passant, promotion, detection d\'echec, echec et mat, pat. Historique en notation algebrique scrollable (e4, Cf3, Fxc6+, Rh7#).',
-                        highlight: '100% des regles officielles implementees'
+                        title: 'Règles complètes FIDE',
+                        desc: 'Tous les mouvements, captures, roque (petit et grand), prise en passant, promotion, détection d\'échec, échec et mat, pat. Historique en notation algébrique scrollable (e4, Cf3, Fxc6+, Rh7#).',
+                        highlight: '100% des règles officielles implémentées'
                     },
                     {
                         icon: '02',
                         title: 'IA 3 niveaux — Minimax Alpha-Beta',
-                        desc: 'Debutant (profondeur 1, coups aleatoires), Intermediaire (profondeur 3, evaluation positionnelle), Expert (profondeur 4, structure de pions, mobilite). Tri des coups par MVV-LVA.',
-                        highlight: 'Tables d\'evaluation positionnelle 8x8 par piece + table endgame'
+                        desc: 'Débutant (profondeur 1, coups aléatoires), Intermédiaire (profondeur 3, évaluation positionnelle), Expert (profondeur 4, structure de pions, mobilité). Tri des coups par MVV-LVA.',
+                        highlight: 'Tables d\'évaluation positionnelle 8x8 par pièce + table endgame'
                     },
                     {
                         icon: '03',
                         title: 'Modes de jeu & Timers',
-                        desc: 'Solo contre l\'IA ou 2 joueurs en local. Timers configurables : aucun, 3min, 5min, 10min, 15min par joueur. Panneau lateral avec pieces capturees triees par valeur.',
+                        desc: 'Solo contre l\'IA ou 2 joueurs en local. Timers configurables : aucun, 3min, 5min, 10min, 15min par joueur. Panneau latéral avec pièces capturées triées par valeur.',
                         highlight: '5 options de timer + mode libre'
                     },
                     {
                         icon: '04',
-                        title: '3 themes visuels complets',
-                        desc: 'Medieval, Moderne et Bois Classique. Chaque theme modifie les couleurs, decorations et l\'UI complete. Systeme de themes modulaire via game_settings.gd.',
-                        highlight: 'Palettes de couleurs, decorations et UI par theme'
+                        title: '3 thèmes visuels complets',
+                        desc: 'Médiéval, Moderne et Bois Classique. Chaque thème modifie les couleurs, décorations et l\'UI complète. Système de thèmes modulaire via game_settings.gd.',
+                        highlight: 'Palettes de couleurs, décorations et UI par thème'
                     },
                     {
                         icon: '05',
-                        title: 'Evaluation avancee (Expert)',
-                        desc: 'Bonus de mobilite, penalites pions doubles et isoles, detection de phase de fin de partie, transition vers table endgame pour le roi. Simulation de plateau immuable pour l\'IA sans effets de bord.',
-                        highlight: 'Evaluation positionnelle + structurelle + mobilite'
+                        title: 'Évaluation avancée (Expert)',
+                        desc: 'Bonus de mobilité, pénalités pions doublés et isolés, détection de phase de fin de partie, transition vers table endgame pour le roi. Simulation de plateau immuable pour l\'IA sans effets de bord.',
+                        highlight: 'Évaluation positionnelle + structurelle + mobilité'
                     },
                     {
                         icon: '06',
                         title: 'Architecture signal-based',
-                        desc: 'Communication decouplee entre composants via les signaux Godot. Gestion d\'etat complexe : tours, timers, animations, IA asynchrone. Annulation de coups IA via game_id pour la concurrence.',
+                        desc: 'Communication découplée entre composants via les signaux Godot. Gestion d\'état complexe : tours, timers, animations, IA asynchrone. Annulation de coups IA via game_id pour la concurrence.',
                         highlight: '8 scripts modulaires, architecture propre'
                     }
                 ],
                 architecture: {
                     moteur: 'Godot 4.6 / GDScript',
-                    ia: 'Minimax + elagage alpha-beta (profondeur 4)',
-                    validation: 'move_validator.gd — coups legaux, echec/mat/pat',
-                    rendu: 'board.gd — plateau 2D, animations, panneau lateral',
-                    config: 'game_settings.gd — themes, parametres globaux',
+                    ia: 'Minimax + élagage alpha-beta (profondeur 4)',
+                    validation: 'move_validator.gd — coups légaux, échec/mat/pat',
+                    rendu: 'board.gd — plateau 2D, animations, panneau latéral',
+                    config: 'game_settings.gd — thèmes, paramètres globaux',
                     scripts: '8 fichiers GDScript modulaires'
                 },
                 stats: [
                     { label: 'Niveaux IA', value: '3' },
                     { label: 'Profondeur max', value: '4' },
-                    { label: 'Themes visuels', value: '3' },
+                    { label: 'Thèmes visuels', value: '3' },
                     { label: 'Options timer', value: '5' },
                     { label: 'Scripts', value: '8' },
                     { label: 'Moteur', value: 'Godot 4.6' }
@@ -285,7 +285,7 @@ const portfolio = {
             }
         }
     ],
-    languages: ['Francais (natif)', 'Anglais (intermediaire)', 'Arabe (bilingue)', 'Espagnol (conversationnel)'],
+    languages: ['Français (natif)', 'Anglais (intermédiaire)', 'Arabe (bilingue)', 'Espagnol (conversationnel)'],
     socials: {
         github: 'https://github.com/moussa-zedira',
         linkedin: 'https://www.linkedin.com/in/moussa-zedira-15abba3b8',
@@ -313,7 +313,7 @@ router.post('/contact', (req, res) => {
     const { name, email, message } = req.body;
     console.log('New message from:', name, email);
     console.log('Message:', message);
-    res.json({ success: true, message: 'Message envoye avec succes !' });
+    res.json({ success: true, message: 'Message envoyé avec succès !' });
 });
 
 // API: Get portfolio data
