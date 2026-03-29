@@ -1,7 +1,20 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title><%= portfolio.name %> | Portfolio</title>
-<meta name="description" content="Portfolio de <%= portfolio.name %> - <%= portfolio.title %>">
+<title><%= portfolio.name %> | <%= portfolio.title %></title>
+<meta name="description" content="<%= portfolio.seeking %> — <%= portfolio.subtitle %>">
+<meta name="author" content="<%= portfolio.name %>">
+
+<!-- Open Graph / LinkedIn / WhatsApp preview -->
+<meta property="og:type" content="website">
+<meta property="og:title" content="<%= portfolio.name %> — <%= portfolio.title %>">
+<meta property="og:description" content="<%= portfolio.seeking %>. Competences : <%= portfolio.tags.join(', ') %>">
+<meta property="og:locale" content="fr_FR">
+
+<!-- Twitter Card -->
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="<%= portfolio.name %> — <%= portfolio.title %>">
+<meta name="twitter:description" content="<%= portfolio.seeking %>">
+
 <link rel="stylesheet" href="/css/style.css">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&family=JetBrains+Mono:wght@400;700&display=swap" rel="stylesheet">

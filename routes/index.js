@@ -5,11 +5,13 @@ const router = express.Router();
 const portfolio = {
     name: 'Zedira Moussa',
     title: 'Technicien Support Informatique',
-    subtitle: 'Support IT • Cybersecurite • Python & SQL • IA Generative',
-    about: `Etudiant en formation TIP a Doranco, avec une approche pratique du support IT,
-            des reseaux et de la programmation (Python, SQL). Je developpe des projets en
-            cybersecurite et automatisation, et je recherche un stage pour consolider
-            mes competences techniques.`,
+    subtitle: 'Support IT • Reseaux • Python & SQL • IA Generative',
+    seeking: 'Recherche stage Support IT / Helpdesk en Ile-de-France',
+    about: `Etudiant en formation Technicien d'Assistance Informatique (TIP) a Doranco,
+            je recherche un stage en support IT / helpdesk pour mettre en pratique mes
+            competences : assistance utilisateurs, depannage, configuration reseau,
+            gestion de tickets (GLPI) et automatisation. Certifie Cisco Networking
+            Academy, je suis aussi a l'aise avec Python, SQL et les outils d'IA.`,
     tags: ['Support IT', 'Cybersecurite', 'Python', 'SQL', 'IA', 'Reseaux'],
     location: 'Argenteuil, Ile-de-France',
     stats: {
@@ -97,8 +99,9 @@ const portfolio = {
     languages: ['Francais (natif)', 'Anglais (intermediaire)', 'Arabe (bilingue)', 'Espagnol (conversationnel)'],
     socials: {
         github: 'https://github.com/moussa-zedira',
-        linkedin: '#',
-        email: 'moussazedira@gmail.com'
+        linkedin: 'https://www.linkedin.com/in/moussa-zedira-15abba3b8',
+        email: 'moussazedira@gmail.com',
+        phone: '06 27 80 74 30'
     }
 };
 
