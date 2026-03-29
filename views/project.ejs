@@ -370,8 +370,14 @@
 
         <!-- CTA -->
         <div class="project-cta">
-            <a href="/#contact" class="btn btn-primary">Discuter de ce projet</a>
-            <a href="/#projects" class="btn btn-ghost" style="margin-left: 0.75rem;">Voir les autres projets</a>
+            <% if (project.link) { %>
+            <a href="<%= project.link %>" target="_blank" class="btn btn-primary" style="gap:0.4rem;">
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" width="16" height="16"><path d="M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6"/><polyline points="15 3 21 3 21 9"/><line x1="10" y1="14" x2="21" y2="3"/></svg>
+                Voir le site
+            </a>
+            <% } %>
+            <a href="/#contact" class="btn btn-ghost" style="margin-left: 0.75rem;">Discuter de ce projet</a>
+            <a href="/#projects" class="btn btn-ghost" style="margin-left: 0.75rem;">Autres projets</a>
         </div>
 
     </div>
