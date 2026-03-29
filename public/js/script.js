@@ -127,35 +127,7 @@ document.addEventListener('DOMContentLoaded', () => {
         });
     });
 
-    // ---- Animated Counters ----
-    const counters = document.querySelectorAll('.stat-number');
-
-    const counterObserver = new IntersectionObserver((entries) => {
-        entries.forEach(entry => {
-            if (entry.isIntersecting) {
-                const target = parseInt(entry.target.dataset.count);
-                animateCounter(entry.target, target);
-                counterObserver.unobserve(entry.target);
-            }
-        });
-    }, { threshold: 0.5 });
-
-    counters.forEach(counter => counterObserver.observe(counter));
-
-    function animateCounter(el, target) {
-        const duration = 1200;
-        const start = performance.now();
-
-        function update(now) {
-            const elapsed = now - start;
-            const progress = Math.min(elapsed / duration, 1);
-            // Ease out cubic
-            const eased = 1 - Math.pow(1 - progress, 3);
-            el.textContent = Math.round(eased * target);
-            if (progress < 1) requestAnimationFrame(update);
-        }
-        requestAnimationFrame(update);
-    }
+    // ---- Animated Counters (handled below with particle burst) ----
 
     // ---- Skill Bars Animation ----
     const skillFills = document.querySelectorAll('.skill-fill');
@@ -304,4 +276,150 @@ document.addEventListener('DOMContentLoaded', () => {
             heroCard.style.transition = 'transform 0.5s ease';
         });
     }
+
+    // ---- Enhanced 3D Tilt on Project Cards ----
+    document.querySelectorAll('.card-project').forEach(card => {
+        card.addEventListener('mousemove', (e) => {
+            const rect = card.getBoundingClientRect();
+            const x = (e.clientX - rect.left) / rect.width - 0.5;
+            const y = (e.clientY - rect.top) / rect.height - 0.5;
+            card.style.transform = `perspective(800px) rotateY(${x * 8}deg) rotateX(${-y * 8}deg) translateY(-6px) scale(1.02)`;
+            card.style.transition = 'transform 0.1s ease';
+        });
+        card.addEventListener('mouseleave', () => {
+            card.style.transform = '';
+            card.style.transition = 'transform 0.5s ease';
+        });
+    });
+
+    // ---- Custom Cursor ----
+    const cursor = document.getElementById('customCursor');
+    const trail = document.getElementById('cursorTrail');
+    if (cursor && trail && window.innerWidth > 768) {
+        let cx = 0, cy = 0, tx = 0, ty = 0;
+
+        document.addEventListener('mousemove', (e) => {
+            tx = e.clientX;
+            ty = e.clientY;
+            cursor.style.left = tx + 'px';
+            cursor.style.top = ty + 'px';
+        });
+
+        // Trail follows with delay
+        function trailLoop() {
+            cx += (tx - cx) * 0.15;
+            cy += (ty - cy) * 0.15;
+            trail.style.left = cx + 'px';
+            trail.style.top = cy + 'px';
+            requestAnimationFrame(trailLoop);
+        }
+        trailLoop();
+
+        // Hover effect on interactive elements
+        document.querySelectorAll('a, button, .btn, .social-link, .stack-item, .card-project').forEach(el => {
+            el.addEventListener('mouseenter', () => cursor.classList.add('hover'));
+            el.addEventListener('mouseleave', () => cursor.classList.remove('hover'));
+        });
+
+        // Hide default cursor
+        document.documentElement.style.cursor = 'none';
+        document.querySelectorAll('a, button, .btn, .social-link, .stack-item, .card-project').forEach(el => {
+            el.style.cursor = 'none';
+        });
+    }
+
+    // ---- Scroll Progress Bar ----
+    const scrollProgress = document.getElementById('scrollProgress');
+    if (scrollProgress) {
+        window.addEventListener('scroll', () => {
+            const scrollTop = window.scrollY;
+            const docHeight = document.documentElement.scrollHeight - window.innerHeight;
+            const progress = (scrollTop / docHeight) * 100;
+            scrollProgress.style.width = progress + '%';
+        });
+    }
+
+    // ---- Scroll to Top Button ----
+    const scrollTopBtn = document.getElementById('scrollTop');
+    if (scrollTopBtn) {
+        window.addEventListener('scroll', () => {
+            scrollTopBtn.classList.toggle('visible', window.scrollY > 400);
+        });
+        scrollTopBtn.addEventListener('click', () => {
+            window.scrollTo({ top: 0, behavior: 'smooth' });
+        });
+    }
+
+    // ---- Text Reveal Word by Word ----
+    document.querySelectorAll('.about-text, .quote-text').forEach(el => {
+        const text = el.textContent.trim();
+        const words = text.split(/\s+/);
+        el.classList.add('word-reveal');
+        el.innerHTML = words.map((word, i) =>
+            `<span class="word" style="transition-delay: ${i * 0.03}s">${word}</span>`
+        ).join(' ');
+    });
+
+    // Observe word-reveal elements
+    const wordObserver = new IntersectionObserver((entries) => {
+        entries.forEach(entry => {
+            if (entry.isIntersecting) {
+                entry.target.classList.add('revealed');
+                wordObserver.unobserve(entry.target);
+            }
+        });
+    }, { threshold: 0.2 });
+
+    document.querySelectorAll('.word-reveal').forEach(el => wordObserver.observe(el));
+
+    // ---- Counter Particles Burst ----
+    function burstParticles(el) {
+        const rect = el.getBoundingClientRect();
+        const parent = el.closest('.stat');
+        if (!parent) return;
+        const colors = ['#818cf8', '#c084fc', '#38bdf8', '#34d399'];
+        for (let i = 0; i < 12; i++) {
+            const p = document.createElement('div');
+            p.className = 'counter-particle';
+            const angle = (Math.PI * 2 * i) / 12;
+            const dist = 30 + Math.random() * 30;
+            p.style.left = '50%';
+            p.style.top = '30%';
+            p.style.setProperty('--px', `${Math.cos(angle) * dist}px`);
+            p.style.setProperty('--py', `${Math.sin(angle) * dist}px`);
+            p.style.background = colors[Math.floor(Math.random() * colors.length)];
+            p.style.boxShadow = `0 0 6px ${p.style.background}`;
+            parent.appendChild(p);
+            setTimeout(() => p.remove(), 800);
+        }
+    }
+
+    // Override counter animation to add particles at end
+    const statNumbers = document.querySelectorAll('.stat-number');
+    statNumbers.forEach(el => {
+        const origObserver = new IntersectionObserver((entries) => {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                    const target = parseInt(entry.target.dataset.count);
+                    const duration = 1200;
+                    const start = performance.now();
+                    function update(now) {
+                        const elapsed = now - start;
+                        const progress = Math.min(elapsed / duration, 1);
+                        const eased = 1 - Math.pow(1 - progress, 3);
+                        entry.target.textContent = Math.round(eased * target);
+                        if (progress < 1) {
+                            requestAnimationFrame(update);
+                        } else {
+                            burstParticles(entry.target);
+                        }
+                    }
+                    requestAnimationFrame(update);
+                    origObserver.unobserve(entry.target);
+                }
+            });
+        }, { threshold: 0.5 });
+        origObserver.observe(el);
+    });
+
 });

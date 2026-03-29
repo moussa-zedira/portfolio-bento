@@ -44,6 +44,7 @@
                 </div>
             </div>
             <div class="hero-photo">
+                <div class="hero-photo-blob"></div>
                 <div class="hero-photo-ring"></div>
                 <img src="/img/profile.png" alt="<%= portfolio.name %>" />
             </div>
@@ -260,6 +261,18 @@
     <footer class="footer">
         <p>&copy; 2026 <%= portfolio.name %>. Tous droits réservés.</p>
     </footer>
+
+    <!-- Scroll Progress Bar -->
+    <div class="scroll-progress" id="scrollProgress"></div>
+
+    <!-- Custom Cursor -->
+    <div class="custom-cursor" id="customCursor"></div>
+    <div class="cursor-trail" id="cursorTrail"></div>
+
+    <!-- Scroll to Top -->
+    <button class="scroll-top" id="scrollTop" aria-label="Retour en haut">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="18 15 12 9 6 15"/></svg>
+    </button>
 
     <script src="/js/script.js"></script>
 </body>

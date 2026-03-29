@@ -1209,6 +1209,182 @@ body {
     background: rgba(129, 140, 248, 0.4);
 }
 
+/* ---- Custom Cursor ---- */
+.custom-cursor {
+    position: fixed;
+    width: 20px;
+    height: 20px;
+    border: 2px solid var(--accent);
+    border-radius: 50%;
+    pointer-events: none;
+    z-index: 9998;
+    transition: width 0.2s ease, height 0.2s ease, border-color 0.2s ease, background 0.2s ease;
+    transform: translate(-50%, -50%);
+    mix-blend-mode: difference;
+}
+
+.custom-cursor.hover {
+    width: 50px;
+    height: 50px;
+    background: rgba(129, 140, 248, 0.15);
+    border-color: var(--accent-2);
+}
+
+.cursor-trail {
+    position: fixed;
+    width: 8px;
+    height: 8px;
+    background: var(--accent);
+    border-radius: 50%;
+    pointer-events: none;
+    z-index: 9997;
+    transform: translate(-50%, -50%);
+    opacity: 0.5;
+    transition: opacity 0.4s ease;
+    box-shadow: 0 0 10px var(--accent-glow);
+}
+
+/* ---- Scroll Progress Bar ---- */
+.scroll-progress {
+    position: fixed;
+    top: 0;
+    left: 0;
+    height: 3px;
+    background: var(--gradient);
+    z-index: 9999;
+    width: 0%;
+    transition: width 0.05s linear;
+    box-shadow: 0 0 10px var(--accent-glow);
+}
+
+/* ---- Scroll To Top ---- */
+.scroll-top {
+    position: fixed;
+    bottom: 2rem;
+    right: 2rem;
+    width: 48px;
+    height: 48px;
+    background: var(--card-bg);
+    border: 1px solid var(--card-border);
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: var(--accent);
+    cursor: pointer;
+    z-index: 90;
+    opacity: 0;
+    visibility: hidden;
+    transform: translateY(20px);
+    transition: all 0.35s cubic-bezier(0.25, 0.46, 0.45, 0.94);
+    backdrop-filter: blur(12px);
+    box-shadow: 0 8px 24px rgba(0, 0, 0, 0.3);
+}
+
+.scroll-top.visible {
+    opacity: 1;
+    visibility: visible;
+    transform: translateY(0);
+}
+
+.scroll-top:hover {
+    background: var(--gradient);
+    color: #fff;
+    border-color: transparent;
+    transform: translateY(-4px);
+    box-shadow: 0 12px 30px rgba(129, 140, 248, 0.3);
+}
+
+.scroll-top svg {
+    width: 20px;
+    height: 20px;
+}
+
+/* ---- Animated Gradient Name ---- */
+.hero-name .accent {
+    background: linear-gradient(135deg, #818cf8, #c084fc, #38bdf8, #818cf8);
+    background-size: 300% 300%;
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
+    animation: gradient-shift 4s ease infinite;
+}
+
+@keyframes gradient-shift {
+    0% { background-position: 0% 50%; }
+    50% { background-position: 100% 50%; }
+    100% { background-position: 0% 50%; }
+}
+
+/* ---- Blob Behind Photo ---- */
+.hero-photo-blob {
+    position: absolute;
+    inset: -20px;
+    border-radius: 50%;
+    background: linear-gradient(135deg, rgba(129, 140, 248, 0.3), rgba(192, 132, 252, 0.3), rgba(56, 189, 248, 0.3));
+    filter: blur(25px);
+    z-index: 0;
+    animation: blob-morph 8s ease-in-out infinite;
+}
+
+@keyframes blob-morph {
+    0%, 100% {
+        border-radius: 60% 40% 30% 70% / 60% 30% 70% 40%;
+        transform: rotate(0deg) scale(1);
+    }
+    25% {
+        border-radius: 30% 60% 70% 40% / 50% 60% 30% 60%;
+        transform: rotate(90deg) scale(1.05);
+    }
+    50% {
+        border-radius: 50% 60% 30% 60% / 30% 40% 70% 50%;
+        transform: rotate(180deg) scale(0.95);
+    }
+    75% {
+        border-radius: 40% 30% 60% 50% / 60% 70% 40% 30%;
+        transform: rotate(270deg) scale(1.03);
+    }
+}
+
+/* ---- Text Reveal on Scroll ---- */
+.word-reveal .word {
+    display: inline-block;
+    opacity: 0;
+    transform: translateY(15px);
+    transition: opacity 0.4s ease, transform 0.4s ease;
+    margin-right: 0.3em;
+}
+
+.word-reveal.revealed .word {
+    opacity: 1;
+    transform: translateY(0);
+}
+
+/* ---- Counter Particles ---- */
+.stat {
+    position: relative;
+}
+
+.counter-particle {
+    position: absolute;
+    width: 4px;
+    height: 4px;
+    border-radius: 50%;
+    pointer-events: none;
+    animation: counter-burst 0.8s ease-out forwards;
+}
+
+@keyframes counter-burst {
+    0% {
+        opacity: 1;
+        transform: translate(0, 0) scale(1);
+    }
+    100% {
+        opacity: 0;
+        transform: translate(var(--px), var(--py)) scale(0);
+    }
+}
+
 /* ---- Responsive ---- */
 @media (max-width: 900px) {
     .bento-container {
@@ -1303,5 +1479,17 @@ body {
 
     .stack-grid {
         grid-template-columns: repeat(4, 1fr);
+    }
+
+    .custom-cursor,
+    .cursor-trail {
+        display: none !important;
+    }
+
+    .scroll-top {
+        bottom: 1rem;
+        right: 1rem;
+        width: 42px;
+        height: 42px;
     }
 }
