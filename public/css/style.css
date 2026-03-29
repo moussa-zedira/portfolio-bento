@@ -416,48 +416,47 @@ body {
     margin-top: auto;
 }
 
-.hero-decoration {
+.hero-photo {
     position: absolute;
     top: 2rem;
     right: 2.5rem;
-    width: 180px;
-    height: 180px;
-    opacity: 0.15;
+    width: 160px;
+    height: 160px;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
 }
 
-.orbit {
+.hero-photo img {
+    width: 140px;
+    height: 140px;
+    border-radius: 50%;
+    object-fit: cover;
+    object-position: center top;
+    border: 3px solid rgba(129, 140, 248, 0.3);
+    position: relative;
+    z-index: 2;
+    transition: all var(--transition);
+    filter: grayscale(20%);
+}
+
+.hero-photo:hover img {
+    filter: grayscale(0%);
+    border-color: var(--accent);
+    box-shadow: 0 0 30px var(--accent-glow);
+    transform: scale(1.05);
+}
+
+.hero-photo-ring {
     position: absolute;
     inset: 0;
-    border: 1px solid var(--accent);
     border-radius: 50%;
-    animation: spin 15s linear infinite;
-}
-
-.orbit-2 {
-    inset: 30px;
-    animation-duration: 10s;
-    animation-direction: reverse;
-    border-color: var(--accent-2);
-    border-style: dashed;
-}
-
-.orbit-dot {
-    position: absolute;
-    top: -5px;
-    left: 50%;
-    width: 10px;
-    height: 10px;
-    background: var(--accent);
-    border-radius: 50%;
-    transform: translateX(-50%);
-    box-shadow: 0 0 12px var(--accent-glow);
-}
-
-.orbit-2 .orbit-dot {
-    background: var(--accent-2);
-    box-shadow: 0 0 12px rgba(192, 132, 252, 0.4);
-    width: 8px;
-    height: 8px;
+    border: 2px solid transparent;
+    border-top-color: var(--accent);
+    border-bottom-color: var(--accent-2);
+    animation: spin 8s linear infinite;
+    z-index: 1;
 }
 
 @keyframes spin {
@@ -1275,6 +1274,20 @@ body {
 
     .hero-name {
         font-size: 2.4rem;
+    }
+
+    .hero-photo {
+        position: relative;
+        top: auto;
+        right: auto;
+        width: 100px;
+        height: 100px;
+        margin-bottom: 1rem;
+    }
+
+    .hero-photo img {
+        width: 85px;
+        height: 85px;
     }
 
     .hero-cta {
