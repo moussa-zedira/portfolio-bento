@@ -433,19 +433,18 @@ body {
     height: 140px;
     border-radius: 50%;
     object-fit: cover;
-    object-position: center top;
+    object-position: center;
     border: 3px solid rgba(129, 140, 248, 0.3);
     position: relative;
     z-index: 2;
     transition: all var(--transition);
-    filter: grayscale(20%);
+    background: var(--bg);
 }
 
 .hero-photo:hover img {
-    filter: grayscale(0%);
     border-color: var(--accent);
     box-shadow: 0 0 30px var(--accent-glow);
-    transform: scale(1.05);
+    transform: scale(1.08);
 }
 
 .hero-photo-ring {
