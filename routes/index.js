@@ -217,55 +217,70 @@ const portfolio = {
         },
         {
             id: '03',
-            slug: 'jeu-echecs',
-            title: 'ChessAI',
-            desc: 'Jeu d\'echecs intelligent avec IA integree (LLM) pour commenter et analyser les parties en temps reel.',
-            tech: ['Python', 'LLM', 'Algorithmes', 'WebSocket'],
+            slug: 'gdchess',
+            title: 'GDChess',
+            desc: 'Jeu d\'echecs complet avec IA multi-niveaux (Minimax alpha-beta), 3 themes visuels, developpe en Godot 4.',
+            tech: ['Godot 4', 'GDScript', 'Minimax', 'Alpha-Beta'],
             color: '#34d399',
             detail: {
-                subtitle: 'Jeu d\'echecs avec intelligence artificielle integree',
-                overview: `ChessAI est un jeu d'echecs qui va au-dela du simple plateau : une IA basee
-                    sur un LLM (Large Language Model) est integree directement dans la partie. Elle
-                    commente les coups en temps reel, explique les strategies, detecte les erreurs
-                    tactiques et propose des ameliorations. C'est comme avoir un coach d'echecs
-                    personnel qui analyse chaque mouvement.`,
+                subtitle: 'Jeu d\'echecs 2D avec IA multi-niveaux, developpe en Godot 4.6',
+                overview: `Jeu d'echecs 2D developpe de zero en Godot 4.6 avec GDScript. Le projet
+                    implemente l'integralite des regles officielles FIDE, une IA a 3 niveaux de
+                    difficulte basee sur l'algorithme Minimax avec elagage alpha-beta, un systeme
+                    de timer configurable, et 3 themes visuels complets (Medieval, Moderne, Bois Classique).`,
                 features: [
                     {
                         icon: '01',
-                        title: 'Moteur d\'echecs complet',
-                        desc: 'Implementation complete des regles officielles : deplacements, captures, roque, prise en passant, promotion, detection d\'echec et mat, pat, regles de nulle.',
-                        highlight: 'Toutes les regles FIDE implementees'
+                        title: 'Regles completes FIDE',
+                        desc: 'Tous les mouvements, captures, roque (petit et grand), prise en passant, promotion, detection d\'echec, echec et mat, pat. Historique en notation algebrique scrollable (e4, Cf3, Fxc6+, Rh7#).',
+                        highlight: '100% des regles officielles implementees'
                     },
                     {
                         icon: '02',
-                        title: 'IA adversaire',
-                        desc: 'Algorithme de recherche pour generer les coups de l\'ordinateur. Plusieurs niveaux de difficulte pour s\'adapter au joueur, du debutant au confirme.',
-                        highlight: 'Difficulte adaptative'
+                        title: 'IA 3 niveaux — Minimax Alpha-Beta',
+                        desc: 'Debutant (profondeur 1, coups aleatoires), Intermediaire (profondeur 3, evaluation positionnelle), Expert (profondeur 4, structure de pions, mobilite). Tri des coups par MVV-LVA.',
+                        highlight: 'Tables d\'evaluation positionnelle 8x8 par piece + table endgame'
                     },
                     {
                         icon: '03',
-                        title: 'Commentaire LLM en temps reel',
-                        desc: 'Un Large Language Model analyse chaque coup joue et fournit un commentaire en langage naturel : explication de la strategie, evaluation de la position, suggestions d\'amelioration.',
-                        highlight: 'Coach IA personnel integre'
+                        title: 'Modes de jeu & Timers',
+                        desc: 'Solo contre l\'IA ou 2 joueurs en local. Timers configurables : aucun, 3min, 5min, 10min, 15min par joueur. Panneau lateral avec pieces capturees triees par valeur.',
+                        highlight: '5 options de timer + mode libre'
                     },
                     {
                         icon: '04',
-                        title: 'Analyse de partie',
-                        desc: 'A la fin de la partie, le LLM genere une analyse complete : moments cles, erreurs tactiques, meilleurs coups manques, conseils pour progresser.',
-                        highlight: 'Rapport detaille post-partie'
+                        title: '3 themes visuels complets',
+                        desc: 'Medieval, Moderne et Bois Classique. Chaque theme modifie les couleurs, decorations et l\'UI complete. Systeme de themes modulaire via game_settings.gd.',
+                        highlight: 'Palettes de couleurs, decorations et UI par theme'
+                    },
+                    {
+                        icon: '05',
+                        title: 'Evaluation avancee (Expert)',
+                        desc: 'Bonus de mobilite, penalites pions doubles et isoles, detection de phase de fin de partie, transition vers table endgame pour le roi. Simulation de plateau immuable pour l\'IA sans effets de bord.',
+                        highlight: 'Evaluation positionnelle + structurelle + mobilite'
+                    },
+                    {
+                        icon: '06',
+                        title: 'Architecture signal-based',
+                        desc: 'Communication decouplee entre composants via les signaux Godot. Gestion d\'etat complexe : tours, timers, animations, IA asynchrone. Annulation de coups IA via game_id pour la concurrence.',
+                        highlight: '8 scripts modulaires, architecture propre'
                     }
                 ],
                 architecture: {
-                    backend: 'Python — Logique metier & moteur echecs',
-                    ia: 'LLM — Commentaire & analyse',
-                    algorithmes: 'Minimax / recherche de coups',
-                    interface: 'Plateau interactif temps reel'
+                    moteur: 'Godot 4.6 / GDScript',
+                    ia: 'Minimax + elagage alpha-beta (profondeur 4)',
+                    validation: 'move_validator.gd — coups legaux, echec/mat/pat',
+                    rendu: 'board.gd — plateau 2D, animations, panneau lateral',
+                    config: 'game_settings.gd — themes, parametres globaux',
+                    scripts: '8 fichiers GDScript modulaires'
                 },
                 stats: [
-                    { label: 'Regles implementees', value: '100%' },
-                    { label: 'Niveaux difficulte', value: '3+' },
-                    { label: 'Analyse IA', value: 'Temps reel' },
-                    { label: 'Langage', value: 'Python' }
+                    { label: 'Niveaux IA', value: '3' },
+                    { label: 'Profondeur max', value: '4' },
+                    { label: 'Themes visuels', value: '3' },
+                    { label: 'Options timer', value: '5' },
+                    { label: 'Scripts', value: '8' },
+                    { label: 'Moteur', value: 'Godot 4.6' }
                 ]
             }
         }
