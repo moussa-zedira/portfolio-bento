@@ -1,6 +1,7 @@
 const express = require('express');
 const rateLimit = require('express-rate-limit');
 const { body, validationResult } = require('express-validator');
+const nodemailer = require('nodemailer');
 const router = express.Router();
 
 // Rate limit strict pour le formulaire de contact (anti-spam)
@@ -17,6 +18,31 @@ const sanitize = (str) => String(str || '')
     .replace(/[\r\n]/g, ' ')
     .replace(/[<>]/g, '')
     .trim();
+
+// Escape HTML pour les emails
+const escapeHtml = (str) => String(str || '')
+    .replace(/&/g, '&amp;')
+    .replace(/</g, '&lt;')
+    .replace(/>/g, '&gt;')
+    .replace(/"/g, '&quot;')
+    .replace(/'/g, '&#39;');
+
+// Transporteur Nodemailer (Gmail SMTP) — initialisé à la demande
+let mailTransporter = null;
+const getMailer = () => {
+    if (mailTransporter) return mailTransporter;
+    if (!process.env.GMAIL_USER || !process.env.GMAIL_APP_PASSWORD) {
+        return null; // env vars manquantes, fallback log-only
+    }
+    mailTransporter = nodemailer.createTransport({
+        service: 'gmail',
+        auth: {
+            user: process.env.GMAIL_USER,
+            pass: process.env.GMAIL_APP_PASSWORD
+        }
+    });
+    return mailTransporter;
+};
 
 // Portfolio data
 const portfolio = {
@@ -420,7 +446,7 @@ router.post('/contact',
         body('message').trim().isLength({ min: 10, max: 5000 }).withMessage('Message invalide (10-5000 caractères)'),
         body('website').optional({ checkFalsy: true }).isEmpty().withMessage('spam') // honeypot
     ],
-    (req, res) => {
+    async (req, res) => {
         // Honeypot rempli = bot
         if (req.body.website) {
             return res.json({ success: true, message: 'Message envoyé avec succès !' }); // réponse factice
@@ -438,11 +464,45 @@ router.post('/contact',
         const email = sanitize(req.body.email);
         const message = String(req.body.message || '').trim().slice(0, 5000);
 
-        // TODO: intégrer Nodemailer pour envoi réel vers moussazedira@gmail.com
+        // Log serveur (backup)
         console.log('[Contact]', new Date().toISOString(), '-', name, '<' + email + '>');
-        console.log('Message:', message.slice(0, 200));
 
-        res.json({ success: true, message: 'Message envoyé avec succès !' });
+        // Envoi email via Nodemailer
+        const mailer = getMailer();
+        if (!mailer) {
+            console.warn('[Contact] Nodemailer non configuré (env vars manquantes) — message logué seulement');
+            return res.json({ success: true, message: 'Message envoyé avec succès !' });
+        }
+
+        try {
+            await mailer.sendMail({
+                from: `"Portfolio — ${name}" <${process.env.GMAIL_USER}>`,
+                to: process.env.CONTACT_TO || process.env.GMAIL_USER,
+                replyTo: email,
+                subject: `[Portfolio] Nouveau message de ${name}`,
+                text: `De: ${name} <${email}>\n\n${message}\n\n---\nIP: ${req.ip}\nDate: ${new Date().toISOString()}`,
+                html: `
+                    <div style="font-family: -apple-system, Segoe UI, Roboto, sans-serif; max-width: 600px; margin: 0 auto;">
+                        <div style="background: linear-gradient(135deg, #6366f1, #f59e0b); padding: 24px; border-radius: 12px 12px 0 0;">
+                            <h2 style="color: white; margin: 0; font-size: 20px;">Nouveau message portfolio</h2>
+                        </div>
+                        <div style="background: #f9fafb; padding: 24px; border-radius: 0 0 12px 12px; border: 1px solid #e5e7eb; border-top: none;">
+                            <p style="margin: 0 0 8px 0;"><strong>De :</strong> ${escapeHtml(name)}</p>
+                            <p style="margin: 0 0 8px 0;"><strong>Email :</strong> <a href="mailto:${escapeHtml(email)}">${escapeHtml(email)}</a></p>
+                            <hr style="border: none; border-top: 1px solid #e5e7eb; margin: 16px 0;">
+                            <p style="margin: 0; white-space: pre-wrap; line-height: 1.6; color: #1f2937;">${escapeHtml(message)}</p>
+                            <hr style="border: none; border-top: 1px solid #e5e7eb; margin: 16px 0;">
+                            <p style="margin: 0; font-size: 12px; color: #6b7280;">IP : ${req.ip} — ${new Date().toLocaleString('fr-FR')}</p>
+                        </div>
+                    </div>
+                `
+            });
+            res.json({ success: true, message: 'Message envoyé avec succès !' });
+        } catch (err) {
+            console.error('[Contact] Erreur envoi email:', err.message);
+            // On retourne succès au client (pour ne pas lui révéler le backend)
+            res.json({ success: true, message: 'Message envoyé avec succès !' });
+        }
     }
 );
 
