@@ -1436,6 +1436,17 @@ input, textarea, button { font-family: inherit; }
     gap: 1.5rem;
 }
 
+/* Honeypot anti-spam — invisible */
+.hp-field {
+    position: absolute !important;
+    left: -9999px !important;
+    width: 1px !important;
+    height: 1px !important;
+    overflow: hidden !important;
+    opacity: 0 !important;
+    pointer-events: none !important;
+}
+
 .contact__field {
     position: relative;
 }

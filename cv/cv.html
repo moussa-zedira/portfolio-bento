@@ -1,0 +1,467 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <title>CV — Moussa Zedira — Technicien Support IT</title>
+    <style>
+        /* ===========================
+           PRINT SETUP (A4, 1 page)
+           =========================== */
+        @page {
+            size: A4;
+            margin: 12mm 14mm;
+        }
+
+        * { box-sizing: border-box; margin: 0; padding: 0; }
+
+        :root {
+            --accent: #f59e0b;
+            --dark: #1a1a1a;
+            --muted: #666666;
+            --light: #f5f5f5;
+        }
+
+        html, body {
+            font-family: 'Inter', 'Calibri', 'Segoe UI', Arial, sans-serif;
+            font-size: 9.5pt;
+            line-height: 1.4;
+            color: var(--dark);
+            background: white;
+        }
+
+        .page {
+            max-width: 210mm;
+            padding: 14mm 16mm;
+            margin: 0 auto;
+            background: white;
+        }
+
+        /* ===========================
+           HEADER
+           =========================== */
+        .header {
+            text-align: center;
+            padding-bottom: 10px;
+            margin-bottom: 12px;
+            border-bottom: 2px solid var(--accent);
+        }
+
+        .header h1 {
+            font-size: 24pt;
+            font-weight: 700;
+            color: var(--dark);
+            letter-spacing: -0.5px;
+            line-height: 1.1;
+            margin-bottom: 2px;
+        }
+
+        .header .title {
+            font-size: 12pt;
+            color: var(--accent);
+            font-weight: 600;
+            margin-bottom: 8px;
+        }
+
+        .header .contact {
+            font-size: 8.5pt;
+            color: var(--muted);
+            line-height: 1.6;
+        }
+
+        .header .contact a {
+            color: var(--muted);
+            text-decoration: none;
+        }
+
+        .header .contact .sep {
+            margin: 0 6px;
+            color: #ccc;
+        }
+
+        /* ===========================
+           ACCROCHE
+           =========================== */
+        .intro {
+            font-size: 9.5pt;
+            line-height: 1.55;
+            margin-bottom: 14px;
+            padding: 8px 12px;
+            background: #fef9f1;
+            border-left: 3px solid var(--accent);
+        }
+
+        .intro strong { color: var(--dark); }
+
+        /* ===========================
+           SECTIONS
+           =========================== */
+        section { margin-bottom: 12px; }
+
+        h2.section-title {
+            font-size: 10pt;
+            font-weight: 700;
+            text-transform: uppercase;
+            letter-spacing: 1.2px;
+            color: var(--accent);
+            padding-bottom: 3px;
+            border-bottom: 1px solid #e5e5e5;
+            margin-bottom: 8px;
+        }
+
+        /* ===========================
+           COMPÉTENCES (tableau)
+           =========================== */
+        .skills-table { width: 100%; border-collapse: collapse; }
+
+        .skills-table tr { border-bottom: 1px solid #f0f0f0; }
+        .skills-table tr:last-child { border-bottom: none; }
+
+        .skills-table td {
+            padding: 4px 0;
+            vertical-align: top;
+            font-size: 9pt;
+        }
+
+        .skills-table td:first-child {
+            width: 28%;
+            font-weight: 700;
+            color: var(--dark);
+            padding-right: 12px;
+        }
+
+        .skills-table td:last-child { color: #333; }
+
+        /* ===========================
+           ITEMS (formation, expérience)
+           =========================== */
+        .item {
+            margin-bottom: 8px;
+        }
+
+        .item .item-head {
+            display: flex;
+            justify-content: space-between;
+            align-items: baseline;
+            margin-bottom: 1px;
+        }
+
+        .item .item-title {
+            font-weight: 700;
+            font-size: 9.5pt;
+            color: var(--dark);
+        }
+
+        .item .item-date {
+            font-size: 8.5pt;
+            color: var(--muted);
+            font-style: italic;
+            white-space: nowrap;
+            padding-left: 10px;
+        }
+
+        .item .item-sub {
+            font-style: italic;
+            font-size: 9pt;
+            color: var(--muted);
+            margin-bottom: 2px;
+        }
+
+        .item .item-desc {
+            font-size: 8.8pt;
+            line-height: 1.45;
+            color: #333;
+        }
+
+        /* ===========================
+           PROJETS
+           =========================== */
+        .project {
+            margin-bottom: 6px;
+            padding-bottom: 5px;
+            border-bottom: 1px dotted #eaeaea;
+        }
+
+        .project:last-child {
+            border-bottom: none;
+            margin-bottom: 0;
+        }
+
+        .project .project-head {
+            font-weight: 700;
+            font-size: 9.5pt;
+            color: var(--dark);
+            margin-bottom: 1px;
+        }
+
+        .project .project-head .project-link {
+            font-weight: 400;
+            font-size: 8.5pt;
+            color: var(--accent);
+            text-decoration: none;
+            font-style: italic;
+        }
+
+        .project .project-head .project-tag {
+            font-size: 7.5pt;
+            background: #fef3e2;
+            color: var(--accent);
+            padding: 1px 6px;
+            border-radius: 3px;
+            margin-left: 6px;
+            font-weight: 600;
+            text-transform: uppercase;
+            letter-spacing: 0.3px;
+            vertical-align: middle;
+        }
+
+        .project .project-desc {
+            font-size: 8.8pt;
+            line-height: 1.45;
+            color: #444;
+        }
+
+        /* ===========================
+           CERTIFS + LANGUES (2 colonnes)
+           =========================== */
+        .two-col {
+            display: flex;
+            gap: 20px;
+        }
+
+        .two-col > div { flex: 1; }
+
+        .two-col ul {
+            list-style: none;
+            padding: 0;
+        }
+
+        .two-col li {
+            font-size: 9pt;
+            padding: 2px 0 2px 12px;
+            position: relative;
+            color: #333;
+        }
+
+        .two-col li::before {
+            content: '';
+            position: absolute;
+            left: 0;
+            top: 8px;
+            width: 4px;
+            height: 4px;
+            background: var(--accent);
+            border-radius: 50%;
+        }
+
+        /* ===========================
+           PRINT OVERRIDES
+           =========================== */
+        @media print {
+            html, body { background: white; }
+            .page {
+                padding: 0;
+                max-width: 100%;
+            }
+            a { color: inherit !important; text-decoration: none !important; }
+            .no-print { display: none !important; }
+        }
+
+        /* Screen helpers (non-print) */
+        @media screen {
+            body {
+                background: #e5e5e5;
+                padding: 20px 0;
+            }
+            .page {
+                box-shadow: 0 4px 20px rgba(0,0,0,0.1);
+                min-height: 297mm;
+            }
+            .print-notice {
+                position: fixed;
+                top: 15px;
+                right: 15px;
+                background: var(--accent);
+                color: white;
+                padding: 10px 16px;
+                border-radius: 6px;
+                font-size: 11pt;
+                font-weight: 600;
+                box-shadow: 0 4px 12px rgba(0,0,0,0.15);
+                z-index: 1000;
+            }
+        }
+    </style>
+</head>
+<body>
+
+<div class="print-notice no-print">
+    Ctrl+P → Enregistrer en PDF
+</div>
+
+<div class="page">
+
+    <!-- HEADER -->
+    <header class="header">
+        <h1>Moussa Zedira</h1>
+        <div class="title">Technicien Support IT &amp; Automatisation</div>
+        <div class="contact">
+            Argenteuil (95) — Mobile Île-de-France
+            <span class="sep">|</span>
+            Permis B
+            <br>
+            <a href="mailto:moussazedira@gmail.com">moussazedira@gmail.com</a>
+            <span class="sep">|</span>
+            <a href="https://www.linkedin.com/in/moussa-zedira-15abba3b8">linkedin.com/in/moussa-zedira</a>
+            <span class="sep">|</span>
+            <a href="https://github.com/moussa-zedira">github.com/moussa-zedira</a>
+            <span class="sep">|</span>
+            <a href="#">Portfolio</a>
+        </div>
+    </header>
+
+    <!-- ACCROCHE -->
+    <div class="intro">
+        <strong>Technicien support IT en formation TIP à Doranco</strong>, je combine méthode classique du support (Active Directory, GLPI, ticketing) et maîtrise de l'IA/automatisation pour accélérer le traitement des demandes. Recherche <strong>stage en Île-de-France</strong> pour apporter cette valeur ajoutée au sein d'une vraie équipe IT.
+    </div>
+
+    <!-- COMPÉTENCES -->
+    <section>
+        <h2 class="section-title">Compétences techniques</h2>
+        <table class="skills-table">
+            <tr>
+                <td>Support IT</td>
+                <td>Diagnostic &amp; dépannage, GLPI (ticketing), Active Directory, assistance utilisateurs, documentation technique</td>
+            </tr>
+            <tr>
+                <td>Systèmes</td>
+                <td>Windows 10/11 &amp; Server 2022, Linux (Ubuntu, Debian), PowerShell, Bash, virtualisation (VirtualBox, Proxmox)</td>
+            </tr>
+            <tr>
+                <td>Réseaux</td>
+                <td>TCP/IP, DNS, DHCP, Cisco IOS (Packet Tracer), switchs &amp; routeurs, Wi-Fi &amp; VPN, Wireshark</td>
+            </tr>
+            <tr>
+                <td>IA &amp; Automatisation</td>
+                <td>Claude &amp; ChatGPT (prompt engineering), scripts Python, triage automatique de tickets, génération de documentation</td>
+            </tr>
+            <tr>
+                <td>Développement</td>
+                <td>Python, SQL (PostgreSQL), JavaScript/React, Git &amp; GitHub, API REST</td>
+            </tr>
+            <tr>
+                <td>Cybersécurité</td>
+                <td>Analyse de logs, SIEM (concepts), détection de menaces, sécurité réseau, veille CVE</td>
+            </tr>
+        </table>
+    </section>
+
+    <!-- FORMATION -->
+    <section>
+        <h2 class="section-title">Formation</h2>
+        <div class="item">
+            <div class="item-head">
+                <span class="item-title">Titre Professionnel — Technicien d'Assistance Informatique (TIP)</span>
+                <span class="item-date">2025 — 2026</span>
+            </div>
+            <div class="item-sub">Doranco, Bagnolet</div>
+            <div class="item-desc">Support utilisateurs, réseaux, systèmes, cybersécurité</div>
+        </div>
+        <div class="item">
+            <div class="item-head">
+                <span class="item-title">Parcours Baccalauréat Général</span>
+                <span class="item-date">2025</span>
+            </div>
+            <div class="item-sub">Argenteuil</div>
+            <div class="item-desc">Spécialités : Mathématiques, NSI (Numérique &amp; Sciences Informatiques), Sciences de l'ingénieur</div>
+        </div>
+    </section>
+
+    <!-- PROJETS -->
+    <section>
+        <h2 class="section-title">Projets techniques</h2>
+
+        <div class="project">
+            <div class="project-head">
+                HomeLab IT — Infrastructure IT de PME simulée
+                <span class="project-tag">En construction</span>
+            </div>
+            <div class="project-desc">Active Directory (50 users AD), serveur GLPI ticketing, automatisation PowerShell/Python, triage IA des tickets via Claude API, pfSense 3 VLANs. 12 VMs actives, 15 scripts d'automatisation.</div>
+        </div>
+
+        <div class="project">
+            <div class="project-head">CyberDef — Plateforme cybersécurité tout-en-un</div>
+            <div class="project-desc">SIEM + SOAR + Threat Intelligence + Pentest. Python/FastAPI (750+ endpoints API), Next.js 15, PostgreSQL, Redis, Celery. 76 modules pentest, 41 actions SOAR automatisées.</div>
+        </div>
+
+        <div class="project">
+            <div class="project-head">
+                Chapitres — Plateforme éducative pour lycéens
+                <a href="https://meschapitres.fr" class="project-link">meschapitres.fr</a>
+            </div>
+            <div class="project-desc">Next.js/React, 504+ chapitres de la Seconde à la Terminale, quiz interactifs chronométrés, annales du Bac 2021-2024. Déployé sur Vercel, PWA installable.</div>
+        </div>
+
+        <div class="project">
+            <div class="project-head">GDChess — Jeu d'échecs avec IA multi-niveaux</div>
+            <div class="project-desc">Godot 4.6 / GDScript, algorithme Minimax avec élagage alpha-beta (profondeur 4), 3 niveaux d'IA, règles FIDE complètes, 3 thèmes visuels.</div>
+        </div>
+    </section>
+
+    <!-- EXPÉRIENCE -->
+    <section>
+        <h2 class="section-title">Expérience professionnelle</h2>
+        <div class="item">
+            <div class="item-head">
+                <span class="item-title">Gérant — Entreprise de nettoyage</span>
+                <span class="item-date">2025 — 2026</span>
+            </div>
+            <div class="item-sub">Activité indépendante</div>
+            <div class="item-desc">Gestion clients, planning, facturation, coordination d'équipe — autonomie et sens du service.</div>
+        </div>
+        <div class="item">
+            <div class="item-head">
+                <span class="item-title">Opérateur logistique</span>
+                <span class="item-date">2025</span>
+            </div>
+            <div class="item-sub">Amazon (Delivery Service Partner)</div>
+            <div class="item-desc">Utilisation d'outils numériques, process de flux, reporting quotidien.</div>
+        </div>
+        <div class="item">
+            <div class="item-head">
+                <span class="item-title">Stage administratif</span>
+                <span class="item-date">2021</span>
+            </div>
+            <div class="item-sub">Cabinet d'avocat, Nanterre</div>
+            <div class="item-desc">Support bureautique, gestion documentaire.</div>
+        </div>
+    </section>
+
+    <!-- CERTIFS + LANGUES -->
+    <section>
+        <div class="two-col">
+            <div>
+                <h2 class="section-title">Certifications</h2>
+                <ul>
+                    <li>Cisco — Cybersecurity Essentials</li>
+                    <li>Cisco — Networking Essentials</li>
+                    <li>Cisco — Python Essentials</li>
+                    <li>Cisco — Linux Unhatched</li>
+                    <li>Anthropic — IA Générative &amp; Prompt Engineering</li>
+                </ul>
+            </div>
+            <div>
+                <h2 class="section-title">Langues</h2>
+                <ul>
+                    <li>Français (natif)</li>
+                    <li>Arabe (bilingue)</li>
+                    <li>Anglais (intermédiaire)</li>
+                    <li>Espagnol (conversationnel)</li>
+                </ul>
+            </div>
+        </div>
+    </section>
+
+</div>
+
+</body>
+</html>

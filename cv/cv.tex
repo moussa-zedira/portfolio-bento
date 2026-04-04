@@ -1,0 +1,149 @@
+% !TEX TS-program = pdflatex
+% CV Moussa Zedira — Technicien Support IT & Automatisation
+% Compilable sur Overleaf (recommandé) ou pdflatex local
+
+\documentclass[a4paper,10pt]{article}
+
+\usepackage[utf8]{inputenc}
+\usepackage[T1]{fontenc}
+\usepackage[french]{babel}
+\usepackage[margin=1.4cm]{geometry}
+\usepackage{xcolor}
+\usepackage{hyperref}
+\usepackage{fontawesome5}
+\usepackage{titlesec}
+\usepackage{enumitem}
+\usepackage{array}
+\usepackage{parskip}
+
+% Couleurs
+\definecolor{accent}{HTML}{F59E0B}
+\definecolor{darktext}{HTML}{1A1A1A}
+\definecolor{muted}{HTML}{666666}
+
+% Liens
+\hypersetup{
+    colorlinks=true,
+    urlcolor=accent,
+    pdftitle={CV Moussa Zedira — Technicien Support IT},
+    pdfauthor={Moussa Zedira}
+}
+
+% Sections
+\titleformat{\section}
+    {\color{accent}\uppercase\bfseries\large}
+    {}{0em}{}[\color{accent}\titlerule]
+\titlespacing{\section}{0pt}{10pt}{6pt}
+
+% Pas de numérotation de page
+\pagenumbering{gobble}
+\setlength{\parindent}{0pt}
+
+% Macros
+\newcommand{\cvitem}[4]{%
+    \textbf{#1} \hfill \textcolor{muted}{\small #2}\\
+    \textit{\small #3}\\
+    {\small #4}\vspace{4pt}
+}
+
+\begin{document}
+
+% ==========================================================
+% EN-TÊTE
+% ==========================================================
+\begin{center}
+    {\Huge\bfseries\color{darktext} Moussa Zedira}\\[2pt]
+    {\large\color{accent} Technicien Support IT \& Automatisation}\\[6pt]
+    {\small
+        \faMapMarker* \ Argenteuil (95) — Mobile Île-de-France \quad|\quad
+        \faIdCard \ Permis B \\
+        \faEnvelope \ \href{mailto:moussazedira@gmail.com}{moussazedira@gmail.com} \quad|\quad
+        \faLinkedin \ \href{https://www.linkedin.com/in/moussa-zedira-15abba3b8}{moussa-zedira} \quad|\quad
+        \faGithub \ \href{https://github.com/moussa-zedira}{moussa-zedira} \quad|\quad
+        \faGlobe \ \href{https://votre-portfolio.com}{Portfolio}
+    }
+\end{center}
+
+\vspace{4pt}
+
+% ==========================================================
+% ACCROCHE
+% ==========================================================
+\textbf{Technicien support IT en formation TIP à Doranco}, je combine méthode classique du support (Active Directory, GLPI, ticketing) et maîtrise de l'IA/automatisation pour accélérer le traitement des demandes. Recherche \textbf{stage en Île-de-France} pour apporter cette valeur ajoutée au sein d'une vraie équipe IT.
+
+% ==========================================================
+% COMPÉTENCES
+% ==========================================================
+\section{Compétences techniques}
+
+\begin{tabular}{@{}p{3.5cm}p{13.5cm}@{}}
+    \textbf{Support IT} & Diagnostic \& dépannage, GLPI (ticketing), Active Directory, assistance utilisateurs, documentation technique \\[3pt]
+    \textbf{Systèmes} & Windows 10/11 \& Server 2022, Linux (Ubuntu, Debian), PowerShell, Bash, virtualisation (VirtualBox, Proxmox) \\[3pt]
+    \textbf{Réseaux} & TCP/IP, DNS, DHCP, Cisco IOS (Packet Tracer), switchs \& routeurs, Wi-Fi \& VPN, Wireshark \\[3pt]
+    \textbf{IA \& Automatisation} & Claude \& ChatGPT (prompt engineering), scripts Python, triage automatique de tickets, génération de documentation \\[3pt]
+    \textbf{Développement} & Python, SQL (PostgreSQL), JavaScript/React, Git \& GitHub, API REST \\[3pt]
+    \textbf{Cybersécurité} & Analyse de logs, SIEM (concepts), détection de menaces, sécurité réseau, veille CVE \\
+\end{tabular}
+
+% ==========================================================
+% FORMATION
+% ==========================================================
+\section{Formation}
+
+\cvitem{Titre Professionnel — Technicien d'Assistance Informatique (TIP)}{2025 — 2026}{Doranco, Bagnolet}{Support utilisateurs, réseaux, systèmes, cybersécurité}
+
+\cvitem{Parcours Baccalauréat Général}{2025}{Argenteuil}{Spécialités : Mathématiques, NSI (Numérique \& Sciences Informatiques), Sciences de l'ingénieur}
+
+% ==========================================================
+% PROJETS
+% ==========================================================
+\section{Projets techniques}
+
+\textbf{HomeLab IT} — Infrastructure IT de PME simulée (en construction)\\
+{\small Active Directory (50 users), GLPI ticketing, automatisation PowerShell/Python, triage IA des tickets, pfSense 3 VLANs. 12 VMs, 15 scripts d'automatisation.}\\[4pt]
+
+\textbf{CyberDef} — Plateforme cybersécurité tout-en-un\\
+{\small SIEM + SOAR + Threat Intel + Pentest. Python/FastAPI (750+ endpoints), Next.js, PostgreSQL, Redis, Celery. 76 modules pentest.}\\[4pt]
+
+\textbf{Chapitres} — Plateforme éducative pour lycéens \faExternalLink* \ \href{https://meschapitres.fr}{meschapitres.fr}\\
+{\small Next.js/React, 504+ chapitres, quiz interactifs, annales du Bac. Déployé sur Vercel, PWA.}\\[4pt]
+
+\textbf{GDChess} — Jeu d'échecs avec IA multi-niveaux\\
+{\small Godot 4.6/GDScript, algorithme Minimax + élagage alpha-beta, 3 niveaux d'IA, règles FIDE complètes.}
+
+% ==========================================================
+% EXPÉRIENCE PRO
+% ==========================================================
+\section{Expérience professionnelle}
+
+\cvitem{Gérant — Entreprise de nettoyage}{2025 — 2026}{Activité indépendante}{Gestion clients, planning, facturation, coordination d'équipe — développement de l'autonomie et du sens du service.}
+
+\cvitem{Opérateur logistique}{2025}{Amazon (Delivery Service Partner)}{Utilisation d'outils numériques, process de flux, reporting quotidien.}
+
+\cvitem{Stage administratif}{2021}{Cabinet d'avocat, Nanterre}{Support bureautique, gestion documentaire.}
+
+% ==========================================================
+% CERTIFICATIONS & LANGUES (2 colonnes)
+% ==========================================================
+\begin{minipage}[t]{0.62\textwidth}
+    \section{Certifications}
+    \begin{itemize}[leftmargin=*, nosep, label=\color{accent}\textbullet]
+        \item Cisco — Cybersecurity Essentials
+        \item Cisco — Networking Essentials
+        \item Cisco — Python Essentials
+        \item Cisco — Linux Unhatched
+        \item Anthropic — IA Générative \& Prompt Engineering
+    \end{itemize}
+\end{minipage}
+\hfill
+\begin{minipage}[t]{0.34\textwidth}
+    \section{Langues}
+    \begin{itemize}[leftmargin=*, nosep, label=\color{accent}\textbullet]
+        \item Français (natif)
+        \item Arabe (bilingue)
+        \item Anglais (intermédiaire)
+        \item Espagnol (conversationnel)
+    \end{itemize}
+\end{minipage}
+
+\end{document}

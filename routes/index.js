@@ -1,5 +1,22 @@
 const express = require('express');
+const rateLimit = require('express-rate-limit');
+const { body, validationResult } = require('express-validator');
 const router = express.Router();
+
+// Rate limit strict pour le formulaire de contact (anti-spam)
+const contactLimiter = rateLimit({
+    windowMs: 60 * 60 * 1000, // 1 heure
+    max: 3, // max 3 messages par IP par heure
+    standardHeaders: true,
+    legacyHeaders: false,
+    message: { success: false, message: 'Trop de messages envoyés. Réessayez dans une heure.' }
+});
+
+// Sanitizer basique (anti header-injection pour email)
+const sanitize = (str) => String(str || '')
+    .replace(/[\r\n]/g, ' ')
+    .replace(/[<>]/g, '')
+    .trim();
 
 // Portfolio data
 const portfolio = {
@@ -394,17 +411,53 @@ router.get('/projet/:slug', (req, res) => {
     res.render('project', { portfolio, project });
 });
 
-// Contact form handler
-router.post('/contact', (req, res) => {
-    const { name, email, message } = req.body;
-    console.log('New message from:', name, email);
-    console.log('Message:', message);
-    res.json({ success: true, message: 'Message envoyé avec succès !' });
+// Contact form handler — rate limit + validation + honeypot
+router.post('/contact',
+    contactLimiter,
+    [
+        body('name').trim().isLength({ min: 2, max: 100 }).withMessage('Nom invalide (2-100 caractères)'),
+        body('email').trim().isEmail().normalizeEmail().withMessage('Email invalide'),
+        body('message').trim().isLength({ min: 10, max: 5000 }).withMessage('Message invalide (10-5000 caractères)'),
+        body('website').optional({ checkFalsy: true }).isEmpty().withMessage('spam') // honeypot
+    ],
+    (req, res) => {
+        // Honeypot rempli = bot
+        if (req.body.website) {
+            return res.json({ success: true, message: 'Message envoyé avec succès !' }); // réponse factice
+        }
+
+        const errors = validationResult(req);
+        if (!errors.isEmpty()) {
+            return res.status(400).json({
+                success: false,
+                message: errors.array()[0].msg
+            });
+        }
+
+        const name = sanitize(req.body.name);
+        const email = sanitize(req.body.email);
+        const message = String(req.body.message || '').trim().slice(0, 5000);
+
+        // TODO: intégrer Nodemailer pour envoi réel vers moussazedira@gmail.com
+        console.log('[Contact]', new Date().toISOString(), '-', name, '<' + email + '>');
+        console.log('Message:', message.slice(0, 200));
+
+        res.json({ success: true, message: 'Message envoyé avec succès !' });
+    }
+);
+
+// API: Get portfolio data (sans données sensibles)
+router.get('/api/portfolio', (req, res) => {
+    // Pas de CORS ouvert — seul le portfolio lui-même peut consommer l'API
+    res.set('Access-Control-Allow-Origin', req.get('origin') && req.get('host') && req.get('origin').includes(req.get('host')) ? req.get('origin') : 'null');
+    const publicData = { ...portfolio };
+    delete publicData.socials?.phone; // au cas où
+    res.json(publicData);
 });
 
-// API: Get portfolio data
-router.get('/api/portfolio', (req, res) => {
-    res.json(portfolio);
+// 404 handler (toute route non matchée)
+router.use((req, res) => {
+    res.status(404).render('404', { portfolio });
 });
 
 module.exports = router;
