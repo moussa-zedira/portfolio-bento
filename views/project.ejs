@@ -2,315 +2,43 @@
 <html lang="fr">
 <head>
     <%- include('partials/head') %>
-    <style>
-        .project-hero {
-            position: relative;
-            z-index: 1;
-            max-width: 1000px;
-            margin: 100px auto 0;
-            padding: 0 1.5rem;
-        }
-
-        .project-back {
-            display: inline-flex;
-            align-items: center;
-            gap: 0.5rem;
-            color: var(--text-muted);
-            text-decoration: none;
-            font-size: 0.85rem;
-            font-weight: 500;
-            margin-bottom: 2rem;
-            transition: color 0.2s ease;
-        }
-
-        .project-back:hover {
-            color: var(--text);
-        }
-
-        .project-back svg {
-            width: 16px;
-            height: 16px;
-        }
-
-        .project-header {
-            margin-bottom: 3rem;
-        }
-
-        .project-header-id {
-            font-family: 'JetBrains Mono', monospace;
-            font-size: 0.75rem;
-            color: <%= project.color %>;
-            font-weight: 700;
-            letter-spacing: 0.1em;
-            margin-bottom: 0.75rem;
-        }
-
-        .project-header h1 {
-            font-size: clamp(2.5rem, 5vw, 3.5rem);
-            font-weight: 900;
-            letter-spacing: -0.03em;
-            line-height: 1.1;
-            margin-bottom: 1rem;
-        }
-
-        .project-header h1 span {
-            color: <%= project.color %>;
-        }
-
-        .project-header-sub {
-            font-size: 1.15rem;
-            color: var(--text-muted);
-            line-height: 1.6;
-            max-width: 700px;
-        }
-
-        .project-tech-bar {
-            display: flex;
-            gap: 0.5rem;
-            flex-wrap: wrap;
-            margin-top: 1.5rem;
-        }
-
-        .project-tech-bar span {
-            padding: 0.35rem 0.9rem;
-            background: rgba(255, 255, 255, 0.04);
-            border: 1px solid rgba(255, 255, 255, 0.08);
-            border-radius: 100px;
-            font-size: 0.78rem;
-            font-family: 'JetBrains Mono', monospace;
-            color: var(--text-muted);
-        }
-
-        /* Stats bar */
-        .project-stats {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(130px, 1fr));
-            gap: 1rem;
-            margin: 2.5rem 0;
-        }
-
-        .project-stat {
-            background: var(--card-bg);
-            border: 1px solid var(--card-border);
-            border-radius: 16px;
-            padding: 1.25rem;
-            text-align: center;
-            backdrop-filter: blur(12px);
-        }
-
-        .project-stat-value {
-            font-size: 1.8rem;
-            font-weight: 800;
-            font-family: 'JetBrains Mono', monospace;
-            color: <%= project.color %>;
-            line-height: 1;
-        }
-
-        .project-stat-label {
-            font-size: 0.7rem;
-            color: var(--text-muted);
-            text-transform: uppercase;
-            letter-spacing: 0.08em;
-            margin-top: 0.4rem;
-        }
-
-        /* Overview */
-        .project-overview {
-            background: var(--card-bg);
-            border: 1px solid var(--card-border);
-            border-radius: 24px;
-            padding: 2.5rem;
-            margin-bottom: 2rem;
-            backdrop-filter: blur(12px);
-        }
-
-        .project-overview p {
-            font-size: 1rem;
-            color: var(--text-muted);
-            line-height: 1.8;
-        }
-
-        /* Features grid */
-        .project-features {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
-            gap: 1rem;
-            margin-bottom: 2rem;
-        }
-
-        .feature-card {
-            background: var(--card-bg);
-            border: 1px solid var(--card-border);
-            border-radius: 20px;
-            padding: 2rem;
-            backdrop-filter: blur(12px);
-            transition: all 0.35s cubic-bezier(0.25, 0.46, 0.45, 0.94);
-            position: relative;
-            overflow: hidden;
-        }
-
-        .feature-card:hover {
-            border-color: rgba(255, 255, 255, 0.1);
-            transform: translateY(-4px);
-            box-shadow: 0 12px 40px rgba(0, 0, 0, 0.2);
-        }
-
-        .feature-card::before {
-            content: '';
-            position: absolute;
-            top: 0;
-            left: 0;
-            right: 0;
-            height: 3px;
-            background: <%= project.color %>;
-            opacity: 0;
-            transition: opacity 0.3s ease;
-        }
-
-        .feature-card:hover::before {
-            opacity: 1;
-        }
-
-        .feature-icon {
-            width: 44px;
-            height: 44px;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            border-radius: 12px;
-            font-family: 'JetBrains Mono', monospace;
-            font-weight: 700;
-            font-size: 0.8rem;
-            margin-bottom: 1.25rem;
-            background: rgba(239, 68, 68, 0.08);
-            color: <%= project.color %>;
-            border: 1px solid rgba(239, 68, 68, 0.15);
-        }
-
-        .feature-title {
-            font-size: 1rem;
-            font-weight: 700;
-            margin-bottom: 0.6rem;
-        }
-
-        .feature-desc {
-            font-size: 0.85rem;
-            color: var(--text-muted);
-            line-height: 1.7;
-            margin-bottom: 1rem;
-        }
-
-        .feature-highlight {
-            display: inline-block;
-            padding: 0.35rem 0.9rem;
-            background: rgba(239, 68, 68, 0.06);
-            border: 1px solid rgba(239, 68, 68, 0.12);
-            border-radius: 100px;
-            font-size: 0.72rem;
-            color: <%= project.color %>;
-            font-weight: 500;
-        }
-
-        /* Architecture */
-        .project-archi {
-            background: var(--card-bg);
-            border: 1px solid var(--card-border);
-            border-radius: 24px;
-            padding: 2.5rem;
-            margin-bottom: 2rem;
-            backdrop-filter: blur(12px);
-        }
-
-        .section-title {
-            font-size: 0.7rem;
-            text-transform: uppercase;
-            letter-spacing: 0.2em;
-            color: var(--text-muted);
-            margin-bottom: 1.5rem;
-            font-weight: 600;
-            display: flex;
-            align-items: center;
-            gap: 0.5rem;
-        }
-
-        .section-title::before {
-            content: '';
-            width: 6px;
-            height: 6px;
-            background: <%= project.color %>;
-            border-radius: 50%;
-            box-shadow: 0 0 8px <%= project.color %>;
-        }
-
-        .archi-grid {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));
-            gap: 1rem;
-        }
-
-        .archi-item {
-            padding: 1rem 1.25rem;
-            background: rgba(255, 255, 255, 0.02);
-            border: 1px solid var(--card-border);
-            border-radius: 14px;
-        }
-
-        .archi-label {
-            font-size: 0.68rem;
-            color: var(--text-muted);
-            text-transform: uppercase;
-            letter-spacing: 0.08em;
-            margin-bottom: 0.3rem;
-            font-weight: 600;
-        }
-
-        .archi-value {
-            font-size: 0.88rem;
-            font-weight: 600;
-            color: var(--text);
-        }
-
-        /* CTA */
-        .project-cta {
-            text-align: center;
-            padding: 3rem 0;
-        }
-
-        @media (max-width: 600px) {
-            .project-features {
-                grid-template-columns: 1fr;
-            }
-
-            .project-stats {
-                grid-template-columns: repeat(2, 1fr);
-            }
-
-            .project-overview,
-            .project-archi {
-                padding: 1.5rem;
-            }
-        }
-    </style>
 </head>
 <body>
 
-    <div class="bg-grid"></div>
-    <div class="bg-glow bg-glow-1"></div>
-    <div class="bg-glow bg-glow-2"></div>
+    <!-- Page transition overlay -->
+    <div class="page-transition" id="pageTransition">
+        <div class="page-transition__wipe"></div>
+    </div>
+
+    <!-- Film grain -->
+    <canvas class="grain" id="grain"></canvas>
+
+    <!-- Custom cursor -->
+    <div class="cursor">
+        <div class="cursor__dot"></div>
+        <div class="cursor__ring"></div>
+        <span class="cursor__label"></span>
+    </div>
 
     <%- include('partials/navbar') %>
 
-    <div class="project-hero">
+    <div class="project-detail">
 
-        <a href="/#projects" class="project-back">
+        <a href="/#project-<%= project.slug %>" class="project-back" data-transition>
             <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M19 12H5M12 19l-7-7 7-7"/></svg>
             Retour aux projets
         </a>
 
         <div class="project-header">
-            <div class="project-header-id">PROJET <%= project.id %></div>
-            <h1><span><%= project.title %></span></h1>
-            <p class="project-header-sub"><%= project.detail.subtitle %></p>
+            <div class="project-header__id" style="color: <%= project.color %>">PROJET <%= project.id %></div>
+            <h1 style="color: <%= project.color %>"><%= project.title %></h1>
+            <% if (project.wip) { %>
+            <span class="project__wip" style="margin-bottom: 1rem;">
+                <span class="project__wip-dot"></span>
+                En construction · démarré <%= project.startedAt %>
+            </span>
+            <% } %>
+            <p class="project-header__sub"><%= project.detail.subtitle %></p>
             <div class="project-tech-bar">
                 <% project.tech.forEach(function(t) { %>
                 <span><%= t %></span>
@@ -320,33 +48,33 @@
 
         <!-- Stats -->
         <% if (project.detail.stats) { %>
-        <div class="project-stats">
+        <div class="project-stats-grid">
             <% project.detail.stats.forEach(function(stat) { %>
-            <div class="project-stat">
-                <div class="project-stat-value"><%= stat.value %></div>
-                <div class="project-stat-label"><%= stat.label %></div>
+            <div class="project-stat-card">
+                <div class="project-stat-card__value" style="color: <%= project.color %>"><%= stat.value %></div>
+                <div class="project-stat-card__label"><%= stat.label %></div>
             </div>
             <% }); %>
         </div>
         <% } %>
 
         <!-- Overview -->
-        <div class="project-overview">
-            <h2 class="section-title">Vue d'ensemble</h2>
+        <div class="project-overview-block">
+            <h2 class="project-section-title"><span style="background: <%= project.color %>; display: inline-block; width: 6px; height: 6px; border-radius: 50%; box-shadow: 0 0 8px <%= project.color %>;"></span> Vue d'ensemble</h2>
             <p><%= project.detail.overview %></p>
         </div>
 
         <!-- Features -->
         <% if (project.detail.features) { %>
-        <h2 class="section-title" style="margin-bottom: 1.25rem;">Fonctionnalités</h2>
-        <div class="project-features">
+        <h2 class="project-section-title" style="margin-bottom: 1.25rem;"><span style="background: <%= project.color %>; display: inline-block; width: 6px; height: 6px; border-radius: 50%;"></span> Fonctionnalités</h2>
+        <div class="project-features-grid">
             <% project.detail.features.forEach(function(feat) { %>
             <div class="feature-card">
-                <div class="feature-icon"><%= feat.icon %></div>
+                <div class="feature-icon" style="background: <%= project.color %>12; color: <%= project.color %>; border: 1px solid <%= project.color %>25;"><%= feat.icon %></div>
                 <h3 class="feature-title"><%= feat.title %></h3>
                 <p class="feature-desc"><%= feat.desc %></p>
                 <% if (feat.highlight) { %>
-                <span class="feature-highlight"><%= feat.highlight %></span>
+                <span class="feature-highlight" style="background: <%= project.color %>10; border: 1px solid <%= project.color %>20; color: <%= project.color %>;"><%= feat.highlight %></span>
                 <% } %>
             </div>
             <% }); %>
@@ -355,8 +83,8 @@
 
         <!-- Architecture -->
         <% if (project.detail.architecture) { %>
-        <div class="project-archi">
-            <h2 class="section-title">Architecture technique</h2>
+        <div class="project-archi-block">
+            <h2 class="project-section-title"><span style="background: <%= project.color %>; display: inline-block; width: 6px; height: 6px; border-radius: 50%;"></span> Architecture technique</h2>
             <div class="archi-grid">
                 <% Object.entries(project.detail.architecture).forEach(function([key, val]) { %>
                 <div class="archi-item">
@@ -371,13 +99,14 @@
         <!-- CTA -->
         <div class="project-cta">
             <% if (project.link) { %>
-            <a href="<%= project.link %>" target="_blank" class="btn btn-primary" style="gap:0.4rem;">
+            <a href="<%= project.link %>" target="_blank" class="btn btn--primary">
                 <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" width="16" height="16"><path d="M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6"/><polyline points="15 3 21 3 21 9"/><line x1="10" y1="14" x2="21" y2="3"/></svg>
                 Voir le site
             </a>
             <% } %>
-            <a href="/#contact" class="btn btn-ghost" style="margin-left: 0.75rem;">Discuter de ce projet</a>
-            <a href="/#projects" class="btn btn-ghost" style="margin-left: 0.75rem;">Autres projets</a>
+            <a href="/#contact" class="btn btn--ghost">Discuter de ce projet</a>
+            <% const currentIdx = portfolio.projects.findIndex(p => p.slug === project.slug); const nextProject = portfolio.projects[(currentIdx + 1) % portfolio.projects.length]; %>
+            <a href="/#project-<%= nextProject.slug %>" class="btn btn--ghost">Projet suivant : <%= nextProject.title %></a>
         </div>
 
     </div>
@@ -386,11 +115,10 @@
         <p>&copy; 2026 <%= portfolio.name %>. Tous droits réservés.</p>
     </footer>
 
-    <div class="scroll-progress" id="scrollProgress"></div>
-<button class="scroll-top" id="scrollTop" aria-label="Retour en haut">
-        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="18 15 12 9 6 15"/></svg>
-    </button>
-
+    <!-- CDN Libraries -->
+    <script src="https://cdn.jsdelivr.net/npm/gsap@3.12/dist/gsap.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/gsap@3.12/dist/ScrollTrigger.min.js"></script>
+    <script src="https://unpkg.com/lenis@1.1.18/dist/lenis.min.js"></script>
     <script src="/js/script.js"></script>
 </body>
 </html>

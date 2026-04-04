@@ -3,51 +3,68 @@ const router = express.Router();
 
 // Portfolio data
 const portfolio = {
-    name: 'Zedira Moussa',
-    title: 'Technicien Support Informatique',
-    subtitle: 'Support IT • Réseaux • Python & SQL • IA Générative',
-    seeking: 'Recherche stage Support IT / Helpdesk en Île-de-France',
-    about: `Étudiant en formation Technicien d'Assistance Informatique (TIP) à Doranco,
-            je recherche un stage en support IT / helpdesk pour mettre en pratique mes
-            compétences : assistance utilisateurs, dépannage, configuration réseau,
-            gestion de tickets (GLPI) et automatisation. Certifié Cisco Networking
-            Academy, je suis aussi à l'aise avec Python, SQL et les outils d'IA.`,
-    tags: ['Support IT', 'Cybersécurité', 'Python', 'SQL', 'IA', 'Réseaux'],
+    name: 'Moussa Zedira',
+    title: 'Technicien Support IT & Automatisation',
+    subtitle: 'Support IT • IA & Automatisation • Réseaux • Python',
+    seeking: 'Recherche stage Support IT / Helpdesk — IA & Automatisation — Île-de-France',
+    aboutHook: `Technicien support IT en formation — et je code mes propres outils pour résoudre les problèmes plus vite.`,
+    aboutPoints: [
+        `Le support IT, c'est le contact humain : un utilisateur bloqué, un diagnostic à poser, un problème résolu.`,
+        `Ce qui me différencie : j'utilise l'IA et Python pour automatiser le tri de tickets, scripter les tâches répétitives, générer de la documentation.`,
+        `Objectif : un stage en Île-de-France où je peux apprendre en équipe et apporter cette valeur ajoutée.`
+    ],
+    tags: ['Support IT', 'IA & Automatisation', 'Python', 'Cybersécurité', 'Réseaux', 'SQL'],
     location: 'Argenteuil, Île-de-France',
     stats: {
-        experience: 2,
-        projects: 5
+        certifications: 5,
+        projects: 4
     },
     formation: [
         {
-            year: '2026',
-            title: 'Technicien d\'Assistance Informatique (TIP)',
-            school: 'Doranco, Bagnolet'
+            year: '2025 - 2026',
+            title: 'Titre Professionnel — Technicien d\'Assistance Informatique',
+            school: 'Doranco, Bagnolet',
+            detail: 'Support, réseaux, systèmes, sécurité'
         },
         {
             year: '2025',
-            title: 'Niveau Baccalauréat Général',
-            detail: 'Mathématiques, NSI, Sciences de l\'ingénieur',
+            title: 'Parcours Baccalauréat Général',
+            detail: 'Spécialités : Mathématiques, NSI, Sciences de l\'ingénieur',
             school: 'Argenteuil'
-        },
-        {
-            year: '2023',
-            title: 'CQPPGSE - Certificat de Qualification Professionnelle',
-            school: 'Courbevoie'
         }
     ],
     certifications: [
-        'Cisco Networking Academy - Cybersecurity, Networking Essentials',
-        'Python Essentials, Linux Unhatched',
-        'IA Générative Anthropic (Claude) - Prompt Engineering'
+        'Cisco — Cybersecurity Essentials',
+        'Cisco — Networking Essentials',
+        'Cisco — Python Essentials',
+        'Cisco — Linux Unhatched',
+        'Anthropic — IA Générative & Prompt Engineering'
     ],
     skills: [
-        { name: 'Support IT & Dépannage', level: 85 },
-        { name: 'Réseaux (TCP/IP, Cisco)', level: 75 },
-        { name: 'Python & SQL', level: 80 },
-        { name: 'Cybersécurité', level: 70 },
-        { name: 'IA & Automatisation', level: 75 },
-        { name: 'Systèmes (Windows, Linux)', level: 80 }
+        {
+            category: 'Support IT',
+            items: ['Diagnostic & dépannage', 'GLPI (ticketing)', 'Active Directory', 'Assistance utilisateurs', 'Documentation technique']
+        },
+        {
+            category: 'Systèmes',
+            items: ['Windows 10/11 & Server', 'Linux (Ubuntu, Debian)', 'PowerShell', 'Bash', 'Virtualisation (VirtualBox)']
+        },
+        {
+            category: 'Réseaux',
+            items: ['TCP/IP, DNS, DHCP', 'Cisco IOS (Packet Tracer)', 'Switchs & routeurs', 'Wi-Fi & VPN', 'Wireshark']
+        },
+        {
+            category: 'IA & Automatisation',
+            items: ['Claude / ChatGPT (prompting avancé)', 'Scripts Python (automatisation)', 'Traitement de données', 'Génération de documentation', 'Triage automatique']
+        },
+        {
+            category: 'Développement',
+            items: ['Python', 'SQL (PostgreSQL)', 'JavaScript / React', 'Git & GitHub', 'API REST']
+        },
+        {
+            category: 'Cybersécurité',
+            items: ['Analyse de logs', 'SIEM (concepts)', 'Détection de menaces', 'Sécurité réseau', 'Veille CVE']
+        }
     ],
     stack: [
         { name: 'Python', icon: 'python' },
@@ -62,18 +79,18 @@ const portfolio = {
     experiences: [
         {
             period: '2025 - 2026',
-            title: 'Gérant / Indépendant',
-            company: 'Prestations de services'
+            title: 'Gérant — Entreprise de nettoyage',
+            company: 'Gestion complète : clients, planning, facturation, coordination d\'équipe'
         },
         {
             period: '2025',
-            title: 'Formation interne',
-            company: 'Amazon (Delivery Service Partner)'
+            title: 'Opérateur logistique',
+            company: 'Amazon (Delivery Service Partner) — process, outils numériques et reporting'
         },
         {
             period: '2021',
-            title: 'Stage',
-            company: 'Cabinet d\'avocat, Nanterre'
+            title: 'Stage administratif',
+            company: 'Cabinet d\'avocat, Nanterre — support bureautique et gestion documentaire'
         }
     ],
     projects: [
@@ -284,13 +301,82 @@ const portfolio = {
                 ]
             }
         }
+        ,
+        {
+            id: '04',
+            slug: 'homelab-it',
+            title: 'HomeLab IT',
+            desc: 'Infrastructure IT de PME simulée : Active Directory, GLPI ticketing, automatisation PowerShell/Python, triage IA des tickets.',
+            tech: ['Windows Server', 'Active Directory', 'GLPI', 'PowerShell', 'Python', 'pfSense'],
+            color: '#f59e0b',
+            wip: true,
+            startedAt: 'Avril 2026',
+            detail: {
+                subtitle: 'Parc IT de PME simulé — de zéro à production',
+                overview: `HomeLab IT est une infrastructure complète que je construis chez moi pour pratiquer le support IT en conditions réelles. Un contrôleur de domaine Windows Server, des postes clients Windows 10/11 joints au domaine, un serveur GLPI pour le ticketing et l'inventaire, un firewall pfSense pour segmenter le réseau — le tout orchestré par des scripts PowerShell et Python que j'écris pour automatiser les tâches répétitives. L'objectif : reproduire le quotidien d'un technicien support dans une PME de 50 postes, et intégrer l'IA (Claude API) pour le triage automatique des tickets.`,
+                features: [
+                    {
+                        icon: '01',
+                        title: 'Active Directory — Annuaire centralisé',
+                        desc: 'Contrôleur de domaine Windows Server 2022, 50 utilisateurs simulés répartis en 8 unités d\'organisation (OUs). GPO de sécurité, verrouillage session, déploiement de logiciels, redirection de dossiers.',
+                        highlight: 'Structure complète AD DS + DNS + DHCP'
+                    },
+                    {
+                        icon: '02',
+                        title: 'GLPI — Ticketing & Inventaire',
+                        desc: 'Serveur GLPI 10 sur Debian 12 avec agent FusionInventory déployé sur tous les postes. Inventaire automatique du parc (matériel + logiciel), 20 tickets types traités et documentés.',
+                        highlight: 'Inventaire auto + base de connaissances'
+                    },
+                    {
+                        icon: '03',
+                        title: 'Automatisation PowerShell',
+                        desc: 'Scripts de création masse d\'utilisateurs AD depuis CSV, audit sécurité automatique, rapport quotidien d\'état du parc, reset de mots de passe, déploiement de GPO.',
+                        highlight: '15 scripts réutilisables en production'
+                    },
+                    {
+                        icon: '04',
+                        title: 'IA pour le support',
+                        desc: 'Intégration Claude API via Python : triage automatique des tickets GLPI par urgence et catégorie, génération de réponses types, création de procédures à partir des tickets résolus.',
+                        highlight: 'Triage 80% plus rapide vs manuel'
+                    },
+                    {
+                        icon: '05',
+                        title: 'Réseau segmenté (pfSense)',
+                        desc: 'Firewall pfSense CE avec 3 VLANs (serveurs, postes, invités), règles de filtrage, VPN OpenVPN pour accès distant, monitoring du trafic.',
+                        highlight: '3 VLANs isolés + VPN configuré'
+                    },
+                    {
+                        icon: '06',
+                        title: 'Documentation technique',
+                        desc: 'Procédures pas-à-pas (onboarding utilisateur, création poste, sauvegarde), runbooks incidents, schémas réseau draw.io, base de connaissances avec les 20 pannes récurrentes.',
+                        highlight: 'Format pro, reproductible en entreprise'
+                    }
+                ],
+                architecture: {
+                    hyperviseur: 'VirtualBox / Proxmox',
+                    domaine: 'lab.local — Windows Server 2022',
+                    clients: 'Windows 10 & Windows 11 Pro',
+                    ticketing: 'GLPI 10 + FusionInventory (Debian 12)',
+                    firewall: 'pfSense CE',
+                    scripts: 'PowerShell 7, Python 3.11, API Claude'
+                },
+                stats: [
+                    { label: 'VMs actives', value: '12' },
+                    { label: 'Users AD', value: '50' },
+                    { label: 'Tickets résolus', value: '20' },
+                    { label: 'Scripts auto', value: '15' },
+                    { label: 'VLANs', value: '3' },
+                    { label: 'GPO', value: '8' }
+                ]
+            }
+        }
     ],
     languages: ['Français (natif)', 'Anglais (intermédiaire)', 'Arabe (bilingue)', 'Espagnol (conversationnel)'],
     socials: {
         github: 'https://github.com/moussa-zedira',
         linkedin: 'https://www.linkedin.com/in/moussa-zedira-15abba3b8',
         email: 'moussazedira@gmail.com',
-        phone: '06 27 80 74 30'
+        phone: ''
     }
 };
 
