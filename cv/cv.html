@@ -109,27 +109,29 @@
         }
 
         /* ===========================
-           COMPÉTENCES (tableau)
+           COMPÉTENCES (liste ATS-friendly)
            =========================== */
-        .skills-table { width: 100%; border-collapse: collapse; }
+        .skills-list { width: 100%; }
 
-        .skills-table tr { border-bottom: 1px solid #f0f0f0; }
-        .skills-table tr:last-child { border-bottom: none; }
-
-        .skills-table td {
+        .skills-row {
+            display: flex;
             padding: 4px 0;
-            vertical-align: top;
+            border-bottom: 1px solid #f0f0f0;
             font-size: 9pt;
+            line-height: 1.4;
         }
 
-        .skills-table td:first-child {
+        .skills-row:last-child { border-bottom: none; }
+
+        .skills-label {
             width: 28%;
             font-weight: 700;
             color: var(--dark);
             padding-right: 12px;
+            flex-shrink: 0;
         }
 
-        .skills-table td:last-child { color: #333; }
+        .skills-value { color: #333; flex: 1; }
 
         /* ===========================
            ITEMS (formation, expérience)
@@ -311,11 +313,11 @@
             <br>
             <a href="mailto:moussazedira@gmail.com">moussazedira@gmail.com</a>
             <span class="sep">|</span>
+            <a href="https://moussa-zedira.fr">moussa-zedira.fr</a>
+            <span class="sep">|</span>
             <a href="https://www.linkedin.com/in/moussa-zedira-15abba3b8">linkedin.com/in/moussa-zedira</a>
             <span class="sep">|</span>
             <a href="https://github.com/moussa-zedira">github.com/moussa-zedira</a>
-            <span class="sep">|</span>
-            <a href="#">Portfolio</a>
         </div>
     </header>
 
@@ -327,32 +329,32 @@
     <!-- COMPÉTENCES -->
     <section>
         <h2 class="section-title">Compétences techniques</h2>
-        <table class="skills-table">
-            <tr>
-                <td>Support IT</td>
-                <td>Diagnostic &amp; dépannage, GLPI (ticketing), Active Directory, assistance utilisateurs, documentation technique</td>
-            </tr>
-            <tr>
-                <td>Systèmes</td>
-                <td>Windows 10/11 &amp; Server 2022, Linux (Ubuntu, Debian), PowerShell, Bash, virtualisation (VirtualBox, Proxmox)</td>
-            </tr>
-            <tr>
-                <td>Réseaux</td>
-                <td>TCP/IP, DNS, DHCP, Cisco IOS (Packet Tracer), switchs &amp; routeurs, Wi-Fi &amp; VPN, Wireshark</td>
-            </tr>
-            <tr>
-                <td>IA &amp; Automatisation</td>
-                <td>Claude &amp; ChatGPT (prompt engineering), scripts Python, triage automatique de tickets, génération de documentation</td>
-            </tr>
-            <tr>
-                <td>Développement</td>
-                <td>Python, SQL (PostgreSQL), JavaScript/React, Git &amp; GitHub, API REST</td>
-            </tr>
-            <tr>
-                <td>Cybersécurité</td>
-                <td>Analyse de logs, SIEM (concepts), détection de menaces, sécurité réseau, veille CVE</td>
-            </tr>
-        </table>
+        <div class="skills-list">
+            <div class="skills-row">
+                <div class="skills-label">Support IT</div>
+                <div class="skills-value">Diagnostic &amp; dépannage, GLPI (ticketing), Active Directory, assistance utilisateurs, documentation technique</div>
+            </div>
+            <div class="skills-row">
+                <div class="skills-label">Systèmes</div>
+                <div class="skills-value">Windows 10/11 &amp; Server 2022, Linux (Ubuntu, Debian), PowerShell, Bash, virtualisation (VirtualBox, Proxmox)</div>
+            </div>
+            <div class="skills-row">
+                <div class="skills-label">Réseaux</div>
+                <div class="skills-value">TCP/IP, DNS, DHCP, Cisco IOS (Packet Tracer), switchs &amp; routeurs, Wi-Fi &amp; VPN, Wireshark</div>
+            </div>
+            <div class="skills-row">
+                <div class="skills-label">IA &amp; Automatisation</div>
+                <div class="skills-value">Claude &amp; ChatGPT (prompt engineering), scripts Python, triage automatique de tickets, génération de documentation</div>
+            </div>
+            <div class="skills-row">
+                <div class="skills-label">Développement</div>
+                <div class="skills-value">Python, SQL (PostgreSQL), JavaScript/React, Git &amp; GitHub, API REST</div>
+            </div>
+            <div class="skills-row">
+                <div class="skills-label">Cybersécurité</div>
+                <div class="skills-value">Analyse de logs, SIEM (concepts), détection de menaces, sécurité réseau, veille CVE</div>
+            </div>
+        </div>
     </section>
 
     <!-- FORMATION -->
