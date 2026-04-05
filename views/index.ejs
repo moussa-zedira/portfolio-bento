@@ -147,7 +147,10 @@
                 <div class="about__visual-col">
                     <div class="about__photo-wrap" data-speed="0.85" data-photo-reveal>
                         <div class="about__photo-mask"></div>
-                        <img src="/img/profile.jpg" alt="<%= portfolio.name %>" class="about__photo" loading="lazy" width="800" height="1000" />
+                        <picture>
+                            <source srcset="/img/profile.webp" type="image/webp">
+                            <img src="/img/profile.jpg" alt="<%= portfolio.name %>" class="about__photo" loading="lazy" width="800" height="1000" />
+                        </picture>
                     </div>
                     <div class="about__stats">
                         <div class="about__stat">
