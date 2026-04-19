@@ -19,13 +19,13 @@ LinkedIn : moussa-zedira | Portfolio : [votre-url]
 
 Argenteuil, le [date]
 
-**Objet : Candidature stage Technicien Support IT — [Référence offre si applicable]**
+**Objet : Candidature alternance TSSR — [Référence offre si applicable]**
 
 Madame, Monsieur,
 
-En formation **Titre Professionnel Technicien d'Assistance Informatique à Doranco**, je recherche un stage de [X semaines/mois] à partir de [date] pour mettre en pratique mes compétences au sein d'une équipe IT structurée. Votre [entreprise / ESN / DSI] [phrase personnalisée : "réputée pour X" / "dont je suis l'actualité autour de Y" / "qui accompagne des clients comme Z"] correspond exactement à l'environnement dans lequel je souhaite progresser.
+Actuellement en formation **Titre Professionnel Technicien d'Assistance Informatique à Doranco**, je recherche une **alternance en TSSR (Technicien Supérieur Systèmes et Réseaux)** pour consolider mes compétences en administration système et réseau au sein d'une équipe IT structurée. Votre [entreprise / ESN / DSI] [phrase personnalisée : "réputée pour X" / "dont je suis l'actualité autour de Y" / "qui accompagne des clients comme Z"] correspond exactement à l'environnement dans lequel je souhaite progresser.
 
-Ce qui me différencie d'un profil support classique, c'est la double compétence que je construis : **méthode rigoureuse du support IT** (diagnostic, GLPI, Active Directory, documentation) et **maîtrise de l'IA et de l'automatisation** (Python, Claude, scripts PowerShell). Concrètement, je construis actuellement un HomeLab complet — contrôleur de domaine, serveur GLPI, 50 utilisateurs AD simulés, scripts de création masse — et j'y intègre un triage automatique des tickets via API Claude. Cette approche me permet d'aller au-delà de la simple résolution : comprendre les causes, documenter, automatiser.
+Ce qui me différencie d'un profil support classique, c'est la double compétence que je construis : **méthode rigoureuse du support IT** (diagnostic, GLPI, Active Directory, documentation) et **maîtrise de l'IA et de l'automatisation** (Python, Claude, scripts PowerShell). Concrètement, j'ai monté un HomeLab complet — contrôleur de domaine, serveur GLPI, 50 utilisateurs AD simulés, scripts de création masse — et j'y intègre un triage automatique des tickets via API Claude. Cette approche me permet d'aller au-delà de la simple résolution : comprendre les causes, documenter, automatiser.
 
 Mes projets techniques (plateforme cybersécurité CyberDef, plateforme éducative Chapitres en ligne, jeu d'échecs avec IA) démontrent ma rigueur, mon autonomie et ma capacité à mener un projet de bout en bout. Mes certifications Cisco (Cybersecurity, Networking, Python, Linux) valident les fondamentaux. Visibles sur mon portfolio : [URL].
 
@@ -57,7 +57,7 @@ Cordialement,
 - [ ] Nom de l'entreprise et du destinataire vérifiés (pas de "Madame, Monsieur" si tu as un nom)
 - [ ] Référence de l'offre mentionnée (objet ou 1er paragraphe)
 - [ ] Phrase d'accroche personnalisée (au moins 1 détail spécifique à l'entreprise)
-- [ ] Dates de stage précises
+- [ ] Rythme d'alternance précisé (ex. 3 semaines entreprise / 1 semaine école)
 - [ ] URL portfolio cliquable et à jour
 - [ ] Relecture : zéro faute (fais-le relire)
 - [ ] Format PDF, nom : `Zedira_Moussa_LM_[NomEntreprise].pdf`

@@ -129,11 +129,6 @@ const portfolio = {
             period: '2025',
             title: 'Opérateur logistique',
             company: 'Amazon (Delivery Service Partner) — process, outils numériques et reporting'
-        },
-        {
-            period: '2021',
-            title: 'Stage administratif',
-            company: 'Cabinet d\'avocat, Nanterre — support bureautique et gestion documentaire'
         }
     ],
     projects: [
@@ -147,13 +142,14 @@ const portfolio = {
             detail: {
                 subtitle: 'Plateforme de cybersécurité tout-en-un',
                 overview: `Au lieu d'avoir 5-6 outils différents (un SIEM pour surveiller, un scanner pour tester,
-                    un outil pour répondre aux incidents...), CyberDef réunit tout dans une seule application web.
-                    C'est comme fusionner Splunk + Burp Suite + Metasploit + TheHive + OpenCTI dans un seul dashboard.`,
+                    un C2 pour le Red Team, un outil pour répondre aux incidents...), CyberDef réunit tout dans une seule
+                    application web. C'est comme fusionner Splunk + Burp Suite + Sliver C2 + GoPhish + BloodHound +
+                    un assistant IA multi-provider (Claude/OpenAI/Ollama) dans un seul dashboard.`,
                 features: [
                     {
                         icon: '01',
                         title: 'SIEM — Surveillance',
-                        desc: 'Réception et analyse automatique de logs de sécurité (firewall, serveurs, endpoints). Pipeline de 13 étapes : parsing, enrichissement (géolocalisation IP, réputation, assets), scoring de menace, détection de règles, corrélation.',
+                        desc: 'Réception et analyse automatique de logs de sécurité (firewall, serveurs, endpoints). Pipeline de parsing, enrichissement (géolocalisation IP, réputation, assets), scoring de menace, détection de règles, corrélation multi-étapes.',
                         highlight: 'Langage de recherche CQL intégré, similaire à Splunk SPL'
                     },
                     {
@@ -164,43 +160,43 @@ const portfolio = {
                     },
                     {
                         icon: '03',
-                        title: 'SOAR — Réponse automatisée',
-                        desc: 'Quand une menace est détectée, des playbooks automatiques se déclenchent : bloquer une IP, isoler une machine, créer un ticket, notifier l\'équipe.',
-                        highlight: '15 playbooks pré-configurés, 41 actions disponibles'
+                        title: 'Red Team — Sliver C2, GoPhish, BloodHound',
+                        desc: 'Opérations offensives intégrées : Operator Console Sliver (sessions, terminal, beacon graph), campagnes phishing GoPhish (tracking, kill-switch, RoE), analyse chemins d\'attaque AD via BloodHound.',
+                        highlight: 'Engagement tracking, MITRE ATT&CK mapping automatique, audit trail complet'
                     },
                     {
                         icon: '04',
                         title: 'Threat Intelligence',
-                        desc: 'Base de données d\'indicateurs malveillants (IPs, domaines, hash). 8 feeds automatiques : abuse.ch, EmergingThreats, PhishTank, OTX...',
+                        desc: 'Base d\'indicateurs malveillants (IPs, domaines, hash, URLs). Feeds automatiques AbuseIPDB, AlienVault OTX, abuse.ch, PhishTank. IOC Manager avec TTL et scoring de confiance.',
                         highlight: 'Compatibilité STIX/TAXII avec serveur intégré'
                     },
                     {
                         icon: '05',
-                        title: 'Pentest Lab — 76 modules',
-                        desc: 'Orchestrateur automatique : tu entres une cible, choisis un profil (quick scan à red team complet), et il enchaîne scan ports, découverte vulns, exploitation, post-exploitation, rapport.',
-                        highlight: 'SQLi, XSS, SSRF, LFI, brute force, privesc, lateral movement, fuzzer intelligent avec détection WAF'
+                        title: 'Assistant IA + RAG',
+                        desc: 'Assistant contextuel multi-provider (Claude, OpenAI, Ollama local). Triage automatique des events/incidents, génération de règles Sigma, RAG sémantique sur 11 000+ docs indexés (MITRE ATT&CK, NVD CVE, SigmaHQ).',
+                        highlight: 'Embeddings FAISS 384 dim, contexte engagement injecté (scope, RoE, sessions actives)'
                     },
                     {
                         icon: '06',
-                        title: 'DevSecOps',
-                        desc: 'Scan SAST (code source), SCA (dépendances), secrets, containers, IaC. Export SARIF, quality gates.',
-                        highlight: 'Générateurs CI pour GitHub Actions, GitLab CI, Jenkins'
+                        title: 'Pentest Web',
+                        desc: 'Moteurs dédiés : SQLi (5 techniques, détection DBMS), XSS (6 contextes, payloads adaptés), brute force (SSH/FTP/HTTP), recon multi-sources (DNS, CT logs, wordlists), crawler et netscan.',
+                        highlight: 'Pipeline d\'enchaînement automatique de scans + rapports MITRE/CVSS'
                     }
                 ],
                 architecture: {
-                    frontend: 'Next.js 15 / React 19 — 80+ pages',
-                    backend: 'FastAPI (Python) — 750+ endpoints, 250+ fichiers',
-                    database: 'PostgreSQL',
-                    cache: 'Redis',
-                    queue: 'Celery (tâches asynchrones)'
+                    frontend: 'Next.js 15 / React 18 — 30 routes (App Router)',
+                    backend: 'FastAPI (Python 3.11) — 1046 endpoints, 135 routers',
+                    database: 'PostgreSQL 16 — 23 migrations Alembic',
+                    cache: 'Redis 7 (cache, pub/sub, sessions, rate limit)',
+                    queue: 'Celery (worker + beat scheduler)'
                 },
                 stats: [
-                    { label: 'Endpoints API', value: '750+' },
-                    { label: 'Modules Pentest', value: '76' },
-                    { label: 'Pages Frontend', value: '80+' },
-                    { label: 'Actions SOAR', value: '41' },
-                    { label: 'Feeds Threat Intel', value: '8' },
-                    { label: 'Étapes Pipeline', value: '13' }
+                    { label: 'Endpoints API', value: '1046' },
+                    { label: 'Routers FastAPI', value: '135' },
+                    { label: 'Pages Frontend', value: '30' },
+                    { label: 'Docs RAG indexés', value: '11k+' },
+                    { label: 'Services Docker', value: '7' },
+                    { label: 'Lignes de code', value: '~214k' }
                 ]
             }
         },
