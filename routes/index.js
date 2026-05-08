@@ -49,12 +49,12 @@ const portfolio = {
     name: 'Moussa Zedira',
     title: 'Technicien Support IT & Automatisation',
     subtitle: 'Support IT • IA & Automatisation • Réseaux • Python',
-    seeking: 'Recherche stage Support IT / Helpdesk — IA & Automatisation — Île-de-France',
+    seeking: 'Recherche alternance Support IT / Helpdesk — IA & Automatisation — Île-de-France',
     aboutHook: `Technicien support IT en formation — et je code mes propres outils pour résoudre les problèmes plus vite.`,
     aboutPoints: [
         `Le support IT, c'est le contact humain : un utilisateur bloqué, un diagnostic à poser, un problème résolu.`,
         `Ce qui me différencie : j'utilise l'IA et Python pour automatiser le tri de tickets, scripter les tâches répétitives, générer de la documentation.`,
-        `Objectif : un stage en Île-de-France où je peux apprendre en équipe et apporter cette valeur ajoutée.`
+        `Objectif : une alternance en Île-de-France où je peux apprendre en équipe et apporter cette valeur ajoutée.`
     ],
     tags: ['Support IT', 'IA & Automatisation', 'Python', 'Cybersécurité', 'Réseaux', 'SQL'],
     location: 'Argenteuil, Île-de-France',
