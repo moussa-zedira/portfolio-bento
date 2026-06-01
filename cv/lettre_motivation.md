@@ -19,11 +19,11 @@ LinkedIn : moussa-zedira | Portfolio : [votre-url]
 
 Argenteuil, le [date]
 
-**Objet : Candidature alternance TSSR — [Référence offre si applicable]**
+**Objet : Candidature alternance BTS SIO option SISR — [Référence offre si applicable]**
 
 Madame, Monsieur,
 
-Actuellement en formation **Titre Professionnel Technicien d'Assistance Informatique à Doranco**, je recherche une **alternance en TSSR (Technicien Supérieur Systèmes et Réseaux)** pour consolider mes compétences en administration système et réseau au sein d'une équipe IT structurée. Votre [entreprise / ESN / DSI] [phrase personnalisée : "réputée pour X" / "dont je suis l'actualité autour de Y" / "qui accompagne des clients comme Z"] correspond exactement à l'environnement dans lequel je souhaite progresser.
+Actuellement en formation **Titre Professionnel Technicien d'Assistance Informatique à Doranco**, je recherche une **alternance pour préparer un BTS SIO option SISR (Solutions d'Infrastructure, Systèmes et Réseaux)** afin de consolider mes compétences en administration système et réseau au sein d'une équipe IT structurée. Votre [entreprise / ESN / DSI] [phrase personnalisée : "réputée pour X" / "dont je suis l'actualité autour de Y" / "qui accompagne des clients comme Z"] correspond exactement à l'environnement dans lequel je souhaite progresser.
 
 Ce qui me différencie d'un profil support classique, c'est la double compétence que je construis : **méthode rigoureuse du support IT** (diagnostic, GLPI, Active Directory, documentation) et **maîtrise de l'IA et de l'automatisation** (Python, Claude, scripts PowerShell). Concrètement, j'ai monté un HomeLab complet — contrôleur de domaine, serveur GLPI, 50 utilisateurs AD simulés, scripts de création masse — et j'y intègre un triage automatique des tickets via API Claude. Cette approche me permet d'aller au-delà de la simple résolution : comprendre les causes, documenter, automatiser.
 
