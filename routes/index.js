@@ -343,69 +343,69 @@ const portfolio = {
         ,
         {
             id: '04',
-            slug: 'homelab-it',
-            title: 'HomeLab IT',
-            desc: 'Infrastructure IT de PME simulée : Active Directory, GLPI ticketing, automatisation PowerShell/Python, triage IA des tickets.',
-            tech: ['Windows Server', 'Active Directory', 'GLPI', 'PowerShell', 'Python', 'pfSense'],
-            color: '#f59e0b',
+            slug: 'homelab',
+            title: 'HomeLab',
+            desc: 'Serveur Linux auto-hébergé : une douzaine de services Docker (cloud, médias, Git, DNS, supervision), accès distant chiffré sans exposition sur Internet.',
+            tech: ['Debian', 'Docker', 'Linux', 'Tailscale', 'Nginx', 'Bash'],
+            color: '#38bdf8',
             wip: true,
-            startedAt: 'Avril 2026',
+            startedAt: 'Mai 2026',
             detail: {
-                subtitle: 'Parc IT de PME simulé — de zéro à production',
-                overview: `HomeLab IT est une infrastructure complète que je construis chez moi pour pratiquer le support IT en conditions réelles. Un contrôleur de domaine Windows Server, des postes clients Windows 10/11 joints au domaine, un serveur GLPI pour le ticketing et l'inventaire, un firewall pfSense pour segmenter le réseau — le tout orchestré par des scripts PowerShell et Python que j'écris pour automatiser les tâches répétitives. L'objectif : reproduire le quotidien d'un technicien support dans une PME de 50 postes, et intégrer l'IA (Claude API) pour le triage automatique des tickets.`,
+                subtitle: 'Serveur Linux auto-hébergé & conteneurs Docker',
+                overview: `Un serveur monté et administré chez moi pour pratiquer l'administration système Linux en conditions réelles. Une distribution Debian sur mini-PC, le stockage géré en LVM, et une douzaine de services applicatifs conteneurisés avec Docker : cloud personnel, médiathèque, dépôts Git, DNS local, supervision et tableau de bord. L'accès distant se fait via un réseau privé chiffré, sans ouvrir le moindre port sur Internet. L'objectif : maîtriser l'orchestration de services, le réseau, la supervision et le durcissement d'un serveur de bout en bout.`,
                 features: [
                     {
                         icon: '01',
-                        title: 'Active Directory — Annuaire centralisé',
-                        desc: 'Contrôleur de domaine Windows Server 2022, 50 utilisateurs simulés répartis en 8 unités d\'organisation (OUs). GPO de sécurité, verrouillage session, déploiement de logiciels, redirection de dossiers.',
-                        highlight: 'Structure complète AD DS + DNS + DHCP'
+                        title: 'Serveur Linux & stockage',
+                        desc: 'Installation et administration d\'un serveur Debian sur mini-PC : partitionnement LVM, gestion du stockage de masse, services systemd, maintenance et mises à jour.',
+                        highlight: 'Administration système de bout en bout'
                     },
                     {
                         icon: '02',
-                        title: 'GLPI — Ticketing & Inventaire',
-                        desc: 'Serveur GLPI 10 sur Debian 12 avec agent FusionInventory déployé sur tous les postes. Inventaire automatique du parc (matériel + logiciel), 20 tickets types traités et documentés.',
-                        highlight: 'Inventaire auto + base de connaissances'
+                        title: 'Conteneurisation Docker',
+                        desc: 'Une douzaine de services isolés en conteneurs, chacun avec son fichier docker-compose dédié. Gestion des volumes, des réseaux Docker et des journaux, administration via interface web.',
+                        highlight: 'Architecture micro-services reproductible'
                     },
                     {
                         icon: '03',
-                        title: 'Automatisation PowerShell',
-                        desc: 'Scripts de création masse d\'utilisateurs AD depuis CSV, audit sécurité automatique, rapport quotidien d\'état du parc, reset de mots de passe, déploiement de GPO.',
-                        highlight: '15 scripts réutilisables en production'
+                        title: 'Services auto-hébergés',
+                        desc: 'Cloud personnel (fichiers, photos), médiathèque, dépôts Git self-hosted, DNS local avec filtrage, automatisation de tâches et tableau de bord centralisé.',
+                        highlight: 'Indépendance vis-à-vis des services tiers'
                     },
                     {
                         icon: '04',
-                        title: 'IA pour le support',
-                        desc: 'Intégration Claude API via Python : triage automatique des tickets GLPI par urgence et catégorie, génération de réponses types, création de procédures à partir des tickets résolus.',
-                        highlight: 'Triage 80% plus rapide vs manuel'
+                        title: 'Accès distant sécurisé',
+                        desc: 'Connexion à distance via un réseau privé maillé et chiffré, sans aucun port exposé sur Internet. Résolution de noms interne et accès homogène depuis tous les appareils.',
+                        highlight: 'Zéro service exposé publiquement'
                     },
                     {
                         icon: '05',
-                        title: 'Réseau segmenté (pfSense)',
-                        desc: 'Firewall pfSense CE avec 3 VLANs (serveurs, postes, invités), règles de filtrage, VPN OpenVPN pour accès distant, monitoring du trafic.',
-                        highlight: '3 VLANs isolés + VPN configuré'
+                        title: 'Supervision & monitoring',
+                        desc: 'Surveillance de la disponibilité des services et des métriques système en temps réel, avec historique et alertes en cas d\'incident.',
+                        highlight: 'Disponibilité suivie en continu'
                     },
                     {
                         icon: '06',
-                        title: 'Documentation technique',
-                        desc: 'Procédures pas-à-pas (onboarding utilisateur, création poste, sauvegarde), runbooks incidents, schémas réseau draw.io, base de connaissances avec les 20 pannes récurrentes.',
-                        highlight: 'Format pro, reproductible en entreprise'
+                        title: 'Sécurité & sauvegardes',
+                        desc: 'Reverse proxy, protection anti-brute-force, durcissement de l\'accès SSH et sauvegardes régulières des bases de données.',
+                        highlight: 'Bonnes pratiques de durcissement'
                     }
                 ],
                 architecture: {
-                    hyperviseur: 'VirtualBox / Proxmox',
-                    domaine: 'lab.local — Windows Server 2022',
-                    clients: 'Windows 10 & Windows 11 Pro',
-                    ticketing: 'GLPI 10 + FusionInventory (Debian 12)',
-                    firewall: 'pfSense CE',
-                    scripts: 'PowerShell 7, Python 3.11, API Claude'
+                    serveur: 'Debian (mini-PC, stockage LVM)',
+                    conteneurs: 'Docker + docker-compose',
+                    reseau: 'Réseau privé chiffré, 0 port exposé',
+                    proxy: 'Reverse proxy + DNS local',
+                    supervision: 'Monitoring disponibilité + métriques',
+                    securite: 'fail2ban, durcissement SSH, sauvegardes'
                 },
                 stats: [
-                    { label: 'VMs actives', value: '12' },
-                    { label: 'Users AD', value: '50' },
-                    { label: 'Tickets résolus', value: '20' },
-                    { label: 'Scripts auto', value: '15' },
-                    { label: 'VLANs', value: '3' },
-                    { label: 'GPO', value: '8' }
+                    { label: 'Services Docker', value: '12' },
+                    { label: 'Ports exposés sur Internet', value: '0' },
+                    { label: 'Stockage', value: '4 To' },
+                    { label: 'OS', value: 'Debian' },
+                    { label: 'Accès distant', value: 'VPN maillé' },
+                    { label: 'Supervision', value: '24/7' }
                 ]
             }
         }
