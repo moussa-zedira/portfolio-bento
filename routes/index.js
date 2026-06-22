@@ -90,7 +90,7 @@ const portfolio = {
         },
         {
             category: 'Systèmes',
-            items: ['Windows 10/11 & Server', 'Linux (Ubuntu, Debian)', 'PowerShell', 'Bash', 'Virtualisation (VirtualBox)', 'Conteneurisation (Docker)', 'Supervision (monitoring)']
+            items: ['Windows 10/11 & Server', 'Linux (Ubuntu, Debian)', 'PowerShell', 'Bash', 'Virtualisation (VirtualBox, ESXi, vCenter, Hyper-V)', 'Conteneurisation (Docker)', 'Supervision (monitoring)']
         },
         {
             category: 'Réseaux',
@@ -106,7 +106,7 @@ const portfolio = {
         },
         {
             category: 'Cybersécurité',
-            items: ['Analyse de logs', 'SIEM (concepts)', 'Détection de menaces', 'Sécurité réseau', 'Durcissement (fail2ban, SSH)', 'Sauvegardes', 'Veille CVE']
+            items: ['Analyse de logs', 'SIEM & SOAR (concepts)', 'Détection de menaces', 'Sécurité réseau', 'Durcissement (fail2ban, SSH)', 'Sauvegardes', 'Veille CVE']
         }
     ],
     stack: [
