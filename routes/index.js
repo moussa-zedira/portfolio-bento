@@ -90,15 +90,15 @@ const portfolio = {
         },
         {
             category: 'Systèmes',
-            items: ['Windows 10/11 & Server', 'Linux (Ubuntu, Debian)', 'PowerShell', 'Bash', 'Virtualisation (VirtualBox)']
+            items: ['Windows 10/11 & Server', 'Linux (Ubuntu, Debian)', 'PowerShell', 'Bash', 'Virtualisation (VirtualBox)', 'Conteneurisation (Docker)', 'Supervision (monitoring)']
         },
         {
             category: 'Réseaux',
-            items: ['TCP/IP, DNS, DHCP', 'Cisco IOS (Packet Tracer)', 'Switchs & routeurs', 'Wi-Fi & VPN', 'Wireshark']
+            items: ['TCP/IP, DNS, DHCP', 'Cisco IOS (Packet Tracer)', 'Switchs & routeurs', 'Wi-Fi & VPN', 'Reverse proxy (Nginx)', 'Wireshark']
         },
         {
             category: 'IA & Automatisation',
-            items: ['Claude / ChatGPT (prompting avancé)', 'Scripts Python (automatisation)', 'Traitement de données', 'Génération de documentation', 'Triage automatique']
+            items: ['Claude / ChatGPT (prompting avancé)', 'Scripts Python (automatisation)', 'Workflows automatisés (n8n)', 'Traitement de données', 'Génération de documentation', 'Triage automatique']
         },
         {
             category: 'Développement',
@@ -106,13 +106,14 @@ const portfolio = {
         },
         {
             category: 'Cybersécurité',
-            items: ['Analyse de logs', 'SIEM (concepts)', 'Détection de menaces', 'Sécurité réseau', 'Veille CVE']
+            items: ['Analyse de logs', 'SIEM (concepts)', 'Détection de menaces', 'Sécurité réseau', 'Durcissement (fail2ban, SSH)', 'Sauvegardes', 'Veille CVE']
         }
     ],
     stack: [
         { name: 'Python', icon: 'python' },
         { name: 'SQL', icon: 'sql' },
         { name: 'Linux', icon: 'linux' },
+        { name: 'Docker', icon: 'docker' },
         { name: 'Windows', icon: 'windows' },
         { name: 'Cisco', icon: 'cisco' },
         { name: 'Git', icon: 'git' },
@@ -204,7 +205,7 @@ const portfolio = {
             id: '02',
             slug: 'chapitres',
             title: 'Chapitres',
-            desc: 'Plateforme éducative gratuite pour lycéens : 504+ chapitres, quiz interactifs, annales du Bac.',
+            desc: 'Plateforme éducative gratuite pour lycéens : 1400+ utilisateurs actifs, 504+ chapitres, quiz interactifs, annales du Bac.',
             tech: ['Next.js', 'React', 'Vercel', 'KaTeX', 'OAuth'],
             color: '#818cf8',
             link: 'https://meschapitres.fr',
@@ -214,7 +215,7 @@ const portfolio = {
                     qui préparent le Baccalauréat. Elle couvre l'intégralité du programme officiel
                     (Bulletin Officiel 2025-2026) de la Seconde à la Terminale, avec des fiches de
                     révision structurées, des quiz interactifs chronométrés et les annales du Bac.
-                    Créé pour les lycéens, par les lycéens.`,
+                    Créé pour les lycéens, par les lycéens — plus de 1400 utilisateurs actifs.`,
                 features: [
                     {
                         icon: '01',
@@ -262,6 +263,7 @@ const portfolio = {
                     seo: 'Schema.org, Open Graph dynamique'
                 },
                 stats: [
+                    { label: 'Utilisateurs actifs', value: '1400+' },
                     { label: 'Chapitres', value: '504+' },
                     { label: 'Matières', value: '16' },
                     { label: 'Niveaux', value: '3' },
@@ -369,7 +371,7 @@ const portfolio = {
                     {
                         icon: '03',
                         title: 'Services auto-hébergés',
-                        desc: 'Cloud personnel (fichiers, photos), médiathèque, dépôts Git self-hosted, DNS local avec filtrage, automatisation de tâches et tableau de bord centralisé.',
+                        desc: 'Cloud personnel (fichiers, photos), médiathèque, dépôts Git self-hosted, DNS local avec filtrage, orchestration de workflows automatisés et tableau de bord centralisé.',
                         highlight: 'Indépendance vis-à-vis des services tiers'
                     },
                     {
@@ -381,7 +383,7 @@ const portfolio = {
                     {
                         icon: '05',
                         title: 'Supervision & monitoring',
-                        desc: 'Surveillance de la disponibilité des services et des métriques système en temps réel, avec historique et alertes en cas d\'incident.',
+                        desc: 'Surveillance de la disponibilité des services et des métriques système en temps réel, avec historique et notifications push en cas d\'incident.',
                         highlight: 'Disponibilité suivie en continu'
                     },
                     {
