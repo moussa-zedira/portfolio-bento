@@ -114,8 +114,12 @@ const portfolio = {
         { name: 'SQL', icon: 'sql' },
         { name: 'Linux', icon: 'linux' },
         { name: 'Docker', icon: 'docker' },
+        { name: 'VMware ESXi', icon: 'vmware' },
+        { name: 'vCenter', icon: 'vmware' },
+        { name: 'Hyper-V', icon: 'hyperv' },
         { name: 'Windows', icon: 'windows' },
         { name: 'Cisco', icon: 'cisco' },
+        { name: 'SOAR', icon: 'soar' },
         { name: 'Git', icon: 'git' },
         { name: 'GLPI', icon: 'glpi' },
         { name: 'Claude IA', icon: 'ai' }
