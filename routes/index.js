@@ -126,6 +126,11 @@ const portfolio = {
     ],
     experiences: [
         {
+            period: 'Juil. - Sept. 2026',
+            title: 'Stage — Technicien informatique',
+            company: 'Omexom Nuclear Projects (VINCI Energies), Colombes (92) — support aux utilisateurs, gestion du parc, incidents matériels et logiciels'
+        },
+        {
             period: '2025 - 2026',
             title: 'Gérant — Entreprise de nettoyage',
             company: 'Gestion complète : clients, planning, facturation, coordination d\'équipe'
