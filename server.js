@@ -1,3 +1,14 @@
+/**
+ * Point d'entree de l'application portfolio.
+ *
+ * Monte la chaine de middlewares dans cet ordre : securite (helmet) ->
+ * rate limit -> fichiers statiques -> parsers -> routes -> handler d'erreur.
+ * L'ordre compte : le rate limit doit precede les routes, et le handler
+ * d'erreur doit etre monte en dernier pour intercepter tout ce qui remonte.
+ *
+ * En local le serveur ecoute sur PORT ; sur Vercel il est simplement exporte
+ * et invoque en serverless via api/index.js (d'ou le garde `process.env.VERCEL`).
+ */
 const express = require('express');
 const path = require('path');
 const helmet = require('helmet');
@@ -80,6 +91,19 @@ app.use('/', routes);
 // ============================================
 // ERROR HANDLER GLOBAL — aucune fuite de stack trace en prod
 // ============================================
+/**
+ * Handler d'erreur global (signature a 4 arguments obligatoire pour qu'Express
+ * le reconnaisse comme error middleware, meme si `next` n'est pas utilise).
+ *
+ * Le detail de l'erreur reste cote serveur : le client ne recoit qu'un message
+ * generique, pour ne rien reveler de la stack ni du backend. La reponse est
+ * en JSON pour les appels API/formulaire, en HTML sinon.
+ *
+ * @param {Error & {status?: number, statusCode?: number}} err - Erreur remontee
+ * @param {import('express').Request} req
+ * @param {import('express').Response} res
+ * @param {import('express').NextFunction} next - Non utilise, requis par Express
+ */
 app.use((err, req, res, next) => {
     // Log complet côté serveur (pour debug)
     console.error('[Error]', new Date().toISOString(), err.message);

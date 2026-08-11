@@ -1,10 +1,21 @@
+/**
+ * Routes du portfolio : pages rendues cote serveur (accueil, detail projet, 404)
+ * et traitement du formulaire de contact.
+ *
+ * Le contenu du site n'est pas en base de donnees : il vit dans l'objet
+ * `portfolio` ci-dessous, passe tel quel aux vues EJS.
+ */
 const express = require('express');
 const rateLimit = require('express-rate-limit');
 const { body, validationResult } = require('express-validator');
 const nodemailer = require('nodemailer');
 const router = express.Router();
 
-// Rate limit strict pour le formulaire de contact (anti-spam)
+/**
+ * Rate limit strict reserve au formulaire de contact (anti-spam).
+ * Volontairement bien plus severe que le limiteur global de server.js :
+ * un humain n'a aucune raison d'envoyer plus de 3 messages par heure.
+ */
 const contactLimiter = rateLimit({
     windowMs: 60 * 60 * 1000, // 1 heure
     max: 3, // max 3 messages par IP par heure
@@ -13,13 +24,28 @@ const contactLimiter = rateLimit({
     message: { success: false, message: 'Trop de messages envoyés. Réessayez dans une heure.' }
 });
 
-// Sanitizer basique (anti header-injection pour email)
+/**
+ * Nettoie une valeur destinee aux en-tetes d'un email.
+ *
+ * Les retours chariot sont la faille classique ici : un `\r\n` injecte dans un
+ * champ comme le sujet permettrait d'ajouter des en-tetes arbitraires (Bcc...).
+ * On les remplace donc par un espace, en plus de retirer `<` et `>`.
+ *
+ * @param {unknown} str - Valeur brute issue du formulaire
+ * @returns {string} Chaine sure pour un en-tete d'email
+ */
 const sanitize = (str) => String(str || '')
     .replace(/[\r\n]/g, ' ')
     .replace(/[<>]/g, '')
     .trim();
 
-// Escape HTML pour les emails
+/**
+ * Echappe les caracteres speciaux HTML avant interpolation dans le corps
+ * HTML de l'email de notification.
+ *
+ * @param {unknown} str - Texte brut (nom, email, message)
+ * @returns {string} Texte sur a injecter dans du HTML
+ */
 const escapeHtml = (str) => String(str || '')
     .replace(/&/g, '&amp;')
     .replace(/</g, '&lt;')
@@ -27,8 +53,19 @@ const escapeHtml = (str) => String(str || '')
     .replace(/"/g, '&quot;')
     .replace(/'/g, '&#39;');
 
-// Transporteur Nodemailer (Gmail SMTP) — initialisé à la demande
+/** @type {import('nodemailer').Transporter | null} Transporteur memoise entre les requetes */
 let mailTransporter = null;
+
+/**
+ * Retourne le transporteur Nodemailer (Gmail SMTP), cree a la premiere demande.
+ *
+ * L'initialisation est paresseuse pour ne pas ouvrir de connexion au demarrage
+ * d'une fonction serverless. Si les variables d'environnement ne sont pas
+ * configurees, on retourne `null` : l'appelant bascule alors en mode
+ * log-only plutot que de planter.
+ *
+ * @returns {import('nodemailer').Transporter | null} Transporteur, ou null si non configure
+ */
 const getMailer = () => {
     if (mailTransporter) return mailTransporter;
     if (!process.env.GMAIL_USER || !process.env.GMAIL_APP_PASSWORD) {
@@ -44,7 +81,10 @@ const getMailer = () => {
     return mailTransporter;
 };
 
-// Portfolio data
+/**
+ * Source de verite du contenu affiche par les vues EJS.
+ * Toute modification du CV / des projets se fait ici.
+ */
 const portfolio = {
     name: 'Moussa Zedira',
     title: 'Technicien Support IT & Automatisation',
@@ -57,7 +97,6 @@ const portfolio = {
         `Objectif : une alternance en Île-de-France où je peux apprendre en équipe et apporter cette valeur ajoutée.`
     ],
     tags: ['Support IT', 'IA & Automatisation', 'Python', 'Cybersécurité', 'Réseaux', 'SQL'],
-    location: 'Argenteuil, Île-de-France',
     stats: {
         certifications: 5,
         projects: 4
@@ -430,12 +469,16 @@ const portfolio = {
     }
 };
 
-// Home page
+/** GET / — page d'accueil (one-page complet). */
 router.get('/', (req, res) => {
     res.render('index', { portfolio });
 });
 
-// Project detail page
+/**
+ * GET /projet/:slug — page de detail d'un projet.
+ * Un projet sans bloc `detail` n'a pas de page dediee : on renvoie un 404
+ * plutot qu'une page vide.
+ */
 router.get('/projet/:slug', (req, res) => {
     const project = portfolio.projects.find(p => p.slug === req.params.slug);
     if (!project || !project.detail) {
@@ -444,7 +487,17 @@ router.get('/projet/:slug', (req, res) => {
     res.render('project', { portfolio, project });
 });
 
-// Contact form handler — rate limit + validation + honeypot
+/**
+ * POST /contact — reception du formulaire de contact.
+ *
+ * Trois filtres successifs : rate limit par IP, honeypot (champ `website`
+ * invisible que seuls les bots remplissent), puis validation des champs.
+ *
+ * Choix deliberé : quand le honeypot se declenche ou que l'envoi SMTP echoue,
+ * on renvoie quand meme un succes. Un bot ne doit pas pouvoir distinguer un
+ * message passe d'un message bloque, et un visiteur legitime n'a rien a faire
+ * d'une erreur d'infrastructure — le message est de toute facon logue serveur.
+ */
 router.post('/contact',
     contactLimiter,
     [
@@ -513,16 +566,7 @@ router.post('/contact',
     }
 );
 
-// API: Get portfolio data (sans données sensibles)
-router.get('/api/portfolio', (req, res) => {
-    // Pas de CORS ouvert — seul le portfolio lui-même peut consommer l'API
-    res.set('Access-Control-Allow-Origin', req.get('origin') && req.get('host') && req.get('origin').includes(req.get('host')) ? req.get('origin') : 'null');
-    const publicData = { ...portfolio };
-    delete publicData.socials?.phone; // au cas où
-    res.json(publicData);
-});
-
-// 404 handler (toute route non matchée)
+/** Toute route non matchee : page 404. */
 router.use((req, res) => {
     res.status(404).render('404', { portfolio });
 });

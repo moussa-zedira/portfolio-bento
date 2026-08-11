@@ -1,11 +1,23 @@
 // ==========================================================================
 // ACTIVE THEORY INSPIRED PORTFOLIO — Scripts V3
 // GSAP + ScrollTrigger + Lenis + All Effects
+// --------------------------------------------------------------------------
+// Toutes les animations vivent dans ce fichier, decoupees en sections
+// numerotees suivant l'ordre d'apparition dans la page.
+//
+// Deux regles transverses :
+//  - chaque bloc verifie l'existence de ses elements avant d'agir, pour que
+//    la meme feuille de script serve l'accueil, la page projet et le 404 ;
+//  - les effets couteux ou vestibulaires sont conditionnes par les deux
+//    gardes ci-dessous (`isMobile`, `prefersReduced`), avec systematiquement
+//    un fallback statique — jamais un element laisse invisible.
 // ==========================================================================
 
 document.addEventListener('DOMContentLoaded', () => {
 
     // --- Guards ---
+    // Evalues une seule fois : les animations sont montees au chargement,
+    // un changement de taille en cours de session ne les reconfigure pas.
     const isMobile = window.matchMedia('(max-width: 768px)').matches;
     const prefersReduced = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
 
@@ -21,6 +33,11 @@ document.addEventListener('DOMContentLoaded', () => {
     if (grainCanvas && !prefersReduced) {
         const ctx = grainCanvas.getContext('2d');
 
+        /**
+         * Recale le canvas sur la fenetre, en demi-resolution.
+         * Le bruit etant aleatoire, la perte de definition ne se voit pas —
+         * mais on divise par 4 le nombre de pixels a regenerer a chaque frame.
+         */
         function resizeGrain() {
             grainCanvas.width = window.innerWidth / 2; // half-res for perf
             grainCanvas.height = window.innerHeight / 2;
@@ -153,6 +170,14 @@ document.addEventListener('DOMContentLoaded', () => {
                 dot.style.top = mouseY + 'px';
             });
 
+            /**
+             * Boucle d'animation de l'anneau du curseur.
+             *
+             * L'anneau ne suit pas la souris directement : il rattrape 12 % de
+             * l'ecart a chaque frame, ce qui produit le retard elastique. Le
+             * point central, lui, est positionne en direct dans le listener
+             * mousemove — d'ou l'effet de trainee entre les deux.
+             */
             function updateRing() {
                 ringX += (mouseX - ringX) * 0.12;
                 ringY += (mouseY - ringY) * 0.12;
@@ -167,7 +192,7 @@ document.addEventListener('DOMContentLoaded', () => {
             updateRing();
 
             // Hover states
-            document.querySelectorAll('a, button, .btn, .skills__stack-item, .contact__social, .section-nav__dot').forEach(el => {
+            document.querySelectorAll('a, button, .btn, .contact__social, .section-nav__dot').forEach(el => {
                 el.addEventListener('mouseenter', () => cursor.classList.add('cursor--hover'));
                 el.addEventListener('mouseleave', () => cursor.classList.remove('cursor--hover'));
             });
@@ -302,6 +327,12 @@ document.addEventListener('DOMContentLoaded', () => {
         const sectionCounter = document.getElementById('sectionCounter');
         const totalSections = navDots.length;
 
+        /**
+         * Marque la pastille de navigation correspondant a la section visible
+         * et met a jour le compteur "01 / 07".
+         *
+         * @param {number} index - Index de la section entree (0-based)
+         */
         function setActiveDot(index) {
             navDots.forEach(d => d.classList.remove('active'));
             if (navDots[index]) navDots[index].classList.add('active');
@@ -351,6 +382,16 @@ document.addEventListener('DOMContentLoaded', () => {
         line.innerHTML = `<span class="hero__line-inner">${text}</span>`;
     });
 
+    /**
+     * Joue la sequence d'entree du hero.
+     *
+     * Appelee depuis le loader (et non au DOMContentLoaded) pour que
+     * l'animation demarre pile quand le voile se retire, sans jouer dans le
+     * vide derriere l'ecran de chargement.
+     *
+     * En mode "reduced motion", on saute la timeline et on force simplement
+     * l'etat final : les elements doivent rester visibles, jamais masques.
+     */
     function initHeroAnimation() {
         if (prefersReduced) {
             gsap.set(['.hero__label', '.hero__title', '.hero__tag', '.hero__cta', '.hero__scroll'], { opacity: 1 });
@@ -510,7 +551,7 @@ document.addEventListener('DOMContentLoaded', () => {
     }
 
     // ==========================================================================
-    // 13b. PROJECT COUNTER (01/03 animé)
+    // 14. PROJECT COUNTER (01/03 animé)
     // ==========================================================================
     const projectCounterEl = document.getElementById('projectCounter');
     const projectCounterCurrent = document.getElementById('projectCounterCurrent');
@@ -535,6 +576,16 @@ document.addEventListener('DOMContentLoaded', () => {
             });
         });
 
+        /**
+         * Affiche le compteur de projets et fait transiter le numero courant.
+         *
+         * Le garde sur `currentProjectIndex` evite de rejouer la transition
+         * quand ScrollTrigger redeclenche sur le projet deja affiche ; le
+         * setTimeout laisse la classe `changing` faire son fondu avant que le
+         * texte ne soit remplace.
+         *
+         * @param {number} index - Index du projet entre dans le viewport
+         */
         function updateProjectCounter(index) {
             projectCounterEl.style.opacity = '1';
             if (index !== currentProjectIndex) {
@@ -549,7 +600,7 @@ document.addEventListener('DOMContentLoaded', () => {
     }
 
     // ==========================================================================
-    // 14. SEPARATOR LINE ANIMATION
+    // 15. SEPARATOR LINE ANIMATION
     // ==========================================================================
     document.querySelectorAll('.separator__line').forEach(line => {
         ScrollTrigger.create({
@@ -561,7 +612,7 @@ document.addEventListener('DOMContentLoaded', () => {
     });
 
     // ==========================================================================
-    // 15. ABOUT — Word-by-word reveal
+    // 16. ABOUT — Word-by-word reveal
     // ==========================================================================
     const aboutText = document.querySelector('[data-split-words]');
     if (aboutText) {
@@ -609,7 +660,10 @@ document.addEventListener('DOMContentLoaded', () => {
         });
     }
 
-    // About stats counter
+    // About stats counter — deux animations simultanees sur le meme element :
+    // le chiffre s'incremente jusqu'a data-count pendant que le bloc entre en
+    // scale. Un seul ScrollTrigger pilote les deux (ils partageaient auparavant
+    // le meme declencheur, duplique dans deux sections distinctes).
     document.querySelectorAll('.about__stat-number').forEach(el => {
         const target = parseInt(el.dataset.count);
         if (isNaN(target)) return;
@@ -619,6 +673,7 @@ document.addEventListener('DOMContentLoaded', () => {
             start: 'top 85%',
             once: true,
             onEnter: () => {
+                // Comptage : gsap interpole textContent, `snap` force des entiers
                 gsap.to(el, {
                     textContent: target,
                     duration: 1.2,
@@ -626,12 +681,17 @@ document.addEventListener('DOMContentLoaded', () => {
                     snap: { textContent: 1 },
                     onUpdate() { el.textContent = Math.round(parseFloat(el.textContent)); }
                 });
+                // Punch visuel, decale pour ne pas masquer le debut du comptage
+                gsap.fromTo(el, { scale: 0.5, opacity: 0 }, {
+                    scale: 1, opacity: 1, duration: 0.8, ease: 'back.out(2)',
+                    delay: 0.3
+                });
             }
         });
     });
 
     // ==========================================================================
-    // 16. PROJECT SECTIONS — Pin + Slide + Animations
+    // 17. PROJECT SECTIONS — Pin + Slide + Animations
     // ==========================================================================
     if (!isMobile && !prefersReduced) {
         document.querySelectorAll('.section--project').forEach(section => {
@@ -695,7 +755,7 @@ document.addEventListener('DOMContentLoaded', () => {
     }
 
     // ==========================================================================
-    // 16b. 3D TILT ON PROJECT VISUALS
+    // 18. 3D TILT ON PROJECT VISUALS
     // ==========================================================================
     if (!isMobile) {
         document.querySelectorAll('.project__visual').forEach(visual => {
@@ -723,7 +783,7 @@ document.addEventListener('DOMContentLoaded', () => {
     }
 
     // ==========================================================================
-    // 17. SKILLS SECTION
+    // 19. SKILLS SECTION
     // ==========================================================================
     document.querySelectorAll('.skill-domain').forEach((domain, i) => {
         gsap.fromTo(domain,
@@ -742,7 +802,7 @@ document.addEventListener('DOMContentLoaded', () => {
     });
 
     // Stagger reveals
-    document.querySelectorAll('.timeline__item, .certif-item, .lang-item, .about__tag, .skills__stack-item').forEach(el => {
+    document.querySelectorAll('.timeline__item, .certif-item, .lang-item, .about__tag').forEach(el => {
         gsap.fromTo(el, { y: 20, opacity: 0 }, {
             y: 0, opacity: 1, duration: 0.5,
             scrollTrigger: { trigger: el, start: 'top 90%', toggleActions: 'play none none none' }
@@ -750,7 +810,7 @@ document.addEventListener('DOMContentLoaded', () => {
     });
 
     // ==========================================================================
-    // 18. CONTACT SECTION
+    // 20. CONTACT SECTION
     // ==========================================================================
     const contactHeading = document.querySelector('.contact__heading');
     if (contactHeading && !prefersReduced) {
@@ -796,7 +856,7 @@ document.addEventListener('DOMContentLoaded', () => {
     }
 
     // ==========================================================================
-    // 19. PHOTO REVEAL MASK
+    // 21. PHOTO REVEAL MASK
     // ==========================================================================
     const photoMask = document.querySelector('.about__photo-mask');
     if (photoMask && !prefersReduced) {
@@ -817,7 +877,7 @@ document.addEventListener('DOMContentLoaded', () => {
     }
 
     // ==========================================================================
-    // 20. QUOTE SECTION — Word reveal + line + cite
+    // 22. QUOTE SECTION — Word reveal + line + cite
     // ==========================================================================
     const quoteText = document.querySelector('[data-split-words-quote]');
     if (quoteText) {
@@ -872,7 +932,7 @@ document.addEventListener('DOMContentLoaded', () => {
 
 
     // ==========================================================================
-    // 22. SECTION LABEL UNDERLINE ON SCROLL
+    // 23. SECTION LABEL UNDERLINE ON SCROLL
     // ==========================================================================
     document.querySelectorAll('.section-label').forEach(label => {
         ScrollTrigger.create({
@@ -884,25 +944,7 @@ document.addEventListener('DOMContentLoaded', () => {
     });
 
     // ==========================================================================
-    // 23. ABOUT STATS — Bigger counter animation
-    // ==========================================================================
-    // (already handled in section 15, but let's add a scale punch effect)
-    document.querySelectorAll('.about__stat-number').forEach(el => {
-        ScrollTrigger.create({
-            trigger: el,
-            start: 'top 85%',
-            once: true,
-            onEnter: () => {
-                gsap.fromTo(el, { scale: 0.5, opacity: 0 }, {
-                    scale: 1, opacity: 1, duration: 0.8, ease: 'back.out(2)',
-                    delay: 0.3
-                });
-            }
-        });
-    });
-
-    // ==========================================================================
-    // 25. HERO NAME PARALLAX (different speeds per line)
+    // 24. HERO NAME PARALLAX (different speeds per line)
     // ==========================================================================
     if (!isMobile && !prefersReduced) {
         const heroLines = document.querySelectorAll('.hero__line');
@@ -922,7 +964,7 @@ document.addEventListener('DOMContentLoaded', () => {
     }
 
     // ==========================================================================
-    // 26. MENU LINK MAGNETIC EFFECT
+    // 25. MENU LINK MAGNETIC EFFECT
     // ==========================================================================
     if (!isMobile) {
         document.querySelectorAll('.menu-link').forEach(link => {
@@ -950,7 +992,7 @@ document.addEventListener('DOMContentLoaded', () => {
     }
 
     // ==========================================================================
-    // 27. FOOTER "Merci." LETTER-BY-LETTER REVEAL
+    // 26. FOOTER "Merci." LETTER-BY-LETTER REVEAL
     // ==========================================================================
     const footerBigText = document.querySelector('.footer__big-text');
     if (footerBigText) {
@@ -980,7 +1022,7 @@ document.addEventListener('DOMContentLoaded', () => {
     }
 
     // ==========================================================================
-    // 28. BUTTON TEXT SLIDE SETUP
+    // 27. BUTTON TEXT SLIDE SETUP
     // ==========================================================================
     document.querySelectorAll('.btn').forEach(btn => {
         // Skip buttons that already have btn__text or contain complex inner markup (svgs, forms)
@@ -991,7 +1033,7 @@ document.addEventListener('DOMContentLoaded', () => {
     });
 
     // ==========================================================================
-    // 29. CONTACT SOCIAL ICONS STAGGER REVEAL
+    // 28. CONTACT SOCIAL ICONS STAGGER REVEAL
     // ==========================================================================
     const contactSocials = document.querySelectorAll('.contact__social');
     if (contactSocials.length && !prefersReduced) {
@@ -1013,7 +1055,7 @@ document.addEventListener('DOMContentLoaded', () => {
     }
 
     // ==========================================================================
-    // 30. FOOTER LINKS HOVER ANIMATION
+    // 29. FOOTER LINKS HOVER ANIMATION
     // ==========================================================================
     if (!isMobile) {
         document.querySelectorAll('.footer__links a').forEach(link => {
@@ -1027,7 +1069,7 @@ document.addEventListener('DOMContentLoaded', () => {
     }
 
     // ==========================================================================
-    // 24. SMOOTH SCROLL for anchor links
+    // 30. SMOOTH SCROLL for anchor links
     // ==========================================================================
     document.querySelectorAll('a[href^="#"]:not(.menu-link)').forEach(link => {
         link.addEventListener('click', (e) => {

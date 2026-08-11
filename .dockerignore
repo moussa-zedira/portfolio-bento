@@ -1,6 +1,23 @@
+# Dependances : reinstallees proprement dans l'image via npm ci
 node_modules
+
+# Secrets — ne doivent JAMAIS entrer dans une image publiee sur ghcr.io
+.env
+.env.*
+!.env.example
+
+# Historique et outillage local
 .git
 .gitignore
 .dockerignore
-Dockerfile
+.github
+.claude
+.vercel
+.vscode
+.idea
+
+# Sources non necessaires au runtime (le PDF servi est dans public/)
+cv
+scripts
 *.md
+*.log
