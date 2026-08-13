@@ -129,7 +129,7 @@ const portfolio = {
         },
         {
             category: 'Systèmes',
-            items: ['Windows 10/11 & Server', 'Linux (Ubuntu, Debian)', 'PowerShell', 'Bash', 'Virtualisation (VirtualBox)', 'VMware ESXi', 'vCenter', 'Hyper-V', 'Conteneurisation (Docker)', 'Supervision (monitoring)']
+            items: ['Windows 10/11 & Server 2022', 'Linux (Ubuntu, Debian)', 'PowerShell', 'Bash', 'LVM', 'Virtualisation (VirtualBox, Proxmox)', 'VMware ESXi', 'vCenter', 'Hyper-V', 'Conteneurisation (Docker, docker-compose)', 'Supervision (monitoring)']
         },
         {
             category: 'Réseaux',
@@ -137,15 +137,15 @@ const portfolio = {
         },
         {
             category: 'IA & Automatisation',
-            items: ['Claude / ChatGPT (prompting avancé)', 'Scripts Python (automatisation)', 'Workflows automatisés (n8n)', 'Traitement de données', 'Génération de documentation', 'Triage automatique']
+            items: ['Claude / ChatGPT (prompting avancé)', 'Scripts Python (automatisation)', 'Workflows automatisés (n8n)', 'RAG & embeddings (FAISS)', 'Traitement de données', 'Génération de documentation', 'Triage automatique']
         },
         {
             category: 'Développement',
-            items: ['Python', 'SQL (PostgreSQL)', 'JavaScript / React', 'Git & GitHub', 'API REST']
+            items: ['Python (FastAPI)', 'SQL (PostgreSQL)', 'JavaScript / React', 'Next.js', 'Redis', 'Git & GitHub', 'API REST']
         },
         {
             category: 'Cybersécurité',
-            items: ['Analyse de logs', 'SIEM (concepts)', 'SOAR (concepts)', 'Détection de menaces', 'Sécurité réseau', 'Durcissement (fail2ban, SSH)', 'Sauvegardes', 'Veille CVE']
+            items: ['Analyse de logs', 'SIEM (concepts)', 'SOAR (concepts)', 'MITRE ATT&CK', 'Détection de menaces', 'Sécurité réseau', 'Durcissement (fail2ban, SSH)', 'Sauvegardes', 'Veille CVE']
         }
     ],
     stack: [
