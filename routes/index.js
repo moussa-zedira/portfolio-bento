@@ -89,16 +89,16 @@ const portfolio = {
     name: 'Moussa Zedira',
     title: 'Technicien Support IT & Automatisation',
     subtitle: 'Support IT • IA & Automatisation • Réseaux • Python',
-    seeking: 'Recherche alternance Support IT / Helpdesk — IA & Automatisation — Île-de-France',
+    seeking: 'Recherche alternance en BTS SIO option SISR — Support IT & Automatisation — Île-de-France',
     aboutHook: `Technicien support IT en formation — et je code mes propres outils pour résoudre les problèmes plus vite.`,
     aboutPoints: [
         `Le support IT, c'est le contact humain : un utilisateur bloqué, un diagnostic à poser, un problème résolu.`,
         `Ce qui me différencie : j'utilise l'IA et Python pour automatiser le tri de tickets, scripter les tâches répétitives, générer de la documentation.`,
         `Objectif : une alternance en Île-de-France où je peux apprendre en équipe et apporter cette valeur ajoutée.`
     ],
-    tags: ['Support IT', 'IA & Automatisation', 'Python', 'Cybersécurité', 'Réseaux', 'SQL'],
+    tags: ['Support IT', 'Systèmes', 'Virtualisation', 'Réseaux', 'Cybersécurité', 'Automatisation'],
     stats: {
-        certifications: 5,
+        certifications: 4,
         projects: 4
     },
     formation: [
@@ -119,33 +119,32 @@ const portfolio = {
         'Cisco — Cybersecurity Essentials',
         'Cisco — Networking Essentials',
         'Cisco — Python Essentials',
-        'Cisco — Linux Unhatched',
-        'Anthropic — IA Générative & Prompt Engineering'
+        'Cisco — Linux Unhatched'
     ],
     skills: [
         {
             category: 'Support IT',
-            items: ['Diagnostic & dépannage', 'GLPI (ticketing)', 'Active Directory', 'Assistance utilisateurs', 'Documentation technique']
+            items: ['Diagnostic & dépannage', 'GLPI', 'Active Directory', 'Assistance utilisateurs', 'Documentation technique']
         },
         {
             category: 'Systèmes',
-            items: ['Windows 10/11 & Server 2022', 'Linux (Ubuntu, Debian)', 'PowerShell', 'Bash', 'LVM', 'Virtualisation (VirtualBox, Proxmox)', 'VMware ESXi', 'vCenter', 'Hyper-V', 'Conteneurisation (Docker, docker-compose)', 'Supervision (monitoring)']
+            items: ['Windows 10/11 & Server 2022', 'Linux (Ubuntu, Debian)', 'PowerShell', 'Bash', 'LVM']
+        },
+        {
+            category: 'Virtualisation',
+            items: ['Proxmox', 'VMware ESXi', 'Hyper-V', 'Docker']
         },
         {
             category: 'Réseaux',
-            items: ['TCP/IP, DNS, DHCP', 'Cisco IOS (Packet Tracer)', 'Switchs & routeurs', 'Wi-Fi & VPN', 'Reverse proxy (Nginx)', 'Wireshark']
-        },
-        {
-            category: 'IA & Automatisation',
-            items: ['Claude / ChatGPT (prompting avancé)', 'Scripts Python (automatisation)', 'Workflows automatisés (n8n)', 'RAG & embeddings (FAISS)', 'Traitement de données', 'Génération de documentation', 'Triage automatique']
-        },
-        {
-            category: 'Développement',
-            items: ['Python (FastAPI)', 'SQL (PostgreSQL)', 'JavaScript / React', 'Next.js', 'Redis', 'Git & GitHub', 'API REST']
+            items: ['TCP/IP, DNS, DHCP', 'Cisco IOS', 'Switchs & routeurs', 'Wi-Fi & VPN', 'Nginx', 'Wireshark']
         },
         {
             category: 'Cybersécurité',
-            items: ['Analyse de logs', 'SIEM (concepts)', 'SOAR (concepts)', 'MITRE ATT&CK', 'Détection de menaces', 'Sécurité réseau', 'Durcissement (fail2ban, SSH)', 'Sauvegardes', 'Veille CVE']
+            items: ['Analyse de logs', 'SIEM', 'MITRE ATT&CK', 'Durcissement (fail2ban, SSH)', 'Sauvegardes', 'Veille CVE']
+        },
+        {
+            category: 'Automatisation',
+            items: ['Scripts Python', 'Workflows n8n', 'Triage automatique de tickets', 'IA appliquée au support']
         }
     ],
     stack: [
@@ -154,30 +153,24 @@ const portfolio = {
         { name: 'Linux', icon: 'linux' },
         { name: 'Docker', icon: 'docker' },
         { name: 'VMware ESXi', icon: 'vmware' },
-        { name: 'vCenter', icon: 'vmware' },
+        { name: 'Proxmox', icon: 'vmware' },
         { name: 'Hyper-V', icon: 'hyperv' },
         { name: 'Windows', icon: 'windows' },
         { name: 'Cisco', icon: 'cisco' },
-        { name: 'SOAR', icon: 'soar' },
         { name: 'Git', icon: 'git' },
         { name: 'GLPI', icon: 'glpi' },
         { name: 'Claude IA', icon: 'ai' }
     ],
     experiences: [
         {
-            period: 'Juil. - Sept. 2026',
+            period: 'Juillet 2026 - Septembre 2026',
             title: 'Stage — Technicien informatique',
-            company: 'Omexom Nuclear Projects (VINCI Energies), Colombes (92) — support aux utilisateurs, gestion du parc, incidents matériels et logiciels'
+            company: 'Omexom Nuclear Projects (VINCI Energies), Colombes (92) — support aux utilisateurs, gestion du parc, incidents matériels et logiciels. Participation à une analyse de risques et aux travaux de mise en conformité NIS2'
         },
         {
             period: '2025 - 2026',
             title: 'Gérant — Entreprise de nettoyage',
             company: 'Gestion complète : clients, planning, facturation, coordination d\'équipe'
-        },
-        {
-            period: '2025',
-            title: 'Opérateur logistique',
-            company: 'Amazon (Delivery Service Partner) — process, outils numériques et reporting'
         }
     ],
     projects: [
