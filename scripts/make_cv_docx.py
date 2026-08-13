@@ -8,8 +8,10 @@ tous les ATS majeurs, contre 83 % pour le PDF sur Taleo — l'un des plus
 rigides et des plus repandus. Douze points d'ecart sur un seul moteur.
 
 Le contenu n'est PAS ressaisi ici : il est lu dans cv/cv.html, qui reste
-l'unique source. C'est exactement l'erreur que cv.tex a commise en
-divergeant silencieusement pendant des mois.
+l'unique source. Une seconde version du CV, en LaTeX, a coexiste pendant
+des mois et a fini par decrire un CV entierement perime sans que personne
+s'en apercoive. Toute version supplementaire doit donc etre generee, pas
+maintenue a la main.
 
 Sur les polices. Le PDF embarque Newsreader et IBM Plex Sans, donc il
 s'affiche partout a l'identique. Un .docx ne peut pas offrir ca : Word
