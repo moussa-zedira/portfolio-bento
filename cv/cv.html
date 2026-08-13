@@ -2,293 +2,309 @@
 <html lang="fr">
 <head>
     <meta charset="UTF-8">
-    <title>CV — Moussa Zedira — Technicien Support IT</title>
+    <title>CV - Moussa Zedira - Technicien Support IT</title>
     <style>
+        /* ==========================================================
+           TYPOGRAPHIE
+
+           Les polices sont embarquees dans cv/fonts/ et non appelees
+           par leur nom. Une regle `font-family: 'Inter'` ne sert a
+           rien si Inter n'est pas installee : le navigateur retombe
+           silencieusement sur Calibri, et le document prend l'allure
+           d'un fichier Word.
+
+           Deux polices, pas plus : Newsreader pour le nom et les
+           intitules, IBM Plex Sans pour tout le reste.
+           ========================================================== */
+        @font-face {
+            font-family: 'Newsreader';
+            src: url('fonts/newsreader.woff2') format('woff2');
+            font-weight: 400 700;
+            font-style: normal;
+            font-display: block;
+        }
+
+        @font-face {
+            font-family: 'Plex';
+            src: url('fonts/plex-400.woff2') format('woff2');
+            font-weight: 400;
+            font-display: block;
+        }
+
+        @font-face {
+            font-family: 'Plex';
+            src: url('fonts/plex-500.woff2') format('woff2');
+            font-weight: 500;
+            font-display: block;
+        }
+
+        @font-face {
+            font-family: 'Plex';
+            src: url('fonts/plex-600.woff2') format('woff2');
+            font-weight: 600;
+            font-display: block;
+        }
+
         /* ===========================
-           PRINT SETUP (A4, 1 page)
+           PAGE
            =========================== */
         @page {
             size: A4;
-            margin: 10mm 12mm;
+            margin: 12mm 14mm;
         }
 
         * { box-sizing: border-box; margin: 0; padding: 0; }
 
         :root {
-            --accent: #f59e0b;
-            --dark: #1a1a1a;
-            --muted: #666666;
-            --light: #f5f5f5;
+            --ink: #16181c;
+            --body: #33373d;
+            --muted: #6b7079;
+            --accent: #b45309;
+            --hairline: #e0dedb;
         }
 
         html, body {
-            font-family: 'Inter', 'Calibri', 'Segoe UI', Arial, sans-serif;
-            font-size: 9pt;
-            line-height: 1.35;
-            color: var(--dark);
+            font-family: 'Plex', 'Segoe UI', Arial, sans-serif;
+            font-size: 8.8pt;
+            line-height: 1.42;
+            color: var(--body);
             background: white;
+
+            /* Ligatures desactivees : sans cela le PDF encode
+               "configuration" avec le glyphe unique U+FB01 et
+               "workflows" avec U+FB02. Les ATS cherchent la chaine
+               exacte et ne trouvent rien. */
+            font-variant-ligatures: none;
+            -webkit-font-variant-ligatures: none;
+            font-feature-settings: 'liga' 0, 'clig' 0, 'dlig' 0, 'hlig' 0;
+            -webkit-font-smoothing: antialiased;
         }
 
         .page {
             max-width: 210mm;
-            padding: 11mm 13mm;
+            padding: 14mm 15mm;
             margin: 0 auto;
             background: white;
         }
 
         /* ===========================
-           HEADER
+           EN-TETE
            =========================== */
         .header {
-            text-align: center;
-            padding-bottom: 6px;
-            margin-bottom: 8px;
-            border-bottom: 2px solid var(--accent);
+            padding-bottom: 8px;
+            margin-bottom: 10px;
+            border-bottom: 1.5px solid var(--ink);
         }
 
         .header h1 {
-            font-size: 20pt;
-            font-weight: 700;
-            color: var(--dark);
-            letter-spacing: -0.5px;
-            line-height: 1.1;
-            margin-bottom: 1px;
+            font-family: 'Newsreader', Georgia, serif;
+            font-size: 24pt;
+            font-weight: 600;
+            font-optical-sizing: auto;
+            color: var(--ink);
+            letter-spacing: -0.4px;
+            line-height: 1;
+            margin-bottom: 4px;
         }
 
-        .header .title {
-            font-size: 11pt;
-            color: var(--accent);
+        .header .role {
+            font-size: 8pt;
             font-weight: 600;
+            text-transform: uppercase;
+            letter-spacing: 1.8px;
+            color: var(--accent);
+            margin-bottom: 6px;
+        }
+
+        /* L'objectif n'est pas une coordonnee : sorti du bloc de contact et
+           passe en encre, il ne reste plus que deux lignes de gris sous le
+           nom au lieu de trois. C'est aussi la phrase que le recruteur doit
+           lire en premier — elle ne peut pas etre au meme niveau qu'un
+           numero de permis. */
+        .header .objectif {
+            font-size: 8.8pt;
+            color: var(--ink);
             margin-bottom: 5px;
         }
 
         .header .contact {
             font-size: 8pt;
             color: var(--muted);
-            line-height: 1.5;
+            line-height: 1.55;
         }
 
-        .header .contact a {
-            color: var(--muted);
-            text-decoration: none;
-        }
-
-        .header .contact .sep {
-            margin: 0 6px;
-            color: #ccc;
-        }
+        .header .contact a { color: var(--muted); text-decoration: none; }
+        .header .contact .sep { margin: 0 5px; color: #cbc9c4; }
 
         /* ===========================
            ACCROCHE
            =========================== */
         .intro {
-            font-size: 9pt;
+            font-size: 8.8pt;
             line-height: 1.45;
-            margin-bottom: 9px;
-            padding: 6px 10px;
-            background: #fef9f1;
-            border-left: 3px solid var(--accent);
+            color: var(--ink);
+            margin-bottom: 14px;
         }
 
-        .intro strong { color: var(--dark); }
+        .intro strong { font-weight: 600; }
 
         /* ===========================
            SECTIONS
            =========================== */
-        section { margin-bottom: 8px; }
+        section { margin-bottom: 19px; }
+        section:last-child { margin-bottom: 0; }
 
-        h2.section-title {
-            font-size: 9.5pt;
-            font-weight: 700;
+        /* Echelle typographique du document, quatre corps et pas un de
+           plus : 24 / 10,5 / 8,8 / 8 pt. Les tailles intermediaires
+           ajoutees au fil des reglages (8,6 / 8,4 / 8,2 / 7,6 / 7,4)
+           ne portaient aucune information : elles brouillaient la
+           hierarchie.
+
+           France Travail recommande 10 a 12 pt pour le texte courant.
+           On reste en dessous parce que la contrainte d'une seule page
+           prime : un CV sur deux pages se fait couper une section au
+           saut de page, et l'extraction ressort alors dans le desordre.
+           8,8 pt est le compromis, pas un ideal. */
+        h2 {
+            font-size: 8pt;
+            font-weight: 600;
             text-transform: uppercase;
-            letter-spacing: 1.2px;
-            color: var(--accent);
-            padding-bottom: 2px;
-            border-bottom: 1px solid #e5e5e5;
-            margin-bottom: 5px;
+            letter-spacing: 1.6px;
+            color: var(--muted);
+            padding-bottom: 4px;
+            margin-bottom: 10px;
+            border-bottom: 1px solid var(--hairline);
         }
 
         /* ===========================
-           COMPÉTENCES (liste ATS-friendly)
+           COMPETENCES
            =========================== */
-        .skills-list { width: 100%; }
-
         .skills-row {
             display: flex;
-            padding: 2.5px 0;
-            border-bottom: 1px solid #f0f0f0;
-            font-size: 8.5pt;
-            line-height: 1.35;
+            padding: 3.2px 0;
+            font-size: 8.8pt;
+            line-height: 1.4;
         }
 
-        .skills-row:last-child { border-bottom: none; }
-
         .skills-label {
-            width: 28%;
-            font-weight: 700;
-            color: var(--dark);
+            width: 23%;
+            font-weight: 600;
+            color: var(--ink);
             padding-right: 12px;
             flex-shrink: 0;
         }
 
-        .skills-value { color: #333; flex: 1; }
+        .skills-value { flex: 1; }
+
+        /* Un mot-cle en deux mots coupe par un retour a la ligne n'est
+           plus trouvable : le texte extrait contient "VMware\nESXi", et
+           un ATS qui cherche l'expression exacte echoue. On empeche donc
+           la coupure a l'interieur des mots-cles composes. Le PDF garde
+           une espace normale entre les deux mots : c'est bien le saut de
+           ligne qu'on interdit, pas l'espace. */
+        .nw { white-space: nowrap; }
 
         /* ===========================
-           ITEMS (formation, expérience)
+           ENTREES
            =========================== */
-        .item {
-            margin-bottom: 5px;
-        }
+        .item { margin-bottom: 12px; }
+        .item:last-child { margin-bottom: 0; }
 
-        .item .item-head {
+        .item-head {
             display: flex;
             justify-content: space-between;
             align-items: baseline;
-            margin-bottom: 0;
+            gap: 10px;
         }
 
-        .item .item-title {
-            font-weight: 700;
-            font-size: 9pt;
-            color: var(--dark);
+        .item-head h3 {
+            font-family: 'Newsreader', Georgia, serif;
+            font-size: 10.5pt;
+            font-weight: 600;
+            font-optical-sizing: auto;
+            color: var(--ink);
+            line-height: 1.2;
         }
 
-        .item .item-date {
+        .item-head .date {
             font-size: 8pt;
             color: var(--muted);
-            font-style: italic;
             white-space: nowrap;
-            padding-left: 10px;
         }
 
-        .item .item-sub {
-            font-style: italic;
-            font-size: 8.5pt;
+        .org {
+            font-size: 8.8pt;
             color: var(--muted);
-            margin-bottom: 1px;
         }
 
-        .item .item-desc {
-            font-size: 8.5pt;
-            line-height: 1.4;
-            color: #333;
+        .desc {
+            font-size: 8.8pt;
+            line-height: 1.44;
+            margin-top: 1px;
         }
 
-        /* ===========================
-           PROJETS
-           =========================== */
-        .project {
-            margin-bottom: 4px;
-            padding-bottom: 3px;
-            border-bottom: 1px dotted #eaeaea;
+        /* Puces en flux normal, avec retrait negatif plutot qu'un
+           marqueur positionne : un element en position absolue est
+           peint apres le contenu en flux, et l'extraction du PDF suit
+           l'ordre de peinture. Des puces absolues ressortaient donc
+           apres le texte qu'elles introduisent. */
+        .bullets {
+            list-style: none;
+            margin-top: 3px;
         }
 
-        .project:last-child {
-            border-bottom: none;
-            margin-bottom: 0;
+        .bullets li {
+            font-size: 8.8pt;
+            line-height: 1.44;
+            padding-left: 11px;
+            text-indent: -11px;
+            margin-bottom: 1.5px;
         }
 
-        .project .project-head {
-            font-weight: 700;
-            font-size: 9pt;
-            color: var(--dark);
-            margin-bottom: 0;
+        .bullets li::before {
+            content: '\2022';
+            color: var(--accent);
+            margin-right: 6px;
         }
 
-        .project .project-head .project-link {
-            font-weight: 400;
+        .link {
             font-size: 8pt;
+            font-weight: 400;
             color: var(--accent);
             text-decoration: none;
-            font-style: italic;
-        }
-
-        .project .project-head .project-tag {
-            font-size: 7pt;
-            background: #fef3e2;
-            color: var(--accent);
-            padding: 1px 5px;
-            border-radius: 3px;
-            margin-left: 6px;
-            font-weight: 600;
-            text-transform: uppercase;
-            letter-spacing: 0.3px;
-            vertical-align: middle;
-        }
-
-        .project .project-desc {
-            font-size: 8.3pt;
-            line-height: 1.38;
-            color: #444;
+            margin-left: 2px;
         }
 
         /* ===========================
-           CERTIFS + LANGUES (2 colonnes)
-           =========================== */
-        .two-col {
-            display: flex;
-            gap: 20px;
-        }
-
-        .two-col > div { flex: 1; }
-
-        .two-col ul {
-            list-style: none;
-            padding: 0;
-        }
-
-        .two-col li {
-            font-size: 8.5pt;
-            padding: 1px 0 1px 11px;
-            position: relative;
-            color: #333;
-        }
-
-        .two-col li::before {
-            content: '';
-            position: absolute;
-            left: 0;
-            top: 6px;
-            width: 4px;
-            height: 4px;
-            background: var(--accent);
-            border-radius: 50%;
-        }
-
-        /* ===========================
-           PRINT OVERRIDES
+           IMPRESSION
            =========================== */
         @media print {
             html, body { background: white; }
-            .page {
-                padding: 0;
-                max-width: 100%;
-            }
+            .page { padding: 0; max-width: 100%; }
+            /* Une section coupee par un saut de page ressort dans le
+               desordre a l'extraction : les elements des deux pages
+               s'entremelent. On interdit la coupure. */
+            section, .item, .skills-row { break-inside: avoid; }
             a { color: inherit !important; text-decoration: none !important; }
             .no-print { display: none !important; }
         }
 
-        /* Screen helpers (non-print) */
         @media screen {
-            body {
-                background: #e5e5e5;
-                padding: 20px 0;
-            }
+            body { background: #e8e6e1; padding: 24px 0; }
             .page {
-                box-shadow: 0 4px 20px rgba(0,0,0,0.1);
+                box-shadow: 0 6px 28px rgba(0,0,0,0.12);
                 min-height: 297mm;
             }
             .print-notice {
                 position: fixed;
                 top: 15px;
                 right: 15px;
-                background: var(--accent);
+                background: var(--ink);
                 color: white;
-                padding: 10px 16px;
-                border-radius: 6px;
-                font-size: 11pt;
-                font-weight: 600;
-                box-shadow: 0 4px 12px rgba(0,0,0,0.15);
+                padding: 9px 14px;
+                border-radius: 5px;
+                font-size: 8.5pt;
+                box-shadow: 0 4px 12px rgba(0,0,0,0.18);
                 z-index: 1000;
             }
         }
@@ -296,20 +312,22 @@
 </head>
 <body>
 
-<div class="print-notice no-print">
-    Ctrl+P → Enregistrer en PDF
-</div>
+<!-- Le PDF ne se fabrique pas au Ctrl+P : voir scripts/make_cv_pdf.py,
+     qui verifie au passage que le resultat reste lisible par un ATS. -->
+<div class="print-notice no-print">python scripts/make_cv_pdf.py</div>
 
 <div class="page">
 
-    <!-- HEADER -->
     <header class="header">
         <h1>Moussa Zedira</h1>
-        <div class="title">Technicien Support IT &amp; Automatisation</div>
-        <div class="contact">
-            Argenteuil (95) — Mobile Île-de-France
+        <p class="role">Technicien Support IT &amp; Automatisation</p>
+        <p class="objectif">Recherche une alternance en <span class="nw">BTS SIO</span> option SISR (Solutions d'Infrastructure, Systèmes et Réseaux)</p>
+        <p class="contact">
+            Argenteuil (95), France
             <span class="sep">|</span>
-            Permis B &amp; moto
+            Mobile Île-de-France
+            <span class="sep">|</span>
+            Permis B &amp; A2
             <br>
             <a href="mailto:moussazedira@gmail.com">moussazedira@gmail.com</a>
             <span class="sep">|</span>
@@ -318,147 +336,119 @@
             <a href="https://www.linkedin.com/in/moussa-zedira-15abba3b8">linkedin.com/in/moussa-zedira</a>
             <span class="sep">|</span>
             <a href="https://github.com/moussa-zedira">github.com/moussa-zedira</a>
-        </div>
+        </p>
     </header>
 
-    <!-- ACCROCHE -->
-    <div class="intro">
-        <strong>Technicien support IT en formation TIP à Doranco</strong>, je combine méthode classique du support (Active Directory, GLPI, ticketing) et maîtrise de l'IA/automatisation pour accélérer le traitement des demandes. Recherche <strong>alternance en BTS SIO option SISR</strong> pour apporter cette valeur ajoutée au sein d'une vraie équipe IT.
-    </div>
-
-    <!-- COMPÉTENCES -->
     <section>
-        <h2 class="section-title">Compétences techniques</h2>
-        <div class="skills-list">
-            <div class="skills-row">
-                <div class="skills-label">Support IT</div>
-                <div class="skills-value">Diagnostic &amp; dépannage, GLPI (ticketing), Active Directory, assistance utilisateurs, documentation technique</div>
-            </div>
-            <div class="skills-row">
-                <div class="skills-label">Systèmes</div>
-                <div class="skills-value">Windows 10/11 &amp; Server 2022, Linux (Ubuntu, Debian), PowerShell, Bash, virtualisation (VirtualBox, Proxmox, VMware ESXi, vCenter, Hyper-V), conteneurisation (Docker, docker-compose), supervision (monitoring)</div>
-            </div>
-            <div class="skills-row">
-                <div class="skills-label">Réseaux</div>
-                <div class="skills-value">TCP/IP, DNS, DHCP, Cisco IOS (Packet Tracer), switchs &amp; routeurs, Wi-Fi &amp; VPN, reverse proxy (Nginx), Wireshark</div>
-            </div>
-            <div class="skills-row">
-                <div class="skills-label">IA &amp; Automatisation</div>
-                <div class="skills-value">Claude &amp; ChatGPT (prompt engineering), scripts Python, automatisation de workflows (n8n), triage automatique de tickets, génération de documentation</div>
-            </div>
-            <div class="skills-row">
-                <div class="skills-label">Développement</div>
-                <div class="skills-value">Python, SQL (PostgreSQL), JavaScript/React, Git &amp; GitHub, API REST</div>
-            </div>
-            <div class="skills-row">
-                <div class="skills-label">Cybersécurité</div>
-                <div class="skills-value">Analyse de logs, SIEM &amp; SOAR (concepts), détection de menaces, sécurité réseau, durcissement système (fail2ban, SSH), sauvegardes, veille CVE</div>
-            </div>
+        <h2>Compétences techniques</h2>
+        <div class="skills-row">
+            <div class="skills-label">Support IT</div>
+            <div class="skills-value">Diagnostic &amp; dépannage, GLPI, <span class="nw">Active Directory</span>, assistance utilisateurs, documentation technique</div>
+        </div>
+        <div class="skills-row">
+            <div class="skills-label">Systèmes</div>
+            <div class="skills-value">Windows 10/11 &amp; Server 2022, Linux (Ubuntu, Debian), PowerShell, Bash, LVM</div>
+        </div>
+        <div class="skills-row">
+            <div class="skills-label">Virtualisation</div>
+            <div class="skills-value">Proxmox, <span class="nw">VMware ESXi</span>, Hyper-V, Docker</div>
+        </div>
+        <div class="skills-row">
+            <div class="skills-label">Réseaux</div>
+            <div class="skills-value">TCP/IP, DNS, DHCP, <span class="nw">Cisco IOS</span>, switchs &amp; routeurs, Wi-Fi &amp; VPN, Nginx, Wireshark</div>
+        </div>
+        <div class="skills-row">
+            <div class="skills-label">Cybersécurité</div>
+            <div class="skills-value">Analyse de logs, SIEM, <span class="nw">MITRE ATT&amp;CK</span>, durcissement système (fail2ban, SSH), sauvegardes, veille CVE</div>
+        </div>
+        <div class="skills-row">
+            <div class="skills-label">Automatisation</div>
+            <div class="skills-value">Scripts Python, workflows n8n, triage automatique de tickets, IA appliquée au support</div>
         </div>
     </section>
 
-    <!-- FORMATION -->
     <section>
-        <h2 class="section-title">Formation</h2>
+        <h2>Expérience professionnelle</h2>
         <div class="item">
             <div class="item-head">
-                <span class="item-title">Titre Professionnel — Technicien d'Assistance Informatique (TIP)</span>
-                <span class="item-date">2025 — 2026</span>
+                <h3>Stage - Technicien informatique</h3>
+                <span class="date">Juillet 2026 - Septembre 2026</span>
             </div>
-            <div class="item-sub">Doranco, Bagnolet</div>
-            <div class="item-desc">Support utilisateurs, réseaux, systèmes, cybersécurité</div>
+            <p class="org">Omexom Nuclear Projects (VINCI Energies), Colombes (92)</p>
+            <ul class="bullets">
+                <li>Participation à une analyse de risques et aux travaux de mise en conformité NIS2</li>
+                <li>Support aux utilisateurs, résolution d'incidents matériels et logiciels</li>
+                <li>Gestion du parc informatique, installation et configuration des postes de travail</li>
+            </ul>
         </div>
         <div class="item">
             <div class="item-head">
-                <span class="item-title">Parcours Baccalauréat Général</span>
-                <span class="item-date">2025</span>
+                <h3>Gérant - Entreprise de nettoyage</h3>
+                <span class="date">2025 - 2026</span>
             </div>
-            <div class="item-sub">Argenteuil</div>
-            <div class="item-desc">Spécialités : Mathématiques, NSI (Numérique &amp; Sciences Informatiques), Sciences de l'ingénieur</div>
+            <p class="org">Activité indépendante</p>
+            <p class="desc">Gestion clients, planning, facturation, coordination d'équipe.</p>
         </div>
     </section>
 
-    <!-- PROJETS -->
     <section>
-        <h2 class="section-title">Projets techniques</h2>
-
-        <div class="project">
-            <div class="project-head">
-                HomeLab — Serveur Linux auto-hébergé & services Docker
+        <h2>Projets techniques</h2>
+        <div class="item">
+            <div class="item-head">
+                <h3>HomeLab - Serveur Linux auto-hébergé &amp; services Docker</h3>
             </div>
-            <div class="project-desc">Serveur Debian (mini-PC, LVM), 12 services conteneurisés Docker (cloud, médias, Git, DNS, supervision, reverse proxy). Accès distant chiffré sans exposition Internet, durcissement SSH/fail2ban, sauvegardes BDD.</div>
+            <p class="desc">Serveur Debian (mini-PC, LVM), 12 services conteneurisés Docker (cloud, médias, Git, DNS, supervision, reverse proxy). Accès distant chiffré sans exposition Internet, durcissement SSH/fail2ban, sauvegardes BDD.</p>
         </div>
-
-        <div class="project">
-            <div class="project-head">CyberDef — Plateforme cybersécurité tout-en-un</div>
-            <div class="project-desc">SIEM + Red Team (Sliver C2, GoPhish, BloodHound) + Pentest + Assistant IA multi-provider. Python/FastAPI (1046 endpoints, 135 routers), Next.js 15, PostgreSQL, Redis, Celery. 30 pages UI, RAG 11k docs (MITRE/CVE/Sigma).</div>
-        </div>
-
-        <div class="project">
-            <div class="project-head">
-                Chapitres — Plateforme éducative pour lycéens
-                <a href="https://meschapitres.fr" class="project-link">meschapitres.fr</a>
+        <div class="item">
+            <div class="item-head">
+                <h3>CyberDef - Plateforme SOC personnelle</h3>
             </div>
-            <div class="project-desc">Next.js/React, 504+ chapitres de la Seconde à la Terminale, quiz interactifs chronométrés, annales du Bac 2021-2024. Déployé sur Vercel, PWA installable. Plus de 1400 utilisateurs actifs.</div>
+            <p class="desc">Réunit dans une seule interface ce qu'un analyste SOC utilise séparément : collecte et corrélation de logs, simulation d'attaque (Sliver C2, BloodHound), et un assistant qui interroge 11 000 documents de référence - <span class="nw">MITRE ATT&amp;CK</span>, CVE, règles Sigma. Architecture conteneurisée : Python/FastAPI, PostgreSQL, Redis.</p>
         </div>
-
-        <div class="project">
-            <div class="project-head">GDChess — Jeu d'échecs avec IA multi-niveaux</div>
-            <div class="project-desc">Godot 4.6 / GDScript, algorithme Minimax avec élagage alpha-beta (profondeur 4), 3 niveaux d'IA, règles FIDE complètes, 3 thèmes visuels.</div>
+        <div class="item">
+            <div class="item-head">
+                <!-- L'espace avant le lien doit etre un vrai caractere, pas une
+                     marge CSS : une marge ne laisse aucune trace dans le texte
+                     extrait, et l'ATS lisait "lyceensmeschapitres.fr". -->
+                <h3>Chapitres - Plateforme éducative pour lycéens <a href="https://meschapitres.fr" class="link">meschapitres.fr</a></h3>
+            </div>
+            <p class="desc">Next.js/React, 504+ chapitres de la Seconde à la Terminale, quiz chronométrés, annales du Bac 2021-2024. Déployé sur Vercel, PWA installable.</p>
+        </div>
+        <div class="item">
+            <div class="item-head">
+                <h3>GDChess - Jeu d'échecs avec IA multi-niveaux</h3>
+            </div>
+            <p class="desc">Godot 4.6 / GDScript, algorithme Minimax avec élagage alpha-beta (profondeur 4), 3 niveaux d'IA, règles FIDE complètes.</p>
         </div>
     </section>
 
-    <!-- EXPÉRIENCE -->
     <section>
-        <h2 class="section-title">Expérience professionnelle</h2>
+        <h2>Formation</h2>
         <div class="item">
             <div class="item-head">
-                <span class="item-title">Stage — Technicien informatique</span>
-                <span class="item-date">Juil. — Sept. 2026</span>
+                <h3>Titre Professionnel - Technicien d'Assistance Informatique (TIP)</h3>
+                <span class="date">2025 - 2026</span>
             </div>
-            <div class="item-sub">Omexom Nuclear Projects (VINCI Energies), Colombes (92)</div>
-            <div class="item-desc">Support aux utilisateurs, gestion du parc informatique, installation et configuration des postes de travail, résolution d'incidents matériels et logiciels.</div>
+            <p class="org">Doranco, Bagnolet</p>
         </div>
         <div class="item">
             <div class="item-head">
-                <span class="item-title">Gérant — Entreprise de nettoyage</span>
-                <span class="item-date">2025 — 2026</span>
+                <h3>Parcours Baccalauréat Général</h3>
+                <span class="date">2025</span>
             </div>
-            <div class="item-sub">Activité indépendante</div>
-            <div class="item-desc">Gestion clients, planning, facturation, coordination d'équipe — autonomie et sens du service.</div>
-        </div>
-        <div class="item">
-            <div class="item-head">
-                <span class="item-title">Opérateur logistique</span>
-                <span class="item-date">2025</span>
-            </div>
-            <div class="item-sub">Amazon (Delivery Service Partner)</div>
-            <div class="item-desc">Utilisation d'outils numériques, process de flux, reporting quotidien.</div>
+            <p class="org">Argenteuil - spécialités Mathématiques, NSI (Numérique &amp; Sciences Informatiques), Sciences de l'ingénieur</p>
         </div>
     </section>
 
-    <!-- CERTIFS + LANGUES -->
     <section>
-        <div class="two-col">
-            <div>
-                <h2 class="section-title">Certifications</h2>
-                <ul>
-                    <li>Cisco — Cybersecurity Essentials</li>
-                    <li>Cisco — Networking Essentials</li>
-                    <li>Cisco — Python Essentials</li>
-                    <li>Cisco — Linux Unhatched</li>
-                    <li>Anthropic — IA Générative &amp; Prompt Engineering</li>
-                </ul>
-            </div>
-            <div>
-                <h2 class="section-title">Langues</h2>
-                <ul>
-                    <li>Français (natif)</li>
-                    <li>Arabe (bilingue)</li>
-                    <li>Anglais (intermédiaire)</li>
-                    <li>Espagnol (conversationnel)</li>
-                </ul>
-            </div>
+        <h2>Certifications &amp; langues</h2>
+        <div class="skills-row">
+            <div class="skills-label">Certifications</div>
+            <div class="skills-value">Cisco - Cybersecurity Essentials, Networking Essentials, Python Essentials, Linux Unhatched</div>
+        </div>
+        <div class="skills-row">
+            <div class="skills-label">Langues</div>
+            <div class="skills-value">Français (natif), Arabe (bilingue), Anglais (intermédiaire), Espagnol (conversationnel)</div>
         </div>
     </section>
 
