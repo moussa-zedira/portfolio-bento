@@ -13,6 +13,10 @@ Thumbs.db
 # Fichiers temporaires Office (crees des qu'un .docx est ouvert dans Word)
 ~$*
 
+# Python (les scripts de generation du CV)
+__pycache__/
+*.pyc
+
 # IDE
 .vscode/
 .idea/
