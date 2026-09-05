@@ -89,12 +89,12 @@ const portfolio = {
     name: 'Moussa Zedira',
     title: 'Technicien Support IT & Automatisation',
     subtitle: 'Support IT • IA & Automatisation • Réseaux • Python',
-    seeking: 'Recherche alternance en BTS SIO option SISR — Support IT & Automatisation — Île-de-France',
+    seeking: 'Recherche alternance BTS SIO SISR — Février 2027, 3j entreprise / 2j cours — Île-de-France',
     aboutHook: `Technicien support IT en formation — et je code mes propres outils pour résoudre les problèmes plus vite.`,
     aboutPoints: [
         `Le support IT, c'est le contact humain : un utilisateur bloqué, un diagnostic à poser, un problème résolu.`,
         `Ce qui me différencie : j'utilise l'IA et Python pour automatiser le tri de tickets, scripter les tâches répétitives, générer de la documentation.`,
-        `Objectif : une alternance en Île-de-France où je peux apprendre en équipe et apporter cette valeur ajoutée.`
+        `Objectif : une alternance en Île-de-France à partir de février 2027, sur un rythme de 3 jours en entreprise et 2 jours en cours.`
     ],
     tags: ['Support IT', 'Systèmes', 'Virtualisation', 'Réseaux', 'Cybersécurité', 'Automatisation'],
     stats: {
