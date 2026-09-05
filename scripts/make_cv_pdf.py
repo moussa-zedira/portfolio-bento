@@ -108,12 +108,15 @@ VARIANTES = {
             # Sans "& Automatisation" : l'intitule doit se lire comme celui
             # des offres auxquelles il repond, pas comme un positionnement.
             "role": "Technicien Support IT",
-            "objectif": ("Recherche un poste de technicien support informatique, "
-                         "helpdesk ou proximité - CDI, CDD ou intérim"),
+            "objectif": "Recherche un poste de technicien support informatique",
         },
         "pdf": [BUREAU / "CV-Moussa-Zedira-Technicien-Support-IT.pdf"],
-        "docx": [BUREAU / "CV-Moussa-Zedira-Technicien-Support-IT.docx"],
-        "mots_cles": ["technicien support informatique", "helpdesk", "CDI"],
+        # Liste vide : le PDF seul est voulu pour cette variante. Le .docx
+        # est mieux parse par les vieux ATS, mais un second fichier sur le
+        # bureau est surtout un risque d'envoyer le mauvais. make_cv_docx.py
+        # s'arrete proprement sur cette variante plutot que de le recreer.
+        "docx": [],
+        "mots_cles": ["technicien support informatique"],
         # Le point de toute la variante : un CV qui parle d'alternance est
         # ecarte d'une offre en CDI. Si une de ces mentions revient un jour
         # dans cv/cv.html ailleurs que dans l'objectif, la generation doit

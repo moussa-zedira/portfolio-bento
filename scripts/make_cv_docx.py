@@ -317,6 +317,11 @@ def main():
         return 2
 
     sorties = VARIANTES[variante]["docx"]
+    if not sorties:
+        print(f"variante {variante} : aucune sortie .docx demandee "
+              "(voir VARIANTES dans make_cv_pdf.py), rien a generer")
+        return 0
+
     mots_cles = MOTS_CLES + VARIANTES[variante]["mots_cles"]
 
     construire(lire_source(html_variante(variante))).save(sorties[0])
