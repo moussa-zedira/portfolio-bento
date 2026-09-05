@@ -31,3 +31,7 @@ npm-debug.log*
 
 # HTML derive par les scripts de CV (la source est cv/cv.html)
 cv/cv-*.html
+
+# Le CV de candidature ne va pas dans le depot (il est public) : il est
+# genere sur le bureau, voir scripts/make_cv_pdf.py
+cv/CV-Moussa-Zedira-Technicien-Support-IT.*

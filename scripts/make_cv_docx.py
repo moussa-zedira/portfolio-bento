@@ -51,6 +51,7 @@ sys.path.insert(0, str(pathlib.Path(__file__).resolve().parent))
 # Source unique des regles ATS et de la definition des variantes.
 from make_cv_pdf import (  # noqa: E402
     INTERDITS,
+    afficher,
     MOTS_CLES,
     VARIANTES,
     html_variante,
@@ -325,7 +326,7 @@ def main():
 
     taille = sorties[0].stat().st_size / 1024
     etat_pages = f"{pages} page(s)" if pages else "pagination non verifiee (Word absent)"
-    print(f"{sorties[0].relative_to(RACINE)} ({variante}) : {taille:.0f} Ko | "
+    print(f"{afficher(sorties[0])} ({variante}) : {taille:.0f} Ko | "
           f"{len(lu)} caracteres | {etat_pages}")
 
     if pages and pages > 1:
@@ -339,7 +340,7 @@ def main():
 
     for copie in sorties[1:]:
         copie.write_bytes(sorties[0].read_bytes())
-        print(f"{copie.relative_to(RACINE)} : copie")
+        print(f"{afficher(copie)} : copie")
 
     print(f"\nOK - {len(mots_cles)} mots-cles presents, aucun caractere hostile.")
     return 0

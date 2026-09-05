@@ -17,8 +17,8 @@ Sur les variantes. Une candidature a une offre publiee (HelloWork, Indeed,
 APEC) ne peut pas afficher "recherche une alternance" : le CV est ecarte
 avant d'etre lu. La variante "emploi" existe pour ca. Elle n'est PAS une
 seconde source : cv/cv.html reste le seul fichier a editer, et la variante
-en est derivee a la generation en remplacant la seule ligne qui change,
-l'objectif. Une copie maintenue a la main finirait perimee sans que
+en est derivee a la generation en remplacant les seules lignes qui
+changent : l'intitule de poste et l'objectif. Une copie maintenue a la main finirait perimee sans que
 personne s'en apercoive - c'est exactement ce qui est arrive a la version
 LaTeX du CV.
 
@@ -34,6 +34,17 @@ from pypdf import PdfReader
 
 RACINE = pathlib.Path(__file__).resolve().parent.parent
 SOURCE = RACINE / "cv" / "cv.html"
+
+# Le CV de candidature n'entre pas dans le depot. Celui-ci est public sur
+# GitHub : tout fichier commite y devient telechargeable, et un recruteur qui
+# suit le lien GitHub du portfolio y lirait qu'un poste est cherche en
+# parallele de l'alternance. Rien dans le site ne s'en sert, donc il est
+# ecrit la ou on le prend pour le deposer sur un jobboard : le bureau.
+BUREAU = pathlib.Path.home() / "Desktop"
+if not BUREAU.is_dir():
+    # Machine sans bureau (CI, serveur, WSL) : on retombe dans cv/, qui est
+    # ignore par git pour ces fichiers-la.
+    BUREAU = RACINE / "cv"
 
 # Ligatures typographiques : "configuration" encode avec U+FB01 ne correspond
 # plus a une recherche sur "configuration". Neutralisees en CSS, verifiees ici.
@@ -71,14 +82,18 @@ MOTS_CLES = [
     "NIS2",
 ]
 
-# Ce qui separe les deux CV tient en trois choses : la ligne d'objectif, les
-# fichiers produits, et les mots-cles que le controle ATS exige en plus des
-# communs. Tout le reste du contenu est partage.
+# Ce qui separe les deux CV tient en trois choses : les lignes d'en-tete
+# reecrites, les fichiers produits, et les mots-cles que le controle ATS exige
+# en plus des communs. Tout le reste du contenu est partage.
+#
+# "remplacements" associe une classe CSS de l'en-tete au texte qui doit
+# prendre sa place. Un dictionnaire vide veut dire : on rend cv/cv.html tel
+# quel.
 VARIANTES = {
     # La variante du site. C'est la seule qui ecrit dans public/ : le site
     # sert le CV alternance, rien d'autre ne doit venir l'ecraser.
     "alternance": {
-        "objectif": None,  # None : on garde la ligne telle quelle dans cv.html
+        "remplacements": {},
         "pdf": [RACINE / "cv" / "CV-Moussa-Zedira.pdf",
                 RACINE / "public" / "CV.MoussaZedira.pdf"],
         "docx": [RACINE / "cv" / "CV-Moussa-Zedira.docx",
@@ -89,10 +104,15 @@ VARIANTES = {
     # La variante a deposer sur les jobboards. Le nom de fichier est explicite :
     # c'est celui que le recruteur voit dans sa liste de candidatures.
     "emploi": {
-        "objectif": ("Recherche un poste de technicien support informatique, "
-                     "helpdesk ou proximité - CDI, CDD ou intérim"),
-        "pdf": [RACINE / "cv" / "CV-Moussa-Zedira-Technicien-Support-IT.pdf"],
-        "docx": [RACINE / "cv" / "CV-Moussa-Zedira-Technicien-Support-IT.docx"],
+        "remplacements": {
+            # Sans "& Automatisation" : l'intitule doit se lire comme celui
+            # des offres auxquelles il repond, pas comme un positionnement.
+            "role": "Technicien Support IT",
+            "objectif": ("Recherche un poste de technicien support informatique, "
+                         "helpdesk ou proximité - CDI, CDD ou intérim"),
+        },
+        "pdf": [BUREAU / "CV-Moussa-Zedira-Technicien-Support-IT.pdf"],
+        "docx": [BUREAU / "CV-Moussa-Zedira-Technicien-Support-IT.docx"],
         "mots_cles": ["technicien support informatique", "helpdesk", "CDI"],
         # Le point de toute la variante : un CV qui parle d'alternance est
         # ecarte d'une offre en CDI. Si une de ces mentions revient un jour
@@ -111,21 +131,22 @@ def html_variante(variante):
     resolvent qu'a cote de la source. Il est reecrit a chaque generation et
     ignore par git - c'est un produit, pas une source.
     """
-    objectif = VARIANTES[variante]["objectif"]
-    if objectif is None:
+    remplacements = VARIANTES[variante]["remplacements"]
+    if not remplacements:
         return SOURCE
 
-    html = SOURCE.read_text(encoding="utf-8")
-    derive, remplacements = re.subn(
-        r'(<p class="objectif">).*?(</p>)',
-        lambda m: m.group(1) + objectif + m.group(2),
-        html, count=1, flags=re.S,
-    )
-    if remplacements != 1:
-        raise SystemExit(
-            'cv/cv.html : <p class="objectif"> introuvable, '
-            "la variante ne peut pas etre derivee"
+    derive = SOURCE.read_text(encoding="utf-8")
+    for classe, texte in remplacements.items():
+        derive, faits = re.subn(
+            rf'(<p class="{classe}">).*?(</p>)',
+            lambda m: m.group(1) + texte + m.group(2),
+            derive, count=1, flags=re.S,
         )
+        if faits != 1:
+            raise SystemExit(
+                f'cv/cv.html : <p class="{classe}"> introuvable, '
+                "la variante ne peut pas etre derivee"
+            )
     banniere = f"""<body>
 <!-- FICHIER GENERE, ne pas editer : derive de cv/cv.html (variante {variante})
      par scripts/make_cv_pdf.py. La source a editer est cv/cv.html. -->"""
@@ -133,6 +154,14 @@ def html_variante(variante):
     chemin = RACINE / "cv" / f"cv-{variante}.html"
     chemin.write_text(derive, encoding="utf-8")
     return chemin
+
+
+def afficher(chemin):
+    """Chemin lisible : relatif au depot quand il y est, absolu sinon."""
+    try:
+        return chemin.relative_to(RACINE)
+    except ValueError:
+        return chemin
 
 
 def generer(source, destination):
@@ -196,7 +225,7 @@ def main():
     problemes, texte, lecteur = verifier(sorties[0], mots_cles, interdits)
 
     taille = sorties[0].stat().st_size / 1024
-    print(f"{sorties[0].relative_to(RACINE)} ({variante}) : {taille:.0f} Ko | "
+    print(f"{afficher(sorties[0])} ({variante}) : {taille:.0f} Ko | "
           f"{len(lecteur.pages)} page(s) | {len(texte)} caracteres extraits")
 
     if problemes:
@@ -207,7 +236,7 @@ def main():
 
     for copie in sorties[1:]:
         copie.write_bytes(sorties[0].read_bytes())
-        print(f"{copie.relative_to(RACINE)} : copie")
+        print(f"{afficher(copie)} : copie")
 
     print(f"\nOK — {len(mots_cles)} mots-cles presents, aucune ligature, une seule page.")
     return 0
