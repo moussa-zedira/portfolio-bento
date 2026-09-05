@@ -1,11 +1,15 @@
 """Genere la version .docx du CV a partir de cv/cv.html.
 
-    python scripts/make_cv_docx.py
+    python scripts/make_cv_docx.py            # variante alternance (celle du site)
+    python scripts/make_cv_docx.py emploi     # variante candidature a une offre
 
 Pourquoi une version Word alors que le PDF est deja propre : les mesures
 publiees en 2026 donnent le .docx a plus de 95 % de parsing correct sur
 tous les ATS majeurs, contre 83 % pour le PDF sur Taleo — l'un des plus
 rigides et des plus repandus. Douze points d'ecart sur un seul moteur.
+
+Les variantes sont celles de make_cv_pdf.py, et sont definies la-bas : ce
+script se contente de leur donner un rendu Word.
 
 Le contenu n'est PAS ressaisi ici : il est lu dans cv/cv.html, qui reste
 l'unique source. Une seconde version du CV, en LaTeX, a coexiste pendant
@@ -44,11 +48,15 @@ from docx.oxml.ns import qn
 from docx.shared import Mm, Pt, RGBColor
 
 sys.path.insert(0, str(pathlib.Path(__file__).resolve().parent))
-from make_cv_pdf import INTERDITS, MOTS_CLES  # noqa: E402  source unique des regles
+# Source unique des regles ATS et de la definition des variantes.
+from make_cv_pdf import (  # noqa: E402
+    INTERDITS,
+    MOTS_CLES,
+    VARIANTES,
+    html_variante,
+)
 
 RACINE = pathlib.Path(__file__).resolve().parent.parent
-SOURCE = RACINE / "cv" / "cv.html"
-SORTIES = [RACINE / "cv" / "CV-Moussa-Zedira.docx", RACINE / "public" / "CV.MoussaZedira.docx"]
 
 SERIF = "Georgia"      # tient le role de Newsreader
 SANS = "Arial"         # tient le role d'IBM Plex Sans
@@ -90,8 +98,8 @@ def lignes_contact(paragraphe):
     return [" ".join("".join(bloc).split()) for bloc in resultat if "".join(bloc).strip()]
 
 
-def lire_source():
-    arbre = lxml.html.fromstring(SOURCE.read_text(encoding="utf-8"))
+def lire_source(source):
+    arbre = lxml.html.fromstring(source.read_text(encoding="utf-8"))
     page = arbre.find_class("page")[0]
     entete = arbre.find_class("header")[0]
 
@@ -252,15 +260,18 @@ def construire(contenu):
 # ----------------------------------------------------------------------
 # Controles
 # ----------------------------------------------------------------------
-def verifier(chemin):
+def verifier(chemin, mots_cles, interdits):
     """Rejoue sur le .docx les controles ATS du PDF."""
     doc = Document(str(chemin))
     lu = "\n".join(p.text for p in doc.paragraphs)
     problemes = []
 
-    manquants = [m for m in MOTS_CLES if m.lower() not in lu.lower()]
+    manquants = [m for m in mots_cles if m.lower() not in lu.lower()]
     if manquants:
         problemes.append(f"mots-cles absents : {manquants}")
+    presents = [m for m in interdits if m.lower() in lu.lower()]
+    if presents:
+        problemes.append(f"mentions a proscrire dans cette variante : {presents}")
     for caractere, explication in INTERDITS.items():
         if caractere in lu:
             problemes.append(f"{lu.count(caractere)}x {explication}")
@@ -298,14 +309,24 @@ def compter_pages(chemin):
 
 
 def main():
-    construire(lire_source()).save(SORTIES[0])
+    variante = sys.argv[1] if len(sys.argv) > 1 else "alternance"
+    if variante not in VARIANTES:
+        print(f"variante inconnue : {variante} "
+              f"(attendu : {', '.join(VARIANTES)})", file=sys.stderr)
+        return 2
 
-    problemes, lu = verifier(SORTIES[0])
-    pages = compter_pages(SORTIES[0])
+    sorties = VARIANTES[variante]["docx"]
+    mots_cles = MOTS_CLES + VARIANTES[variante]["mots_cles"]
 
-    taille = SORTIES[0].stat().st_size / 1024
+    construire(lire_source(html_variante(variante))).save(sorties[0])
+
+    problemes, lu = verifier(sorties[0], mots_cles, VARIANTES[variante]["interdits"])
+    pages = compter_pages(sorties[0])
+
+    taille = sorties[0].stat().st_size / 1024
     etat_pages = f"{pages} page(s)" if pages else "pagination non verifiee (Word absent)"
-    print(f"{SORTIES[0].relative_to(RACINE)} : {taille:.0f} Ko | {len(lu)} caracteres | {etat_pages}")
+    print(f"{sorties[0].relative_to(RACINE)} ({variante}) : {taille:.0f} Ko | "
+          f"{len(lu)} caracteres | {etat_pages}")
 
     if pages and pages > 1:
         problemes.append(f"{pages} pages : le CV doit tenir sur une seule")
@@ -316,11 +337,11 @@ def main():
             print(f"  - {probleme}", file=sys.stderr)
         return 1
 
-    for copie in SORTIES[1:]:
-        copie.write_bytes(SORTIES[0].read_bytes())
+    for copie in sorties[1:]:
+        copie.write_bytes(sorties[0].read_bytes())
         print(f"{copie.relative_to(RACINE)} : copie")
 
-    print(f"\nOK - {len(MOTS_CLES)} mots-cles presents, aucun caractere hostile.")
+    print(f"\nOK - {len(mots_cles)} mots-cles presents, aucun caractere hostile.")
     return 0
 
 

@@ -28,3 +28,6 @@ __pycache__/
 # Logs
 *.log
 npm-debug.log*
+
+# HTML derive par les scripts de CV (la source est cv/cv.html)
+cv/cv-*.html
