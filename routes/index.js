@@ -458,7 +458,7 @@ const portfolio = {
         github: 'https://github.com/moussa-zedira',
         linkedin: 'https://www.linkedin.com/in/moussa-zedira-15abba3b8',
         email: 'moussazedira@gmail.com',
-        phone: ''
+        phone: '06 27 80 74 30'
     }
 };
 

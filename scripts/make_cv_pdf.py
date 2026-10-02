@@ -71,7 +71,7 @@ INTERDITS = {
 
 # Un echantillon de ce qu'un recruteur ou un ATS cherche reellement.
 MOTS_CLES = [
-    "Moussa Zedira", "moussazedira@gmail.com",
+    "Moussa Zedira", "06 27 80 74 30", "moussazedira@gmail.com",
     "Active Directory", "GLPI", "Windows", "Linux", "PowerShell", "LVM",
     "Proxmox", "VMware ESXi", "Hyper-V", "Docker", "TCP/IP", "DNS", "DHCP",
     "Cisco IOS", "Wireshark", "Python", "FastAPI", "PostgreSQL",
