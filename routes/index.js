@@ -246,7 +246,7 @@ const portfolio = {
             id: '02',
             slug: 'chapitres',
             title: 'Chapitres',
-            desc: 'Plateforme éducative gratuite pour lycéens : 1400+ utilisateurs actifs, 504+ chapitres, quiz interactifs, annales du Bac.',
+            desc: 'Plateforme éducative gratuite pour lycéens : 2500+ utilisateurs, 504+ chapitres, quiz interactifs, annales du Bac.',
             tech: ['Next.js', 'React', 'Vercel', 'KaTeX', 'OAuth'],
             color: '#818cf8',
             link: 'https://meschapitres.fr',
@@ -256,7 +256,7 @@ const portfolio = {
                     qui préparent le Baccalauréat. Elle couvre l'intégralité du programme officiel
                     (Bulletin Officiel 2025-2026) de la Seconde à la Terminale, avec des fiches de
                     révision structurées, des quiz interactifs chronométrés et les annales du Bac.
-                    Créé pour les lycéens, par les lycéens — plus de 1400 utilisateurs actifs.`,
+                    Créé pour les lycéens, par les lycéens — plus de 2500 utilisateurs.`,
                 features: [
                     {
                         icon: '01',
@@ -304,7 +304,7 @@ const portfolio = {
                     seo: 'Schema.org, Open Graph dynamique'
                 },
                 stats: [
-                    { label: 'Utilisateurs actifs', value: '1400+' },
+                    { label: 'Utilisateurs', value: '2500+' },
                     { label: 'Chapitres', value: '504+' },
                     { label: 'Matières', value: '16' },
                     { label: 'Niveaux', value: '3' },
