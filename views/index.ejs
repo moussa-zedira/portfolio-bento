@@ -4,404 +4,269 @@
     <%- include('partials/head') %>
 </head>
 <body>
+    <%- include('partials/navbar', { onHome: true }) %>
 
-    <!-- Page transition overlay -->
-    <div class="page-transition" id="pageTransition">
-        <div class="page-transition__wipe"></div>
-    </div>
+    <%
+        // Le HomeLab a sa propre bande ardoise ; les autres projets sont listes en lignes.
+        const homelab = portfolio.projects.find(p => p.slug === 'homelab');
+        const autresProjets = portfolio.projects.filter(p => p.slug !== 'homelab');
+        const stage = portfolio.experiences[0];
+        const tel = portfolio.socials.phone;
+        const telHref = tel ? '+33' + tel.replace(/ /g, '').slice(1) : '';
+    %>
 
-    <!-- Loader -->
-    <div class="loader" id="loader">
-        <div class="loader__inner">
-            <svg class="loader__logo" viewBox="0 0 100 80">
-                <defs>
-                    <linearGradient id="loaderGradient" x1="0%" y1="0%" x2="100%" y2="100%">
-                        <stop offset="0%" stop-color="#818cf8"/>
-                        <stop offset="50%" stop-color="#c084fc"/>
-                        <stop offset="100%" stop-color="#38bdf8"/>
-                    </linearGradient>
-                </defs>
-                <path d="M5 70 L5 10 L25 50 L45 10 L45 70 M55 10 L55 70 L90 10 L90 70"/>
-            </svg>
-            <span class="loader__text">ZM</span>
-            <div class="loader__bar">
-                <div class="loader__bar-fill" id="loaderBar"></div>
-            </div>
-            <span class="loader__percent" id="loaderPercent">0%</span>
-        </div>
-    </div>
+    <main id="contenu">
 
-    <!-- Floating shapes -->
-    <div class="floating-shapes">
-        <div class="floating-shape"></div>
-        <div class="floating-shape"></div>
-        <div class="floating-shape"></div>
-    </div>
-
-    <!-- Film grain overlay -->
-    <canvas class="grain" id="grain"></canvas>
-
-    <!-- Background color shift layer -->
-    <div class="bg-shift" id="bgShift"></div>
-
-    <!-- Custom cursor -->
-    <div class="cursor">
-        <div class="cursor__dot"></div>
-        <div class="cursor__ring"></div>
-        <span class="cursor__label"></span>
-    </div>
-
-    <!-- Section indicator dots -->
-    <div class="section-nav" id="sectionNav">
-        <span class="section-nav__counter" id="sectionCounter">01 / 08</span>
-        <div class="section-nav__dot active" data-target="#hero"></div>
-        <div class="section-nav__dot" data-target="#about"></div>
-        <% portfolio.projects.forEach(function(project) { %>
-        <div class="section-nav__dot" data-target="#project-<%= project.slug %>"></div>
-        <% }); %>
-        <div class="section-nav__dot" data-target="#skills"></div>
-        <div class="section-nav__dot" data-target="#quote"></div>
-        <div class="section-nav__dot" data-target="#contact"></div>
-    </div>
-
-    <!-- Scroll spine -->
-    <div class="scroll-spine" id="scrollSpine">
-        <div class="scroll-spine__track">
-            <div class="scroll-spine__fill" id="spineFill"></div>
-            <div class="scroll-spine__dot" id="spineDot"></div>
-        </div>
-    </div>
-
-    <!-- Project counter -->
-    <div class="project-counter" id="projectCounter">
-        <span class="project-counter__current" id="projectCounterCurrent">01</span>
-        <span class="project-counter__sep">/</span>
-        <span class="project-counter__total">0<%= portfolio.projects.length %></span>
-    </div>
-
-    <!-- Navbar -->
-    <%- include('partials/navbar') %>
-
-    <!-- SVG distortion filter -->
-    <svg class="svg-filters" style="position:absolute;width:0;height:0;">
-        <defs>
-            <filter id="distortion">
-                <feTurbulence type="fractalNoise" baseFrequency="0.015" numOctaves="3" result="noise" seed="1"/>
-                <feDisplacementMap in="SourceGraphic" in2="noise" scale="30" xChannelSelector="R" yChannelSelector="G"/>
-            </filter>
-        </defs>
-    </svg>
-
-    <!-- ===== SECTIONS ===== -->
-    <main class="main" id="smooth-content">
-
-        <!-- HERO -->
-        <section class="section section--hero" id="hero">
-            <div class="hero">
-                <div class="hero__label"><%= portfolio.seeking %></div>
-                <h1 class="hero__name" data-split>
-                    <span class="hero__line"><%= portfolio.name.split(' ')[0] %></span>
-                    <span class="hero__line accent"><%= portfolio.name.split(' ')[1] %></span>
-                </h1>
-                <p class="hero__title" data-split><%= portfolio.title %></p>
-                <div class="hero__tags">
-                    <% portfolio.tags.forEach(function(tag) { %>
-                    <span class="hero__tag"><%= tag %></span>
-                    <% }); %>
+        <!-- EN-TETE -->
+        <section class="hero" id="accueil" aria-labelledby="hero-titre">
+            <div class="container hero__grid">
+                <div class="hero__text">
+                    <p class="eyebrow">Alternance BTS SIO SISR · février 2027</p>
+                    <h1 class="hero__name" id="hero-titre"><%= portfolio.name %></h1>
+                    <p class="hero__role"><%= portfolio.title %></p>
+                    <p class="hero__lede"><%= portfolio.aboutHook %></p>
+                    <div class="hero__cta">
+                        <a class="btn btn--primary" href="/CV.MoussaZedira.pdf?v=20261002" download>
+                            <svg viewBox="0 0 24 24" width="18" height="18" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M12 4v11M7 10l5 5 5-5M5 20h14"/></svg>
+                            Télécharger le CV
+                        </a>
+                        <a class="btn btn--ghost" href="#projets">Voir les projets</a>
+                    </div>
                 </div>
-                <div class="hero__cta">
-                    <a href="#project-cyberdef" class="btn btn--primary">Projets</a>
-                    <a href="#contact" class="btn btn--ghost">Contact</a>
-                    <%# Le parametre ?v= force le navigateur a retelecharger le CV.
-                        A mettre a jour a chaque nouvelle version du PDF, sinon un
-                        visiteur deja venu recoit l'ancien depuis son cache. %>
-                    <a href="/CV.MoussaZedira.pdf?v=20260905" download class="btn btn--ghost">
-                        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" width="16" height="16"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/><polyline points="7 10 12 15 17 10"/><line x1="12" y1="15" x2="12" y2="3"/></svg>
-                        CV
-                    </a>
-                </div>
-                <div class="hero__scroll">
-                    <span>Scroll</span>
-                    <div class="hero__scroll-line"></div>
-                </div>
+
+                <aside class="spec" aria-label="Fiche technique">
+                    <p class="spec__title">Fiche technique</p>
+                    <dl class="spec__list">
+                        <div><dt>Recherche</dt><dd>Alternance BTS SIO SISR</dd></div>
+                        <div><dt>Rythme</dt><dd>3 j entreprise · 2 j cours</dd></div>
+                        <div><dt>Début</dt><dd>Février 2027</dd></div>
+                        <div><dt>Zone</dt><dd>Île-de-France</dd></div>
+                        <div><dt>Dernier stage</dt><dd><%= stage.company.split(',')[0] %></dd></div>
+                        <% if (tel) { %>
+                        <div><dt>Téléphone</dt><dd><a href="tel:<%= telHref %>"><%= tel %></a></dd></div>
+                        <% } %>
+                        <div><dt>Statut</dt><dd class="spec__status">Disponible</dd></div>
+                    </dl>
+                </aside>
             </div>
         </section>
 
-        <!-- SEPARATOR -->
-        <div class="separator"><div class="separator__line"></div></div>
-
-        <!-- ABOUT -->
-        <section class="section section--about" id="about">
-            <div class="about">
-                <div class="about__text-col">
-                    <span class="section-label">À propos</span>
-                    <p class="about__hook" data-split-words><%= portfolio.aboutHook %></p>
+        <!-- A PROPOS -->
+        <section class="section about" id="apropos" aria-labelledby="apropos-titre">
+            <div class="container about__grid">
+                <figure class="about__photo">
+                    <picture>
+                        <source srcset="/img/profile.webp" type="image/webp">
+                        <img src="/img/profile.jpg" alt="Portrait de <%= portfolio.name %>" loading="lazy" width="800" height="1000">
+                    </picture>
+                </figure>
+                <div class="about__text">
+                    <h2 class="section__title" id="apropos-titre">À propos</h2>
                     <ul class="about__points">
                         <% portfolio.aboutPoints.forEach(function(point) { %>
-                        <li class="about__point"><%= point %></li>
+                        <li><%= point %></li>
                         <% }); %>
                     </ul>
-                    <div class="about__tags">
+                    <dl class="about__stats">
+                        <div><dt>Certifications</dt><dd><%= portfolio.stats.certifications %></dd></div>
+                        <div><dt>Projets</dt><dd><%= portfolio.stats.projects %></dd></div>
+                        <div><dt>Langues</dt><dd><%= portfolio.languages.length %></dd></div>
+                    </dl>
+                    <ul class="tags" aria-label="Domaines">
                         <% portfolio.tags.forEach(function(tag) { %>
-                        <span class="about__tag"><%= tag %></span>
-                        <% }); %>
-                    </div>
-                </div>
-                <div class="about__visual-col">
-                    <div class="about__photo-wrap" data-speed="0.85" data-photo-reveal>
-                        <div class="about__photo-mask"></div>
-                        <picture>
-                            <source srcset="/img/profile.webp" type="image/webp">
-                            <img src="/img/profile.jpg" alt="<%= portfolio.name %>" class="about__photo" loading="lazy" width="800" height="1000" />
-                        </picture>
-                    </div>
-                    <div class="about__stats">
-                        <div class="about__stat">
-                            <span class="about__stat-number" data-count="<%= portfolio.stats.certifications %>">0</span>
-                            <span class="about__stat-label">Certifications</span>
-                        </div>
-                        <div class="about__stat">
-                            <span class="about__stat-number" data-count="<%= portfolio.stats.projects %>">0</span>
-                            <span class="about__stat-label">Projets</span>
-                        </div>
-                    </div>
-                    <div class="about__status">
-                        <span class="about__status-dot"></span>
-                        Disponible en Île-de-France
-                    </div>
-                </div>
-            </div>
-        </section>
-
-        <!-- MARQUEE -->
-        <div class="marquee">
-            <div class="marquee__track">
-                <% for (let i = 0; i < 3; i++) { %>
-                <% portfolio.stack.forEach(function(tech) { %>
-                <span class="marquee__item"><%= tech.name %></span>
-                <span class="marquee__separator">/</span>
-                <% }); %>
-                <% } %>
-            </div>
-        </div>
-
-        <!-- SEPARATOR -->
-        <div class="separator"><div class="separator__line"></div></div>
-
-        <!-- PROJECTS -->
-        <% portfolio.projects.forEach(function(project) { %>
-        <section class="section section--project" id="project-<%= project.slug %>" data-color="<%= project.color %>">
-            <div class="project">
-                <div class="project__info">
-                    <span class="project__number" data-speed="0.7"><%= project.id %></span>
-                    <h2 class="project__title" data-split data-reveal data-scramble><%= project.title %></h2>
-                    <% if (project.wip) { %>
-                    <span class="project__wip">
-                        <span class="project__wip-dot"></span>
-                        En construction · depuis <%= project.startedAt %>
-                    </span>
-                    <% } %>
-                    <p class="project__desc"><%= project.desc %></p>
-                    <div class="project__tech">
-                        <% project.tech.forEach(function(t) { %>
-                        <span class="project__tech-pill"><%= t %></span>
-                        <% }); %>
-                    </div>
-                    <% if (project.detail) { %>
-                    <a href="/projet/<%= project.slug %>" class="project__link" data-cursor="view" data-transition>
-                        Voir le projet
-                        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" width="18" height="18"><path d="M5 12h14M12 5l7 7-7 7"/></svg>
-                    </a>
-                    <% } %>
-                </div>
-                <div class="project__visual" style="--project-color: <%= project.color %>">
-                    <div class="project__visual-wipe"></div>
-                    <div class="project__visual-bg"></div>
-                    <div class="project__visual-distort"></div>
-                    <% if (project.detail && project.detail.stats) { %>
-                    <div class="project__visual-stats">
-                        <% project.detail.stats.slice(0, 3).forEach(function(stat) { %>
-                        <div class="project__visual-stat">
-                            <span class="project__visual-stat-value"><%= stat.value %></span>
-                            <span class="project__visual-stat-label"><%= stat.label %></span>
-                        </div>
-                        <% }); %>
-                    </div>
-                    <% } %>
-                </div>
-                <!-- Horizontal slide panel -->
-                <div class="project__slide">
-                    <% if (project.detail) { %>
-                    <p class="project__slide-overview"><%= project.detail.overview %></p>
-                    <% if (project.detail.features && project.detail.features[0]) { %>
-                    <div class="project__slide-feature">
-                        <span class="project__slide-feature-label"><%= project.detail.features[0].title %></span>
-                        <p><%= project.detail.features[0].desc %></p>
-                    </div>
-                    <% } %>
-                    <% } %>
-                </div>
-            </div>
-        </section>
-        <% }); %>
-
-        <!-- SEPARATOR -->
-        <div class="separator"><div class="separator__line"></div></div>
-
-        <!-- SKILLS -->
-        <section class="section section--skills" id="skills">
-            <div class="skills-section">
-                <div class="skills__col">
-                    <span class="section-label">Compétences</span>
-                    <div class="skills__domains">
-                        <% portfolio.skills.forEach(function(skill) { %>
-                        <div class="skill-domain">
-                            <h3 class="skill-domain__title"><%= skill.category %></h3>
-                            <ul class="skill-domain__list">
-                                <% skill.items.forEach(function(item) { %>
-                                <li class="skill-domain__item"><%= item %></li>
-                                <% }); %>
-                            </ul>
-                        </div>
-                        <% }); %>
-                    </div>
-                </div>
-
-                <div class="skills__col">
-                    <span class="section-label">Formation</span>
-                    <div class="timeline">
-                        <% portfolio.formation.forEach(function(f) { %>
-                        <div class="timeline__item">
-                            <span class="timeline__year"><%= f.year %></span>
-                            <div class="timeline__content">
-                                <h3 class="timeline__title"><%= f.title %></h3>
-                                <p class="timeline__sub"><%= f.school %></p>
-                                <% if (f.detail) { %>
-                                <p class="timeline__detail"><%= f.detail %></p>
-                                <% } %>
-                            </div>
-                        </div>
-                        <% }); %>
-                    </div>
-
-                    <span class="section-label">Expériences</span>
-                    <div class="timeline">
-                        <% portfolio.experiences.forEach(function(exp) { %>
-                        <div class="timeline__item">
-                            <span class="timeline__year"><%= exp.period %></span>
-                            <div class="timeline__content">
-                                <h3 class="timeline__title"><%= exp.title %></h3>
-                                <p class="timeline__sub"><%= exp.company %></p>
-                            </div>
-                        </div>
-                        <% }); %>
-                    </div>
-
-                    <span class="section-label">Certifications</span>
-                    <ul class="certif-list">
-                        <% portfolio.certifications.forEach(function(cert) { %>
-                        <li class="certif-item"><%= cert %></li>
+                        <li><%= tag %></li>
                         <% }); %>
                     </ul>
+                </div>
+            </div>
+        </section>
 
-                    <span class="section-label">Langues</span>
-                    <div class="languages">
-                        <% portfolio.languages.forEach(function(lang) { %>
-                        <span class="lang-item"><%= lang %></span>
+        <!-- PROJETS -->
+        <section class="section projects" id="projets" aria-labelledby="projets-titre">
+            <div class="container">
+                <div class="section__head">
+                    <h2 class="section__title" id="projets-titre">Projets</h2>
+                    <p class="section__intro">Des projets menés de bout en bout, de l'architecture au déploiement.</p>
+                </div>
+
+                <ol class="project-list">
+                    <% autresProjets.forEach(function(project) { %>
+                    <li class="project-row reveal" id="projet-<%= project.slug %>">
+                        <div class="project-row__main">
+                            <h3 class="project-row__title">
+                                <% if (project.detail) { %><a href="/projet/<%= project.slug %>"><%= project.title %></a><% } else { %><%= project.title %><% } %>
+                            </h3>
+                            <p class="project-row__desc"><%= project.desc %></p>
+                            <ul class="pills" aria-label="Technologies">
+                                <% project.tech.forEach(function(t) { %><li><%= t %></li><% }); %>
+                            </ul>
+                            <p class="project-row__links">
+                                <% if (project.detail) { %><a class="link" href="/projet/<%= project.slug %>">Voir le projet</a><% } %>
+                                <% if (project.link) { %><a class="link link--ext" href="<%= project.link %>" target="_blank" rel="noopener noreferrer"><%= project.link.replace('https://', '') %></a><% } %>
+                            </p>
+                        </div>
+                        <% if (project.detail && project.detail.stats) { %>
+                        <dl class="figures">
+                            <% project.detail.stats.slice(0, 3).forEach(function(stat) { %>
+                            <div><dt><%= stat.label %></dt><dd><%= stat.value %></dd></div>
+                            <% }); %>
+                        </dl>
+                        <% } %>
+                    </li>
+                    <% }); %>
+                </ol>
+            </div>
+        </section>
+
+        <!-- HOMELAB : la bande ardoise -->
+        <% if (homelab) { %>
+        <section class="slate" id="projet-homelab" aria-labelledby="homelab-titre">
+            <div class="container slate__grid">
+                <div class="slate__text">
+                    <p class="eyebrow eyebrow--slate">Projet en cours · depuis <%= homelab.startedAt %></p>
+                    <h2 class="slate__title" id="homelab-titre"><%= homelab.title %></h2>
+                    <p class="slate__desc"><%= homelab.detail.overview %></p>
+                    <a class="btn btn--slate" href="/projet/homelab">Voir l'architecture</a>
+                </div>
+                <div class="slate__data">
+                    <dl class="figures figures--slate">
+                        <% homelab.detail.stats.slice(0, 4).forEach(function(stat) { %>
+                        <div><dt><%= stat.label %></dt><dd><%= stat.value %></dd></div>
                         <% }); %>
+                    </dl>
+                    <dl class="arch">
+                        <% Object.entries(homelab.detail.architecture).forEach(function([cle, valeur]) { %>
+                        <div><dt><%= cle %></dt><dd><%= valeur %></dd></div>
+                        <% }); %>
+                    </dl>
+                </div>
+            </div>
+        </section>
+        <% } %>
+
+        <!-- PARCOURS -->
+        <section class="section" id="parcours" aria-labelledby="parcours-titre">
+            <div class="container">
+                <div class="section__head">
+                    <h2 class="section__title" id="parcours-titre">Parcours</h2>
+                </div>
+                <div class="parcours">
+                    <div>
+                        <h3 class="sub__title">Expériences</h3>
+                        <ol class="timeline">
+                            <% portfolio.experiences.forEach(function(exp) { %>
+                            <li class="reveal">
+                                <p class="timeline__when"><%= exp.period %></p>
+                                <h4 class="timeline__what"><%= exp.title %></h4>
+                                <p class="timeline__detail"><%= exp.company %></p>
+                            </li>
+                            <% }); %>
+                        </ol>
+                    </div>
+                    <div>
+                        <h3 class="sub__title">Formation</h3>
+                        <ol class="timeline">
+                            <% portfolio.formation.forEach(function(f) { %>
+                            <li class="reveal">
+                                <p class="timeline__when"><%= f.year %></p>
+                                <h4 class="timeline__what"><%= f.title %></h4>
+                                <p class="timeline__detail"><%= f.school %><% if (f.detail) { %> · <%= f.detail %><% } %></p>
+                            </li>
+                            <% }); %>
+                        </ol>
                     </div>
                 </div>
             </div>
         </section>
 
-        <!-- SEPARATOR -->
-        <div class="separator"><div class="separator__line"></div></div>
-
-        <!-- QUOTE -->
-        <section class="section section--quote" id="quote">
-            <blockquote class="quote">
-                <p class="quote__text" data-split-words-quote>Je ne cherche pas un poste, je cherche un environnement où je peux apprendre, contribuer et évoluer.</p>
-                <span class="quote__line"></span>
-                <cite class="quote__cite"><%= portfolio.name %></cite>
-            </blockquote>
+        <!-- COMPETENCES -->
+        <section class="section section--alt" id="competences" aria-labelledby="competences-titre">
+            <div class="container">
+                <div class="section__head">
+                    <h2 class="section__title" id="competences-titre">Compétences</h2>
+                </div>
+                <dl class="skills">
+                    <% portfolio.skills.forEach(function(skill) { %>
+                    <div class="skills__row reveal">
+                        <dt><%= skill.category %></dt>
+                        <dd><%= skill.items.join(' · ') %></dd>
+                    </div>
+                    <% }); %>
+                </dl>
+                <div class="extras">
+                    <div>
+                        <h3 class="sub__title">Certifications</h3>
+                        <ul class="plain-list">
+                            <% portfolio.certifications.forEach(function(cert) { %><li><%= cert %></li><% }); %>
+                        </ul>
+                    </div>
+                    <div>
+                        <h3 class="sub__title">Langues</h3>
+                        <ul class="plain-list">
+                            <% portfolio.languages.forEach(function(lang) { %><li><%= lang %></li><% }); %>
+                        </ul>
+                    </div>
+                </div>
+            </div>
         </section>
-
-        <!-- SEPARATOR -->
-        <div class="separator"><div class="separator__line"></div></div>
 
         <!-- CONTACT -->
-        <section class="section section--contact" id="contact">
-            <div class="contact">
-                <div class="contact__text-col">
-                    <span class="section-label">Contact</span>
-                    <h2 class="contact__heading" data-split data-reveal>Parlons<br>ensemble</h2>
-                    <p class="contact__sub">Un projet, une alternance, une question ? N'hésitez pas.</p>
-                    <div class="contact__socials">
-                        <a href="<%= portfolio.socials.github %>" target="_blank" rel="noopener noreferrer" class="contact__social" aria-label="GitHub">
-                            <svg viewBox="0 0 24 24" fill="currentColor" width="22" height="22"><path d="M12 .297c-6.63 0-12 5.373-12 12 0 5.303 3.438 9.8 8.205 11.385.6.113.82-.258.82-.577 0-.285-.01-1.04-.015-2.04-3.338.724-4.042-1.61-4.042-1.61C4.422 18.07 3.633 17.7 3.633 17.7c-1.087-.744.084-.729.084-.729 1.205.084 1.838 1.236 1.838 1.236 1.07 1.835 2.809 1.305 3.495.998.108-.776.417-1.305.76-1.605-2.665-.3-5.466-1.332-5.466-5.93 0-1.31.465-2.38 1.235-3.22-.135-.303-.54-1.523.105-3.176 0 0 1.005-.322 3.3 1.23.96-.267 1.98-.399 3-.405 1.02.006 2.04.138 3 .405 2.28-1.552 3.285-1.23 3.285-1.23.645 1.653.24 2.873.12 3.176.765.84 1.23 1.91 1.23 3.22 0 4.61-2.805 5.625-5.475 5.92.42.36.81 1.096.81 2.22 0 1.606-.015 2.896-.015 3.286 0 .315.21.69.825.57C20.565 22.092 24 17.592 24 12.297c0-6.627-5.373-12-12-12"/></svg>
-                        </a>
-                        <a href="<%= portfolio.socials.linkedin %>" target="_blank" rel="noopener noreferrer" class="contact__social" aria-label="LinkedIn">
-                            <svg viewBox="0 0 24 24" fill="currentColor" width="22" height="22"><path d="M20.447 20.452h-3.554v-5.569c0-1.328-.027-3.037-1.852-3.037-1.853 0-2.136 1.445-2.136 2.939v5.667H9.351V9h3.414v1.561h.046c.477-.9 1.637-1.85 3.37-1.85 3.601 0 4.267 2.37 4.267 5.455v6.286zM5.337 7.433a2.062 2.062 0 0 1-2.063-2.065 2.064 2.064 0 1 1 2.063 2.065zm1.782 13.019H3.555V9h3.564v11.452zM22.225 0H1.771C.792 0 0 .774 0 1.729v20.542C0 23.227.792 24 1.771 24h20.451C23.2 24 24 23.227 24 22.271V1.729C24 .774 23.2 0 22.222 0h.003z"/></svg>
-                        </a>
-                        <a href="mailto:<%= portfolio.socials.email %>" class="contact__social" aria-label="Email">
-                            <svg viewBox="0 0 24 24" fill="currentColor" width="22" height="22"><path d="M24 5.457v13.909c0 .904-.732 1.636-1.636 1.636h-3.819V11.73L12 16.64l-6.545-4.91v9.273H1.636A1.636 1.636 0 0 1 0 19.366V5.457c0-2.023 2.309-3.178 3.927-1.964L5.455 4.64 12 9.548l6.545-4.91 1.528-1.145C21.69 2.28 24 3.434 24 5.457z"/></svg>
-                        </a>
-                        <% if (portfolio.socials.phone) { %>
-                        <a href="tel:<%= portfolio.socials.phone.replace(/ /g, '') %>" class="contact__social" aria-label="Téléphone">
-                            <svg viewBox="0 0 24 24" fill="currentColor" width="22" height="22"><path d="M6.62 10.79c1.44 2.83 3.76 5.14 6.59 6.59l2.2-2.2c.27-.27.67-.36 1.02-.24 1.12.37 2.33.57 3.57.57.55 0 1 .45 1 1V20c0 .55-.45 1-1 1-9.39 0-17-7.61-17-17 0-.55.45-1 1-1h3.5c.55 0 1 .45 1 1 0 1.25.2 2.45.57 3.57.11.35.03.74-.25 1.02l-2.2 2.2z"/></svg>
-                        </a>
+        <section class="section contact" id="contact" aria-labelledby="contact-titre">
+            <div class="container contact__grid">
+                <div class="contact__info">
+                    <h2 class="section__title" id="contact-titre">Contact</h2>
+                    <p class="section__intro">Une alternance à proposer, une question sur un projet : appelez ou écrivez, je réponds rapidement.</p>
+                    <dl class="coords">
+                        <% if (tel) { %>
+                        <div>
+                            <dt>Téléphone</dt>
+                            <dd><a href="tel:<%= telHref %>"><%= tel %></a> <button class="copy" type="button" data-copy="<%= tel %>">Copier</button></dd>
+                        </div>
                         <% } %>
+                        <div>
+                            <dt>E-mail</dt>
+                            <dd><a href="mailto:<%= portfolio.socials.email %>"><%= portfolio.socials.email %></a> <button class="copy" type="button" data-copy="<%= portfolio.socials.email %>">Copier</button></dd>
+                        </div>
+                        <div>
+                            <dt>LinkedIn</dt>
+                            <dd><a href="<%= portfolio.socials.linkedin %>" target="_blank" rel="noopener noreferrer">linkedin.com/in/moussa-zedira</a></dd>
+                        </div>
+                        <div>
+                            <dt>GitHub</dt>
+                            <dd><a href="<%= portfolio.socials.github %>" target="_blank" rel="noopener noreferrer">github.com/moussa-zedira</a></dd>
+                        </div>
+                    </dl>
+                </div>
+
+                <form class="form" id="contactForm" novalidate>
+                    <!-- Champ piege : invisible pour les humains, rempli par les robots -->
+                    <div class="hp-field" aria-hidden="true">
+                        <label for="website">Site web</label>
+                        <input type="text" name="website" id="website" tabindex="-1" autocomplete="off">
                     </div>
-                </div>
-                <div class="contact__form-col">
-                    <form class="contact__form" id="contactForm">
-                        <!-- Honeypot: invisible aux humains, rempli par les bots -->
-                        <div class="hp-field" aria-hidden="true">
-                            <label for="website">Site web</label>
-                            <input type="text" name="website" id="website" tabindex="-1" autocomplete="off">
-                        </div>
-                        <div class="contact__field">
-                            <input type="text" name="name" id="name" placeholder=" " required maxlength="100">
-                            <label for="name">Nom</label>
-                        </div>
-                        <div class="contact__field">
-                            <input type="email" name="email" id="email" placeholder=" " required maxlength="150">
-                            <label for="email">Email</label>
-                        </div>
-                        <div class="contact__field">
-                            <textarea name="message" id="message" placeholder=" " rows="4" required maxlength="5000"></textarea>
-                            <label for="message">Message</label>
-                        </div>
-                        <button type="submit" class="btn btn--primary btn--full">Envoyer</button>
-                    </form>
-                </div>
+                    <div class="form__field">
+                        <label for="name">Nom</label>
+                        <input type="text" name="name" id="name" required maxlength="100" autocomplete="name">
+                    </div>
+                    <div class="form__field">
+                        <label for="email">E-mail</label>
+                        <input type="email" name="email" id="email" required maxlength="150" autocomplete="email">
+                    </div>
+                    <div class="form__field">
+                        <label for="message">Message</label>
+                        <textarea name="message" id="message" rows="5" required minlength="10" maxlength="5000"></textarea>
+                    </div>
+                    <div class="form__foot">
+                        <button type="submit" class="btn btn--primary">Envoyer le message</button>
+                        <p class="form__status" id="formStatus" role="status" aria-live="polite"></p>
+                    </div>
+                </form>
             </div>
         </section>
-
-        <!-- FOOTER -->
-        <footer class="footer">
-            <div class="footer__big">
-                <span class="footer__big-text" data-reveal>Merci.</span>
-            </div>
-            <div class="footer__bottom">
-                <span class="footer__copy">&copy; 2026 <%= portfolio.name %></span>
-                <span class="footer__credit">Design & Dev — ZM</span>
-                <div class="footer__links">
-                    <a href="<%= portfolio.socials.github %>" target="_blank" rel="noopener noreferrer">GitHub</a>
-                    <a href="<%= portfolio.socials.linkedin %>" target="_blank" rel="noopener noreferrer">LinkedIn</a>
-                    <a href="mailto:<%= portfolio.socials.email %>">Email</a>
-                </div>
-            </div>
-        </footer>
-
     </main>
 
-    <!-- CDN Libraries -->
-    <script src="https://cdn.jsdelivr.net/npm/gsap@3.12/dist/gsap.min.js"></script>
-    <script src="https://cdn.jsdelivr.net/npm/gsap@3.12/dist/ScrollTrigger.min.js"></script>
-    <script src="https://unpkg.com/lenis@1.1.18/dist/lenis.min.js"></script>
+    <%- include('partials/footer') %>
 
-    <!-- App -->
-    <script src="/js/script.js"></script>
+    <script src="/js/script.js" defer></script>
 </body>
 </html>

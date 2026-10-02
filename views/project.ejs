@@ -4,121 +4,87 @@
     <%- include('partials/head') %>
 </head>
 <body>
+    <%- include('partials/navbar', { onHome: false }) %>
 
-    <!-- Page transition overlay -->
-    <div class="page-transition" id="pageTransition">
-        <div class="page-transition__wipe"></div>
-    </div>
+    <%
+        const idx = portfolio.projects.findIndex(p => p.slug === project.slug);
+        const suivant = portfolio.projects[(idx + 1) % portfolio.projects.length];
+        const ancre = project.slug === 'homelab' ? 'projet-homelab' : 'projet-' + project.slug;
+    %>
 
-    <!-- Film grain -->
-    <canvas class="grain" id="grain"></canvas>
+    <main id="contenu" class="page-project">
+        <div class="container">
+            <nav class="breadcrumb" aria-label="Fil d'Ariane">
+                <a href="/#<%= ancre %>">
+                    <svg viewBox="0 0 24 24" width="16" height="16" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M19 12H5M11 18l-6-6 6-6"/></svg>
+                    Tous les projets
+                </a>
+            </nav>
 
-    <!-- Custom cursor -->
-    <div class="cursor">
-        <div class="cursor__dot"></div>
-        <div class="cursor__ring"></div>
-        <span class="cursor__label"></span>
-    </div>
-
-    <%- include('partials/navbar') %>
-
-    <div class="project-detail">
-
-        <a href="/#project-<%= project.slug %>" class="project-back" data-transition>
-            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M19 12H5M12 19l-7-7 7-7"/></svg>
-            Retour aux projets
-        </a>
-
-        <div class="project-header">
-            <div class="project-header__id" style="color: <%= project.color %>">PROJET <%= project.id %></div>
-            <h1 style="color: <%= project.color %>"><%= project.title %></h1>
-            <% if (project.wip) { %>
-            <span class="project__wip" style="margin-bottom: 1rem;">
-                <span class="project__wip-dot"></span>
-                En construction · démarré <%= project.startedAt %>
-            </span>
-            <% } %>
-            <p class="project-header__sub"><%= project.detail.subtitle %></p>
-            <div class="project-tech-bar">
-                <% project.tech.forEach(function(t) { %>
-                <span><%= t %></span>
-                <% }); %>
-            </div>
-        </div>
-
-        <!-- Stats -->
-        <% if (project.detail.stats) { %>
-        <div class="project-stats-grid">
-            <% project.detail.stats.forEach(function(stat) { %>
-            <div class="project-stat-card">
-                <div class="project-stat-card__value" style="color: <%= project.color %>"><%= stat.value %></div>
-                <div class="project-stat-card__label"><%= stat.label %></div>
-            </div>
-            <% }); %>
-        </div>
-        <% } %>
-
-        <!-- Overview -->
-        <div class="project-overview-block">
-            <h2 class="project-section-title"><span style="background: <%= project.color %>; display: inline-block; width: 6px; height: 6px; border-radius: 50%; box-shadow: 0 0 8px <%= project.color %>;"></span> Vue d'ensemble</h2>
-            <p><%= project.detail.overview %></p>
-        </div>
-
-        <!-- Features -->
-        <% if (project.detail.features) { %>
-        <h2 class="project-section-title" style="margin-bottom: 1.25rem;"><span style="background: <%= project.color %>; display: inline-block; width: 6px; height: 6px; border-radius: 50%;"></span> Fonctionnalités</h2>
-        <div class="project-features-grid">
-            <% project.detail.features.forEach(function(feat) { %>
-            <div class="feature-card">
-                <div class="feature-icon" style="background: <%= project.color %>12; color: <%= project.color %>; border: 1px solid <%= project.color %>25;"><%= feat.icon %></div>
-                <h3 class="feature-title"><%= feat.title %></h3>
-                <p class="feature-desc"><%= feat.desc %></p>
-                <% if (feat.highlight) { %>
-                <span class="feature-highlight" style="background: <%= project.color %>10; border: 1px solid <%= project.color %>20; color: <%= project.color %>;"><%= feat.highlight %></span>
+            <header class="project-head">
+                <p class="eyebrow">Projet <%= project.id %><% if (project.wip) { %> · en cours depuis <%= project.startedAt %><% } %></p>
+                <h1 class="project-head__title"><%= project.title %></h1>
+                <p class="project-head__sub"><%= project.detail.subtitle %></p>
+                <ul class="pills" aria-label="Technologies">
+                    <% project.tech.forEach(function(t) { %><li><%= t %></li><% }); %>
+                </ul>
+                <% if (project.link) { %>
+                <p class="project-head__link"><a class="btn btn--primary" href="<%= project.link %>" target="_blank" rel="noopener noreferrer">Ouvrir <%= project.link.replace('https://', '') %></a></p>
                 <% } %>
-            </div>
-            <% }); %>
-        </div>
-        <% } %>
+            </header>
 
-        <!-- Architecture -->
-        <% if (project.detail.architecture) { %>
-        <div class="project-archi-block">
-            <h2 class="project-section-title"><span style="background: <%= project.color %>; display: inline-block; width: 6px; height: 6px; border-radius: 50%;"></span> Architecture technique</h2>
-            <div class="archi-grid">
-                <% Object.entries(project.detail.architecture).forEach(function([key, val]) { %>
-                <div class="archi-item">
-                    <div class="archi-label"><%= key %></div>
-                    <div class="archi-value"><%= val %></div>
-                </div>
+            <% if (project.detail.stats) { %>
+            <dl class="figures figures--wide">
+                <% project.detail.stats.forEach(function(stat) { %>
+                <div><dt><%= stat.label %></dt><dd><%= stat.value %></dd></div>
                 <% }); %>
-            </div>
+            </dl>
+            <% } %>
+
+            <section class="project-block" aria-labelledby="vue-titre">
+                <h2 class="section__title section__title--sm" id="vue-titre">Vue d'ensemble</h2>
+                <p class="prose"><%= project.detail.overview %></p>
+            </section>
+
+            <% if (project.detail.features) { %>
+            <section class="project-block" aria-labelledby="fonc-titre">
+                <h2 class="section__title section__title--sm" id="fonc-titre">Fonctionnalités</h2>
+                <ul class="features">
+                    <% project.detail.features.forEach(function(feat) { %>
+                    <li class="feature reveal">
+                        <h3 class="feature__title"><%= feat.title %></h3>
+                        <p class="feature__desc"><%= feat.desc %></p>
+                        <% if (feat.highlight) { %><p class="feature__note"><%= feat.highlight %></p><% } %>
+                    </li>
+                    <% }); %>
+                </ul>
+            </section>
+            <% } %>
         </div>
+
+        <% if (project.detail.architecture) { %>
+        <section class="slate slate--compact" aria-labelledby="archi-titre">
+            <div class="container">
+                <h2 class="slate__title slate__title--sm" id="archi-titre">Architecture technique</h2>
+                <dl class="arch arch--wide">
+                    <% Object.entries(project.detail.architecture).forEach(function([cle, valeur]) { %>
+                    <div><dt><%= cle %></dt><dd><%= valeur %></dd></div>
+                    <% }); %>
+                </dl>
+            </div>
+        </section>
         <% } %>
 
-        <!-- CTA -->
-        <div class="project-cta">
-            <% if (project.link) { %>
-            <a href="<%= project.link %>" target="_blank" rel="noopener noreferrer" class="btn btn--primary">
-                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" width="16" height="16"><path d="M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6"/><polyline points="15 3 21 3 21 9"/><line x1="10" y1="14" x2="21" y2="3"/></svg>
-                Voir le site
-            </a>
-            <% } %>
-            <a href="/#contact" class="btn btn--ghost">Discuter de ce projet</a>
-            <% const currentIdx = portfolio.projects.findIndex(p => p.slug === project.slug); const nextProject = portfolio.projects[(currentIdx + 1) % portfolio.projects.length]; %>
-            <a href="/#project-<%= nextProject.slug %>" class="btn btn--ghost">Projet suivant : <%= nextProject.title %></a>
+        <div class="container">
+            <nav class="project-next" aria-label="Suite">
+                <a class="btn btn--ghost" href="/#contact">Discuter de ce projet</a>
+                <a class="link" href="/projet/<%= suivant.slug %>">Projet suivant : <%= suivant.title %></a>
+            </nav>
         </div>
+    </main>
 
-    </div>
+    <%- include('partials/footer') %>
 
-    <footer class="footer">
-        <p>&copy; 2026 <%= portfolio.name %>. Tous droits réservés.</p>
-    </footer>
-
-    <!-- CDN Libraries -->
-    <script src="https://cdn.jsdelivr.net/npm/gsap@3.12/dist/gsap.min.js"></script>
-    <script src="https://cdn.jsdelivr.net/npm/gsap@3.12/dist/ScrollTrigger.min.js"></script>
-    <script src="https://unpkg.com/lenis@1.1.18/dist/lenis.min.js"></script>
-    <script src="/js/script.js"></script>
+    <script src="/js/script.js" defer></script>
 </body>
 </html>

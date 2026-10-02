@@ -1,0 +1,60 @@
+/* Hallmark · genre: modern-minimal · theme: custom « Atelier » (pierre, noyer, cuivre, ardoise)
+ * paper oklch(95.5% 0.007 85) · accent oklch(53% 0.13 48) cuivre · IBM Plex Sans + IBM Plex Mono
+ * axes: light / grotesk-sans / warm · design-system: design.md
+ */
+:root {
+    /* Couleurs : voir le tableau de design.md pour les contrastes mesures */
+    --color-paper:        oklch(95.5% 0.007 85);
+    --color-paper-2:      oklch(92.5% 0.009 80);
+    --color-field:        oklch(97.5% 0.005 85);
+    --color-rule:         oklch(84% 0.012 75);
+    --color-field-border: oklch(62% 0.015 70);
+    --color-muted:        oklch(46% 0.02 60);
+    --color-ink:          oklch(23% 0.025 50);
+    --color-accent:       oklch(53% 0.13 48);
+    --color-accent-hover: oklch(47% 0.12 46);
+    --color-accent-ink:   oklch(97.5% 0.006 85);
+    --color-slate:        oklch(27% 0.014 250);
+    --color-slate-rule:   oklch(38% 0.014 250);
+    --color-slate-ink:    oklch(93% 0.008 85);
+    --color-slate-muted:  oklch(76% 0.012 250);
+    --color-slate-accent: oklch(78% 0.11 58);
+    --color-success:      oklch(46% 0.10 150);
+    --color-error:        oklch(50% 0.17 28);
+    --color-focus:        var(--color-accent);
+
+    --font-sans: "IBM Plex Sans", "Segoe UI", system-ui, -apple-system, sans-serif;
+    --font-mono: "IBM Plex Mono", ui-monospace, "Cascadia Mono", Consolas, monospace;
+
+    /* Echelle de 4 px */
+    --space-3xs: 0.25rem;
+    --space-2xs: 0.5rem;
+    --space-xs:  0.75rem;
+    --space-sm:  1rem;
+    --space-md:  1.5rem;
+    --space-lg:  2rem;
+    --space-xl:  3rem;
+    --space-2xl: 4.5rem;
+    --space-3xl: 7rem;
+
+    --text-xs:   0.8125rem;
+    --text-sm:   0.9375rem;
+    --text-md:   1.0625rem;
+    --text-lg:   1.25rem;
+    --text-xl:   1.625rem;
+    --text-2xl:  clamp(1.75rem, 1.2rem + 1.6vw, 2.375rem);
+    --text-display: clamp(2.5rem, 1.6rem + 3.6vw, 4.25rem);
+
+    --radius-sm: 4px;
+    --radius-md: 6px;
+    --radius-lg: 10px;
+
+    --ease-out: cubic-bezier(0.16, 1, 0.3, 1);
+    --ease-in-out: cubic-bezier(0.65, 0, 0.35, 1);
+    --dur-short: 160ms;
+    --dur-reveal: 500ms;
+
+    --nav-height: 4rem;
+    --measure: 66ch;
+    --container: 72rem;
+}

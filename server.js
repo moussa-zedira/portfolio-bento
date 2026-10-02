@@ -127,9 +127,7 @@ app.use((err, req, res, next) => {
     }
 
     // Sinon page d'erreur HTML
-    res.status(status).render('404', {
-        portfolio: { name: 'Moussa Zedira', title: 'Technicien Support IT', socials: {} }
-    });
+    res.status(status).render('404', { portfolio: routes.portfolio });
 });
 
 // ============================================

@@ -565,3 +565,6 @@ router.use((req, res) => {
 });
 
 module.exports = router;
+// Expose aussi le contenu : la page d'erreur de server.js en a besoin pour
+// rendre la navigation et l'en-tete communs.
+module.exports.portfolio = portfolio;
