@@ -341,29 +341,33 @@
 
     <section>
         <h2>Compétences techniques</h2>
-        <div class="skills-row">
-            <div class="skills-label">Support IT</div>
-            <div class="skills-value">Diagnostic &amp; dépannage, GLPI, <span class="nw">Active Directory</span>, assistance utilisateurs, documentation technique</div>
-        </div>
-        <div class="skills-row">
-            <div class="skills-label">Systèmes</div>
-            <div class="skills-value">Windows 10/11 &amp; Server 2022, Linux (Ubuntu, Debian), PowerShell, Bash, LVM</div>
-        </div>
-        <div class="skills-row">
-            <div class="skills-label">Virtualisation</div>
-            <div class="skills-value">Proxmox, <span class="nw">VMware ESXi</span>, Hyper-V, Docker</div>
-        </div>
-        <div class="skills-row">
-            <div class="skills-label">Réseaux</div>
-            <div class="skills-value">TCP/IP, DNS, DHCP, <span class="nw">Cisco IOS</span>, switchs &amp; routeurs, Wi-Fi &amp; VPN, Nginx, Wireshark</div>
-        </div>
-        <div class="skills-row">
-            <div class="skills-label">Cybersécurité</div>
-            <div class="skills-value">Analyse de logs, SIEM, <span class="nw">MITRE ATT&amp;CK</span>, durcissement système (fail2ban, SSH), sauvegardes, veille CVE</div>
-        </div>
-        <div class="skills-row">
-            <div class="skills-label">Automatisation</div>
-            <div class="skills-value">Scripts Python, workflows n8n, triage automatique de tickets, IA appliquée au support</div>
+        <!-- Conteneur repere par les variantes : make_cv_pdf.py remplace
+             son contenu pour le CV de candidature. -->
+        <div class="skills">
+            <div class="skills-row">
+                <div class="skills-label">Support IT</div>
+                <div class="skills-value">Diagnostic &amp; dépannage, GLPI, <span class="nw">Active Directory</span>, assistance utilisateurs, documentation technique</div>
+            </div>
+            <div class="skills-row">
+                <div class="skills-label">Systèmes</div>
+                <div class="skills-value">Windows 10/11 &amp; Server 2022, Linux (Ubuntu, Debian), PowerShell, Bash, LVM</div>
+            </div>
+            <div class="skills-row">
+                <div class="skills-label">Virtualisation</div>
+                <div class="skills-value">Proxmox, <span class="nw">VMware ESXi</span>, Hyper-V, Docker</div>
+            </div>
+            <div class="skills-row">
+                <div class="skills-label">Réseaux</div>
+                <div class="skills-value">TCP/IP, DNS, DHCP, <span class="nw">Cisco IOS</span>, switchs &amp; routeurs, Wi-Fi &amp; VPN, Nginx, Wireshark</div>
+            </div>
+            <div class="skills-row">
+                <div class="skills-label">Cybersécurité</div>
+                <div class="skills-value">Analyse de logs, SIEM, <span class="nw">MITRE ATT&amp;CK</span>, durcissement système (fail2ban, SSH), sauvegardes, veille CVE</div>
+            </div>
+            <div class="skills-row">
+                <div class="skills-label">Automatisation</div>
+                <div class="skills-value">Scripts Python, workflows n8n, triage automatique de tickets, IA appliquée au support</div>
+            </div>
         </div>
     </section>
 
@@ -414,7 +418,8 @@
             </div>
             <p class="desc">Next.js/React, 504+ chapitres de la Seconde à la Terminale, quiz chronométrés, annales du Bac 2021-2024. Déployé sur Vercel, PWA installable.</p>
         </div>
-        <div class="item">
+        <!-- data-variante : element garde uniquement dans cette variante-la. -->
+        <div class="item" data-variante="alternance">
             <div class="item-head">
                 <h3>GDChess - Jeu d'échecs avec IA multi-niveaux</h3>
             </div>

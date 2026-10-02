@@ -22,13 +22,13 @@ changent : l'intitule de poste et l'objectif. Une copie maintenue a la main fini
 personne s'en apercoive - c'est exactement ce qui est arrive a la version
 LaTeX du CV.
 
-Prerequis : pip install playwright pypdf && playwright install chromium
+Prerequis : pip install playwright pypdf lxml && playwright install chromium
 """
 
 import pathlib
-import re
 import sys
 
+import lxml.html
 from playwright.sync_api import sync_playwright
 from pypdf import PdfReader
 
@@ -74,7 +74,7 @@ MOTS_CLES = [
     "Moussa Zedira", "moussazedira@gmail.com",
     "Active Directory", "GLPI", "Windows", "Linux", "PowerShell", "LVM",
     "Proxmox", "VMware ESXi", "Hyper-V", "Docker", "TCP/IP", "DNS", "DHCP",
-    "Cisco IOS", "Wireshark", "Python", "FastAPI", "PostgreSQL", "SIEM",
+    "Cisco IOS", "Wireshark", "Python", "FastAPI", "PostgreSQL",
     "MITRE ATT&CK", "fail2ban", "configuration", "workflows", "Omexom",
     # Mention couverte par un accord de confidentialite : formulation au
     # niveau de la tache, sans resultat ni perimetre. Si l'accord evolue,
@@ -95,10 +95,14 @@ VARIANTES = {
     "alternance": {
         "remplacements": {},
         "pdf": [RACINE / "cv" / "CV-Moussa-Zedira.pdf",
-                RACINE / "public" / "CV.MoussaZedira.pdf"],
+                RACINE / "public" / "CV.MoussaZedira.pdf",
+                # Copie sur le bureau, a cote du CV de candidature. Le nom
+                # dit lequel des deux c'est : deux fichiers nommes presque
+                # pareil au moment d'en joindre un, c'est l'erreur assuree.
+                BUREAU / "CV-Moussa-Zedira-Alternance-BTS-SIO.pdf"],
         "docx": [RACINE / "cv" / "CV-Moussa-Zedira.docx",
                  RACINE / "public" / "CV.MoussaZedira.docx"],
-        "mots_cles": ["alternance", "BTS SIO", "SISR"],
+        "mots_cles": ["alternance", "BTS SIO", "SISR", "SIEM"],
         "interdits": [],
     },
     # La variante a deposer sur les jobboards. Le nom de fichier est explicite :
@@ -109,6 +113,47 @@ VARIANTES = {
             # des offres auxquelles il repond, pas comme un positionnement.
             "role": "Technicien Support IT",
             "objectif": "Recherche un poste de technicien support informatique",
+            # Les competences reecrites pour coller aux offres : les outils
+            # que les annonces de support citent en premier passent devant,
+            # et le vocabulaire de la cybersecurite recule. Rien n'est ajoute
+            # ici qui ne soit defendable en entretien.
+            "skills": """
+                <div class="skills-row">
+                    <div class="skills-label">Support utilisateurs</div>
+                    <div class="skills-value">Diagnostic &amp; dépannage, GLPI, ServiceNow,
+                        ITIL (incident, demande, escalade N1/N2),
+                        <span class="nw">prise en main à distance</span>,
+                        documentation technique</div>
+                </div>
+                <div class="skills-row">
+                    <div class="skills-label">Poste de travail</div>
+                    <div class="skills-value">Masterisation &amp; déploiement, Windows 10/11,
+                        <span class="nw">Microsoft 365</span> (comptes, licences, Exchange),
+                        téléphonie &amp; mobiles, imprimantes &amp; périphériques</div>
+                </div>
+                <div class="skills-row">
+                    <div class="skills-label">Systèmes</div>
+                    <div class="skills-value">Windows Server 2022,
+                        <span class="nw">Active Directory</span>, Linux (Ubuntu, Debian),
+                        PowerShell, Bash, LVM</div>
+                </div>
+                <div class="skills-row">
+                    <div class="skills-label">Réseaux</div>
+                    <div class="skills-value">TCP/IP, DNS, DHCP, <span class="nw">Cisco IOS</span>,
+                        switchs &amp; routeurs, Wi-Fi &amp; VPN, Wireshark</div>
+                </div>
+                <div class="skills-row">
+                    <div class="skills-label">Virtualisation</div>
+                    <div class="skills-value">Proxmox, <span class="nw">VMware ESXi</span>,
+                        Hyper-V, Docker</div>
+                </div>
+                <div class="skills-row">
+                    <div class="skills-label">Sécurité &amp; scripts</div>
+                    <div class="skills-value">Durcissement système (fail2ban, SSH), sauvegardes,
+                        analyse de logs, scripts Python, workflows n8n,
+                        triage automatique de tickets</div>
+                </div>
+            """,
         },
         "pdf": [BUREAU / "CV-Moussa-Zedira-Technicien-Support-IT.pdf"],
         # Liste vide : le PDF seul est voulu pour cette variante. Le .docx
@@ -116,7 +161,9 @@ VARIANTES = {
         # bureau est surtout un risque d'envoyer le mauvais. make_cv_docx.py
         # s'arrete proprement sur cette variante plutot que de le recreer.
         "docx": [],
-        "mots_cles": ["technicien support informatique"],
+        "mots_cles": ["technicien support informatique", "ServiceNow", "ITIL",
+                      "Microsoft 365", "Masterisation", "prise en main à distance",
+                      "imprimantes", "téléphonie"],
         # Le point de toute la variante : un CV qui parle d'alternance est
         # ecarte d'une offre en CDI. Si une de ces mentions revient un jour
         # dans cv/cv.html ailleurs que dans l'objectif, la generation doit
@@ -129,6 +176,12 @@ VARIANTES = {
 def html_variante(variante):
     """Retourne le chemin du HTML a rendre pour cette variante.
 
+    Deux transformations, decrites dans VARIANTES :
+      - "remplacements" reecrit le contenu d'un element repere par sa classe
+        (l'intitule, l'objectif, le bloc de competences) ;
+      - un element portant data-variante n'est garde que dans la variante
+        qu'il nomme, ce qui permet de retirer une entree entiere.
+
     Le fichier derive est ecrit dans cv/ et non dans un dossier temporaire :
     les polices sont appelees en chemin relatif (fonts/...) et ne se
     resolvent qu'a cote de la source. Il est reecrit a chaque generation et
@@ -136,26 +189,46 @@ def html_variante(variante):
     """
     remplacements = VARIANTES[variante]["remplacements"]
     if not remplacements:
+        # Aucune transformation : on rend la source telle quelle, ce qui
+        # garantit que le CV du site ne peut pas deriver par accident.
         return SOURCE
 
-    derive = SOURCE.read_text(encoding="utf-8")
-    for classe, texte in remplacements.items():
-        derive, faits = re.subn(
-            rf'(<p class="{classe}">).*?(</p>)',
-            lambda m: m.group(1) + texte + m.group(2),
-            derive, count=1, flags=re.S,
-        )
-        if faits != 1:
+    arbre = lxml.html.fromstring(SOURCE.read_text(encoding="utf-8"))
+
+    for classe, contenu in remplacements.items():
+        cibles = arbre.find_class(classe)
+        if len(cibles) != 1:
             raise SystemExit(
-                f'cv/cv.html : <p class="{classe}"> introuvable, '
-                "la variante ne peut pas etre derivee"
+                f'cv/cv.html : {len(cibles)} element(s) de classe "{classe}", '
+                "il en faut exactement un pour deriver la variante"
             )
-    banniere = f"""<body>
-<!-- FICHIER GENERE, ne pas editer : derive de cv/cv.html (variante {variante})
-     par scripts/make_cv_pdf.py. La source a editer est cv/cv.html. -->"""
-    derive = derive.replace("<body>", banniere, 1)
+        cible = cibles[0]
+        fragment = lxml.html.fragment_fromstring(contenu, create_parent="div")
+        for enfant in list(cible):
+            cible.remove(enfant)
+        cible.text = fragment.text
+        for enfant in fragment:
+            cible.append(enfant)
+
+    for element in arbre.xpath("//*[@data-variante]"):
+        if element.get("data-variante") != variante:
+            element.getparent().remove(element)
+        else:
+            del element.attrib["data-variante"]
+
+    banniere = lxml.html.HtmlComment(
+        f" FICHIER GENERE, ne pas editer : derive de cv/cv.html "
+        f"(variante {variante}) par scripts/make_cv_pdf.py. "
+        "La source a editer est cv/cv.html. "
+    )
+    corps = arbre.find("body")
+    corps.insert(0, banniere)
+
     chemin = RACINE / "cv" / f"cv-{variante}.html"
-    chemin.write_text(derive, encoding="utf-8")
+    chemin.write_text(
+        lxml.html.tostring(arbre, encoding="unicode", doctype="<!DOCTYPE html>"),
+        encoding="utf-8",
+    )
     return chemin
 
 
