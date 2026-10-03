@@ -37,13 +37,16 @@ Un bleu profond et dense, pas le bleu vif par defaut (#2563EB). Il occupe 3 % au
 de l'ecran : lien actif, bouton principal, focus, le filet sous la navigation.
 
 ### Photos reelles de materiel
-Vraies photos (Pexels, libres d'usage, credit en pied de page), jamais d'image generee :
-- en-tete : switch et panneau de brassage (`public/img/photos/hero-switch-*`, Vladimir Srajber) ;
-- bande HomeLab : baie cablee (`public/img/photos/baie-serveurs-*`, Sejio402).
-Deux tailles (1000 et 2000 px), WebP + JPEG. Le texte n'est jamais pose sur l'image nue :
-voile bleu nuit `--overlay-strong` (94 %) derriere le texte, qui s'eclaircit vers la droite.
-Contraste mesure sur les pixels les plus clairs de la photo : 8:1 au minimum, 14:1 pour le nom.
-Les donnees de la bande HomeLab sont posees sur un panneau plein.
+Vraies photos (Pexels, libres d'usage, creditees en pied de page), jamais d'image generee.
+Une image par sujet, toutes differentes, dans `public/img/photos/` (800 et 1600 px, WebP + JPEG) :
+- en-tete : technicien qui cable une baie (`technicien-cablage`) ;
+- mes terrains : reparation de portable, brassage, socket processeur, ecrans de securite ;
+- projets : poste avec code (CyberDef), **vraie capture de meschapitres.fr** (Chapitres), pieces
+  d'echecs (GDChess) ;
+- HomeLab : petit switch de bureau (realiste pour un lab maison, pas un datacenter) ;
+- parcours : reglage d'un equipement reseau ;
+- contact : switch et panneau de brassage (`hero-switch`), sous voile bleu nuit.
+Le texte n'est jamais pose sur une photo nue : soit a cote, soit sous un voile mesure (8:1 minimum).
 
 ### Logos d'outils
 Logos officiels Simple Icons (CC0) dans `public/img/logos/`, appliques en masque a la couleur
@@ -57,24 +60,31 @@ Le portrait garde sa forme de galet ; les galets dessines en CSS servent de moti
 procedural (`--stone-grain`, SVG feTurbulence). Jamais de texte pose sur une pierre.
 
 ## Typographie
-- Texte et titres : IBM Plex Sans 400 / 500 / 600 / 700 (la police du CV).
-- Donnees, etiquettes, telephone : IBM Plex Mono 400 / 500.
-- Titres en romain uniquement, jamais d'italique. Interlettrage -0.02em sur les grands titres.
-- Echelle : voir `--text-*` dans tokens.css.
+- Titres : **Archivo** elargie (axe `wdth` 118, 104 pour le nom), 800, en capitales. Elle a
+  l'aspect des plaques et etiquettes gravees sur le materiel.
+- Texte : **Atkinson Hyperlegible Next** 400 / 500 / 700, dessinee par le Braille Institute
+  pour la lisibilite.
+- Etiquettes techniques, chiffres, telephone : **Martian Mono** 400 / 500.
+- Titres en romain uniquement, jamais d'italique.
 
 ## Espacement
 Echelle de 4 px nommee (`--space-*`). Les pages utilisent les tokens, jamais de valeurs brutes.
 
 ## Structure des pages
-- Navigation : barre fixe en haut, toujours visible. Nom a gauche ; Projets, Parcours,
-  Competences, Contact ; telephone et « Telecharger le CV » a droite. La section courante
-  est soulignee en bleu. Sur mobile, un menu qui se deplie sous la barre.
-- Accueil : en-tete (identite a gauche, portrait dans un galet parmi des pierres a droite ;
-  le portrait passe en premier sur mobile) → a propos → projets en
-  lignes → bande ardoise HomeLab → parcours → competences → contact.
+- Navigation : barre fixe, toujours visible. Nom a gauche ; Projets, Parcours, Competences,
+  Contact ; telephone et « Telecharger le CV » a droite. Section courante soulignee en bleu.
+- Accueil :
+  1. en-tete en deux panneaux : identite sur bleu nuit a gauche, photo de terrain a droite,
+     portrait en galet pose a cheval sur la couture (au-dessus de la photo sur mobile) ;
+  2. « Mes terrains » : mosaique asymetrique de quatre photos (support, reseau, systemes,
+     cybersecurite), legende sous l'image, puis l'a propos et les chiffres ;
+  3. projets en grands panneaux, image et texte en alternance ;
+  4. bande HomeLab sombre, avec sa photo et ses chiffres ;
+  5. parcours : photo collante a gauche, frise a droite ;
+  6. competences : logos des outils, tableau, certifications et langues ;
+  7. contact sur fond de switch.
 - Page projet : retour, en-tete, chiffres, vue d'ensemble, fonctionnalites, architecture.
-- Une seule bande ardoise par page.
-- Pied de page sur une ligne.
+- Pied de page sur une ligne, avec le credit des photos.
 
 ## Mouvement
 - Apparitions legeres (fondu + 8 px), 500 ms, `--ease-out`, une seule fois.

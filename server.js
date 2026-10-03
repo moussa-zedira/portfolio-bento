@@ -2,8 +2,9 @@
  * Point d'entree de l'application portfolio.
  *
  * Monte la chaine de middlewares dans cet ordre : securite (helmet) ->
- * rate limit -> fichiers statiques -> parsers -> routes -> handler d'erreur.
- * L'ordre compte : le rate limit doit precede les routes, et le handler
+ * fichiers statiques -> rate limit -> parsers -> routes -> handler d'erreur.
+ * L'ordre compte : le rate limit doit preceder les routes (mais pas les
+ * fichiers statiques, voir plus bas), et le handler
  * d'erreur doit etre monte en dernier pour intercepter tout ce qui remonte.
  *
  * En local le serveur ecoute sur PORT ; sur Vercel il est simplement exporte
@@ -53,6 +54,16 @@ app.use(helmet({
 }));
 
 // ============================================
+// STATIC FILES
+// ============================================
+// Servis AVANT le limiteur : une page charge une trentaine de fichiers (photos,
+// logos, CSS). Comptes dans la limite, ils bloqueraient un visiteur au bout de
+// quelques pages, et toute une entreprise derriere la meme IP.
+app.use(express.static(path.join(__dirname, 'public'), {
+    maxAge: '7d' // cache statique 7 jours
+}));
+
+// ============================================
 // RATE LIMIT GLOBAL (anti-DoS basique)
 // ============================================
 const globalLimiter = rateLimit({
@@ -70,12 +81,6 @@ app.use(globalLimiter);
 app.set('view engine', 'ejs');
 app.set('views', path.join(__dirname, 'views'));
 
-// ============================================
-// STATIC FILES
-// ============================================
-app.use(express.static(path.join(__dirname, 'public'), {
-    maxAge: '7d' // cache statique 7 jours
-}));
 
 // ============================================
 // BODY PARSERS (avec limite de taille)

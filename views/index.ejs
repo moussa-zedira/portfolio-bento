@@ -7,46 +7,50 @@
     <%- include('partials/navbar', { onHome: true }) %>
 
     <%
-        // Le HomeLab a sa propre bande ardoise ; les autres projets sont listes en lignes.
+        // Le HomeLab a sa propre bande ; les autres projets sont presentes en grands panneaux.
         const homelab = portfolio.projects.find(p => p.slug === 'homelab');
         const autresProjets = portfolio.projects.filter(p => p.slug !== 'homelab');
-        const stage = portfolio.experiences[0];
         const tel = portfolio.socials.phone;
         const telHref = tel ? '+33' + tel.replace(/ /g, '').slice(1) : '';
+        // Une image reelle par projet : capture du vrai site quand il existe, photo sinon.
+        const visuels = {
+            cyberdef: { src: 'cyberdef-code', alt: 'Poste de travail avec du code sur deux écrans' },
+            chapitres: { src: 'chapitres-site', alt: "Page d'accueil du site meschapitres.fr" },
+            gdchess: { src: 'gdchess-echecs', alt: "Pièces d'échecs sur fond noir" }
+        };
+        // Image responsive : WebP d'abord, JPEG en secours, deux tailles.
+        const photo = (nom, alt, cls, eager) => `<picture class="${cls || ''}">
+            <source type="image/webp" srcset="/img/photos/${nom}-800.webp 800w, /img/photos/${nom}-1600.webp 1600w" sizes="(max-width: 900px) 100vw, 50vw">
+            <img src="/img/photos/${nom}-1600.jpg" srcset="/img/photos/${nom}-800.jpg 800w, /img/photos/${nom}-1600.jpg 1600w" sizes="(max-width: 900px) 100vw, 50vw" alt="${alt}" ${eager ? 'fetchpriority="high"' : 'loading="lazy"'} decoding="async">
+        </picture>`;
     %>
 
     <main id="contenu">
 
-        <!-- EN-TETE : une vraie photo de switch et de brassage, sous un voile bleu nuit -->
+        <!-- EN-TETE : deux panneaux, l'identite et le terrain -->
         <section class="hero" id="accueil" aria-labelledby="hero-titre">
-            <picture class="hero__bg" aria-hidden="true">
-                <source media="(max-width: 900px)" srcset="/img/photos/hero-switch-1000.webp" type="image/webp">
-                <source media="(max-width: 900px)" srcset="/img/photos/hero-switch-1000.jpg">
-                <source srcset="/img/photos/hero-switch-2000.webp" type="image/webp">
-                <img src="/img/photos/hero-switch-2000.jpg" alt="" width="2000" height="1333" fetchpriority="high">
-            </picture>
-            <div class="container hero__grid">
-                <div class="hero__text">
-                    <p class="eyebrow eyebrow--slate">Alternance BTS SIO SISR · février 2027</p>
-                    <h1 class="hero__name" id="hero-titre"><%= portfolio.name %></h1>
-                    <p class="hero__role"><%= portfolio.title %></p>
-                    <p class="hero__lede"><%= portfolio.aboutHook %></p>
-                    <ul class="hero__stack" aria-label="Environnements">
-                        <li>Windows Server · Active Directory</li>
-                        <li>Linux · Debian</li>
-                        <li>Proxmox · Docker</li>
-                        <li>Réseaux Cisco</li>
-                    </ul>
-                    <div class="hero__cta">
-                        <a class="btn btn--light" href="/CV.MoussaZedira.pdf?v=20261002" download>
-                            <svg viewBox="0 0 24 24" width="18" height="18" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M12 4v11M7 10l5 5 5-5M5 20h14"/></svg>
-                            Télécharger le CV
-                        </a>
-                        <a class="btn btn--outline-light" href="#projets">Voir les projets</a>
-                    </div>
-                    <p class="hero__meta">Rythme : 3 jours en entreprise, 2 jours en cours · Île-de-France</p>
+            <div class="hero__id">
+                <p class="tag-mono tag-mono--slate">Alternance BTS SIO SISR · février 2027</p>
+                <h1 class="hero__name" id="hero-titre">Moussa<br>Zedira</h1>
+                <p class="hero__role"><%= portfolio.title %></p>
+                <p class="hero__lede"><%= portfolio.aboutHook %></p>
+                <ul class="hero__stack" aria-label="Environnements">
+                    <li>Windows Server · AD</li>
+                    <li>Debian</li>
+                    <li>Proxmox · Docker</li>
+                    <li>Cisco</li>
+                </ul>
+                <div class="hero__cta">
+                    <a class="btn btn--light" href="/CV.MoussaZedira.pdf?v=20261002" download>
+                        <svg viewBox="0 0 24 24" width="18" height="18" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M12 4v11M7 10l5 5 5-5M5 20h14"/></svg>
+                        Télécharger le CV
+                    </a>
+                    <a class="btn btn--outline-light" href="#contact">Me contacter</a>
                 </div>
-
+                <p class="hero__meta">3 jours en entreprise, 2 jours en cours · <span class="nowrap">Île-de-France</span></p>
+            </div>
+            <div class="hero__terrain">
+                <%- photo('technicien-cablage', 'Technicien en train de câbler une baie réseau', 'hero__photo', true) %>
                 <figure class="portrait">
                     <div class="portrait__frame">
                         <picture>
@@ -54,20 +58,39 @@
                             <img src="/img/profile.jpg" alt="Portrait de <%= portfolio.name %>" width="800" height="1000">
                         </picture>
                     </div>
-                    <figcaption class="portrait__caption">
-                        <span class="portrait__status">Disponible</span> · <span class="nowrap">Argenteuil, Île-de-France</span>
-                    </figcaption>
+                    <figcaption class="portrait__caption"><span class="portrait__status">Disponible</span> · Argenteuil</figcaption>
                 </figure>
             </div>
         </section>
 
-        <!-- A PROPOS -->
-        <section class="section about" id="apropos" aria-labelledby="apropos-titre">
-            <div class="container about__grid">
-                <h2 class="section__title" id="apropos-titre">À propos</h2>
-                <div class="about__text">
+        <!-- MES TERRAINS : les quatre domaines, chacun avec sa photo -->
+        <section class="section terrains" id="terrains" aria-labelledby="terrains-titre">
+            <div class="container">
+                <div class="section__head">
+                    <h2 class="section__title" id="terrains-titre">Mes terrains</h2>
+                    <p class="section__intro"><%= portfolio.aboutPoints[0] %></p>
+                </div>
+                <div class="terrains__grid">
+                    <figure class="terrain terrain--a reveal">
+                        <%- photo('support-reparation', "Mains qui démontent la carte mère d'un portable", 'terrain__img') %>
+                        <figcaption><h3>Support</h3><p>Diagnostic et dépannage, GLPI, Active Directory, assistance aux utilisateurs.</p></figcaption>
+                    </figure>
+                    <figure class="terrain terrain--b reveal">
+                        <%- photo('reseau-brassage', 'Câbles de brassage colorés branchés sur un panneau', 'terrain__img') %>
+                        <figcaption><h3>Réseau</h3><p>TCP/IP, DNS, DHCP, Cisco IOS, switchs et routeurs, Wi-Fi et VPN.</p></figcaption>
+                    </figure>
+                    <figure class="terrain terrain--c reveal">
+                        <%- photo('systeme-processeur', "Socket de processeur sur une carte mère", 'terrain__img') %>
+                        <figcaption><h3>Systèmes</h3><p>Windows 10/11 et Server 2022, Linux, Proxmox, VMware ESXi, Docker.</p></figcaption>
+                    </figure>
+                    <figure class="terrain terrain--d reveal">
+                        <%- photo('securite-ecrans', 'Écran affichant des journaux et des données de sécurité', 'terrain__img') %>
+                        <figcaption><h3>Cybersécurité</h3><p>Analyse de logs, SIEM, MITRE ATT&amp;CK, durcissement, sauvegardes.</p></figcaption>
+                    </figure>
+                </div>
+                <div class="about">
                     <ul class="about__points">
-                        <% portfolio.aboutPoints.forEach(function(point) { %>
+                        <% portfolio.aboutPoints.slice(1).forEach(function(point) { %>
                         <li><%= point %></li>
                         <% }); %>
                     </ul>
@@ -76,39 +99,30 @@
                         <div><dt>Projets</dt><dd><%= portfolio.stats.projects %></dd></div>
                         <div><dt>Langues</dt><dd><%= portfolio.languages.length %></dd></div>
                     </dl>
-                    <ul class="tags" aria-label="Domaines">
-                        <% portfolio.tags.forEach(function(tag) { %>
-                        <li><%= tag %></li>
-                        <% }); %>
-                    </ul>
                 </div>
             </div>
         </section>
 
-        <!-- PROJETS -->
+        <!-- PROJETS : grands panneaux, image et texte en alternance -->
         <section class="section projects" id="projets" aria-labelledby="projets-titre">
             <div class="container">
                 <div class="section__head">
                     <h2 class="section__title" id="projets-titre">Projets</h2>
-                    <p class="section__intro">Des projets menés de bout en bout, de l'architecture au déploiement.</p>
+                    <p class="section__intro">Menés de bout en bout, de l'architecture au déploiement.</p>
                 </div>
-
-                <ol class="project-list">
-                    <% autresProjets.forEach(function(project) { %>
-                    <li class="project-row reveal" id="projet-<%= project.slug %>">
-                        <div class="project-row__main">
-                            <h3 class="project-row__title">
-                                <% if (project.detail) { %><a href="/projet/<%= project.slug %>"><%= project.title %></a><% } else { %><%= project.title %><% } %>
-                            </h3>
-                            <p class="project-row__desc"><%= project.desc %></p>
-                            <ul class="pills" aria-label="Technologies">
-                                <% project.tech.forEach(function(t) { %><li><%= t %></li><% }); %>
-                            </ul>
-                            <p class="project-row__links">
-                                <% if (project.detail) { %><a class="link" href="/projet/<%= project.slug %>">Voir le projet</a><% } %>
-                                <% if (project.link) { %><a class="link link--ext" href="<%= project.link %>" target="_blank" rel="noopener noreferrer"><%= project.link.replace('https://', '') %></a><% } %>
-                            </p>
-                        </div>
+                <% autresProjets.forEach(function(project, i) { const v = visuels[project.slug]; %>
+                <article class="panel<%= i % 2 ? ' panel--flip' : '' %> reveal" id="projet-<%= project.slug %>" aria-labelledby="titre-<%= project.slug %>">
+                    <% if (v) { %>
+                    <div class="panel__media<%= project.slug === 'chapitres' ? ' panel__media--screen' : '' %>">
+                        <%- photo(v.src, v.alt, 'panel__img') %>
+                    </div>
+                    <% } %>
+                    <div class="panel__body">
+                        <h3 class="panel__title" id="titre-<%= project.slug %>"><%= project.title %></h3>
+                        <p class="panel__desc"><%= project.desc %></p>
+                        <ul class="pills" aria-label="Technologies">
+                            <% project.tech.forEach(function(t) { %><li><%= t %></li><% }); %>
+                        </ul>
                         <% if (project.detail && project.detail.stats) { %>
                         <dl class="figures">
                             <% project.detail.stats.slice(0, 3).forEach(function(stat) { %>
@@ -116,31 +130,31 @@
                             <% }); %>
                         </dl>
                         <% } %>
-                    </li>
-                    <% }); %>
-                </ol>
+                        <p class="panel__links">
+                            <% if (project.detail) { %><a class="link" href="/projet/<%= project.slug %>">Voir le projet</a><% } %>
+                            <% if (project.link) { %><a class="link link--ext" href="<%= project.link %>" target="_blank" rel="noopener noreferrer"><%= project.link.replace('https://', '') %></a><% } %>
+                        </p>
+                    </div>
+                </article>
+                <% }); %>
             </div>
         </section>
 
-        <!-- HOMELAB : la bande ardoise -->
+        <!-- HOMELAB : la bande sombre, avec son vrai type de materiel -->
         <% if (homelab) { %>
         <section class="slate" id="projet-homelab" aria-labelledby="homelab-titre">
             <div class="container slate__grid">
                 <div class="slate__text">
-                    <p class="eyebrow eyebrow--slate">Projet en cours · depuis <%= homelab.startedAt %></p>
+                    <p class="tag-mono tag-mono--slate">Projet en cours · depuis <%= homelab.startedAt %></p>
                     <h2 class="slate__title" id="homelab-titre"><%= homelab.title %></h2>
                     <p class="slate__desc"><%= homelab.detail.overview %></p>
                     <a class="btn btn--slate" href="/projet/homelab">Voir l'architecture</a>
                 </div>
-                <div class="slate__data">
+                <div class="slate__side">
+                    <%- photo('homelab-switch', 'Petit switch réseau de bureau avec câbles branchés', 'slate__img') %>
                     <dl class="figures figures--slate">
                         <% homelab.detail.stats.slice(0, 4).forEach(function(stat) { %>
                         <div><dt><%= stat.label %></dt><dd><%= stat.value %></dd></div>
-                        <% }); %>
-                    </dl>
-                    <dl class="arch">
-                        <% Object.entries(homelab.detail.architecture).forEach(function([cle, valeur]) { %>
-                        <div><dt><%= cle %></dt><dd><%= valeur %></dd></div>
                         <% }); %>
                     </dl>
                 </div>
@@ -148,37 +162,34 @@
         </section>
         <% } %>
 
-        <!-- PARCOURS -->
+        <!-- PARCOURS : la frise, a cote d'une photo de terrain -->
         <section class="section" id="parcours" aria-labelledby="parcours-titre">
-            <div class="container">
-                <div class="section__head">
-                    <h2 class="section__title" id="parcours-titre">Parcours</h2>
+            <div class="container parcours">
+                <div class="parcours__media">
+                    <%- photo('parcours-equipement', "Main réglant un équipement réseau dans une baie", 'parcours__img') %>
                 </div>
-                <div class="parcours">
-                    <div>
-                        <h3 class="sub__title">Expériences</h3>
-                        <ol class="timeline">
-                            <% portfolio.experiences.forEach(function(exp) { %>
-                            <li class="reveal">
-                                <p class="timeline__when"><%= exp.period %></p>
-                                <h4 class="timeline__what"><%= exp.title %></h4>
-                                <p class="timeline__detail"><%= exp.company %></p>
-                            </li>
-                            <% }); %>
-                        </ol>
-                    </div>
-                    <div>
-                        <h3 class="sub__title">Formation</h3>
-                        <ol class="timeline">
-                            <% portfolio.formation.forEach(function(f) { %>
-                            <li class="reveal">
-                                <p class="timeline__when"><%= f.year %></p>
-                                <h4 class="timeline__what"><%= f.title %></h4>
-                                <p class="timeline__detail"><%= f.school %><% if (f.detail) { %> · <%= f.detail %><% } %></p>
-                            </li>
-                            <% }); %>
-                        </ol>
-                    </div>
+                <div>
+                    <h2 class="section__title" id="parcours-titre">Parcours</h2>
+                    <h3 class="sub__title">Expériences</h3>
+                    <ol class="timeline">
+                        <% portfolio.experiences.forEach(function(exp) { %>
+                        <li class="reveal">
+                            <p class="timeline__when"><%= exp.period %></p>
+                            <h4 class="timeline__what"><%= exp.title %></h4>
+                            <p class="timeline__detail"><%= exp.company %></p>
+                        </li>
+                        <% }); %>
+                    </ol>
+                    <h3 class="sub__title">Formation</h3>
+                    <ol class="timeline">
+                        <% portfolio.formation.forEach(function(f) { %>
+                        <li class="reveal">
+                            <p class="timeline__when"><%= f.year %></p>
+                            <h4 class="timeline__what"><%= f.title %></h4>
+                            <p class="timeline__detail"><%= f.school %><% if (f.detail) { %> · <%= f.detail %><% } %></p>
+                        </li>
+                        <% }); %>
+                    </ol>
                 </div>
             </div>
         </section>
@@ -190,7 +201,7 @@
                     <h2 class="section__title" id="competences-titre">Compétences</h2>
                 </div>
                 <%
-                    // Logos officiels (Simple Icons, licence CC0), uniquement pour les outils revendiques.
+                    // Logos officiels (Simple Icons, CC0), uniquement pour les outils revendiques.
                     // Microsoft retire ses logos de Simple Icons : Windows, AD et Hyper-V sont ecrits.
                     const outils = [['debian', 'Debian'], ['ubuntu', 'Ubuntu'], ['proxmox', 'Proxmox'], ['vmware', 'VMware ESXi'],
                         ['docker', 'Docker'], ['cisco', 'Cisco IOS'], ['nginx', 'Nginx'], ['tailscale', 'Tailscale'],
@@ -206,7 +217,6 @@
                     <li class="toolbelt__text"><%= nom %></li>
                     <% }); %>
                 </ul>
-
                 <dl class="skills">
                     <% portfolio.skills.forEach(function(skill) { %>
                     <div class="skills__row reveal">
@@ -232,12 +242,17 @@
             </div>
         </section>
 
-        <!-- CONTACT -->
-        <section class="section contact" id="contact" aria-labelledby="contact-titre">
+        <!-- CONTACT : la fin, sur le switch -->
+        <section class="contact" id="contact" aria-labelledby="contact-titre">
+            <picture class="contact__bg" aria-hidden="true">
+                <source media="(max-width: 900px)" srcset="/img/photos/hero-switch-1000.webp" type="image/webp">
+                <source srcset="/img/photos/hero-switch-2000.webp" type="image/webp">
+                <img src="/img/photos/hero-switch-2000.jpg" alt="" loading="lazy">
+            </picture>
             <div class="container contact__grid">
                 <div class="contact__info">
                     <h2 class="section__title" id="contact-titre">Contact</h2>
-                    <p class="section__intro">Une alternance à proposer, une question sur un projet : appelez ou écrivez, je réponds rapidement.</p>
+                    <p class="contact__intro">Une alternance à proposer, une question sur un projet : appelez ou écrivez, je réponds rapidement.</p>
                     <dl class="coords">
                         <% if (tel) { %>
                         <div>

@@ -2,6 +2,18 @@
   {
     "date": "2026-10-03",
     "scope": "app",
+    "macrostructure": "en-tete deux panneaux + mosaique + panneaux alternes",
+    "theme": "custom",
+    "theme_axes": "light / display-wide / cool",
+    "vibe": "terrain IT reel, bleu de Prusse, plaque de materiel",
+    "nav": "N1b barre fixe trois zones",
+    "footer": "Ft2 une ligne",
+    "enrichment": "photos Pexels variees + capture reelle + logos Simple Icons",
+    "brief": "Portfolio Moussa Zedira · plus d'images IT, typo et structure originales"
+  },
+  {
+    "date": "2026-10-03",
+    "scope": "app",
     "macrostructure": "Workbench (en-tete photo plein ecran + lignes)",
     "theme": "custom",
     "theme_axes": "light / grotesk-sans / cool",
