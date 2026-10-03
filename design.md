@@ -62,8 +62,8 @@ procedural (`--stone-grain`, SVG feTurbulence). Jamais de texte pose sur une pie
 ## Typographie
 - Titres : **Archivo** elargie (axe `wdth` 118, 104 pour le nom), 800, en capitales. Elle a
   l'aspect des plaques et etiquettes gravees sur le materiel.
-- Texte : **Atkinson Hyperlegible Next** 400 / 500 / 700, dessinee par le Braille Institute
-  pour la lisibilite.
+- Texte : **Geologica** 400 / 500 / 700, axe `SHRP` (tranchant) a 40 : des terminaisons
+  legerement taillees au biseau, lisibles en petit comme sur le bleu nuit.
 - Etiquettes techniques, chiffres, telephone : **Martian Mono** 400 / 500.
 - Titres en romain uniquement, jamais d'italique.
 

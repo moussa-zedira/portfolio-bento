@@ -1,5 +1,5 @@
 /* Hallmark · genre: modern-minimal · theme: custom « Encre de Prusse » (vraies photos de serveurs, voile bleu nuit)
- * paper oklch(97.5% 0.005 250) · accent oklch(44% 0.12 248) bleu de Prusse · Archivo elargie + Atkinson Hyperlegible Next + Martian Mono
+ * paper oklch(97.5% 0.005 250) · accent oklch(44% 0.12 248) bleu de Prusse · Archivo elargie + Geologica + Martian Mono
  * axes: light / grotesk-sans / cool · design-system: design.md
  */
 :root {
@@ -49,7 +49,8 @@
     --overlay-soft:   oklch(17% 0.03 258 / 0.35);
 
     --font-display: "Archivo", "Arial Narrow", "Segoe UI", sans-serif;
-    --font-sans: "Atkinson Hyperlegible Next", "Segoe UI", system-ui, -apple-system, sans-serif;
+    --font-sans: "Geologica", "Segoe UI", system-ui, -apple-system, sans-serif;
+    --text-sharpness: 40;   /* axe SHRP de Geologica : 0 = arrondi, 100 = taille au biseau */
     --font-mono: "Martian Mono", ui-monospace, "Cascadia Mono", Consolas, monospace;
     --display-width: 118;   /* axe wdth d'Archivo : 100 = normal, 125 = elargi */
 

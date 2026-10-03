@@ -1,5 +1,5 @@
 /* Hallmark · genre: modern-minimal · macrostructure: en-tete deux panneaux + mosaique + panneaux alternes · design-system: design.md · designed-as-app
- * theme: custom « Encre de Prusse » · type: Archivo elargie / Atkinson Hyperlegible Next / Martian Mono
+ * theme: custom « Encre de Prusse » · type: Archivo elargie / Geologica / Martian Mono
  * nav: N1b barre fixe trois zones · footer: Ft2 une ligne · enrichment: photos reelles de materiel (Pexels) + capture reelle + logos officiels
  * Toutes les couleurs, polices et espacements viennent de tokens.css.
  */
@@ -19,6 +19,7 @@ body {
     background: var(--color-paper);
     color: var(--color-ink);
     font: 400 var(--text-md)/1.6 var(--font-sans);
+    font-variation-settings: "SHRP" var(--text-sharpness);
     -webkit-font-smoothing: antialiased;
 }
 
