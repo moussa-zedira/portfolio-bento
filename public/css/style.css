@@ -294,6 +294,10 @@ a:hover { text-decoration-color: var(--color-accent); }
     .portrait__caption { display: none; }
 }
 
+@media (max-width: 760px) {
+    .story__grid { grid-template-columns: minmax(0, 1fr); gap: var(--space-md); }
+}
+
 /* --------------------------------------------- mes terrains : mosaique */
 /* Quatre photos de tailles differentes : deux grandes en diagonale, deux plus etroites.
    La legende est sous l'image, jamais posee dessus. */
@@ -318,27 +322,19 @@ a:hover { text-decoration-color: var(--color-accent); }
 .terrain h3 { font: 800 var(--text-lg)/1.2 var(--font-display); font-variation-settings: "wdth" var(--display-width); text-transform: uppercase; }
 .terrain p { color: var(--color-muted); font-size: var(--text-sm); }
 
-.about {
+/* qui je suis : le titre a gauche, le recit a droite, en colonne de lecture */
+.story { padding-block: var(--space-2xl) var(--space-xl); }
+.story__grid {
     display: grid;
-    grid-template-columns: minmax(0, 1.4fr) minmax(0, 1fr);
+    grid-template-columns: minmax(0, 18rem) minmax(0, 1fr);
     gap: var(--space-2xl);
     align-items: start;
-    margin-top: var(--space-2xl);
-    padding-top: var(--space-xl);
-    border-top: 2px solid var(--color-ink);
 }
-.about__points { display: grid; gap: var(--space-sm); }
-.about__points li { padding-left: var(--space-md); position: relative; }
-.about__points li::before {
-    content: "";
-    position: absolute;
-    left: 0;
-    top: 0.55em;
-    width: 0.7rem;
-    height: 0.55rem;
-    border-radius: var(--shape-galet);
-    background: var(--color-accent);
-}
+.story__text { display: grid; gap: var(--space-md); max-width: var(--measure); }
+.story__text p { color: var(--color-muted); }
+.story__text .story__lead { font-size: var(--text-lg); line-height: 1.5; color: var(--color-ink); }
+.story .about__stats { padding-top: var(--space-md); border-top: 2px solid var(--color-ink); }
+
 .about__stats { display: flex; flex-wrap: wrap; gap: var(--space-xl); }
 .about__stats div { display: grid; gap: var(--space-3xs); }
 .about__stats dt { font: 500 var(--text-xs) var(--font-mono); color: var(--color-muted); text-transform: uppercase; }
@@ -348,7 +344,6 @@ a:hover { text-decoration-color: var(--color-accent); }
     .terrains__grid { grid-template-columns: minmax(0, 1fr); gap: var(--space-xl); }
     .terrain--a, .terrain--b, .terrain--c, .terrain--d { grid-column: auto; margin-top: 0; }
     .terrain--b .terrain__img img, .terrain--c .terrain__img img { aspect-ratio: 4 / 3; }
-    .about { grid-template-columns: minmax(0, 1fr); gap: var(--space-xl); }
 }
 
 /* ---------------------------------------- projets : panneaux alternes */

@@ -89,12 +89,18 @@ const portfolio = {
     name: 'Moussa Zedira',
     title: 'Technicien Support IT & Automatisation',
     subtitle: 'Support IT • IA & Automatisation • Réseaux • Python',
-    seeking: 'Recherche alternance BTS SIO SISR — Février 2027, 3j entreprise / 2j cours — Île-de-France',
-    aboutHook: `Technicien support IT en formation — et je code mes propres outils pour résoudre les problèmes plus vite.`,
+    seeking: 'Recherche une alternance TSSR (Technicien Supérieur Systèmes et Réseaux) — Île-de-France',
+    aboutHook: `Passionné d'informatique, du poste de l'utilisateur jusqu'au serveur : je dépanne, j'installe et je documente.`,
     aboutPoints: [
         `Le support IT, c'est le contact humain : un utilisateur bloqué, un diagnostic à poser, un problème résolu.`,
-        `Ce qui me différencie : j'utilise l'IA et Python pour automatiser le tri de tickets, scripter les tâches répétitives, générer de la documentation.`,
-        `Objectif : une alternance en Île-de-France à partir de février 2027, sur un rythme de 3 jours en entreprise et 2 jours en cours.`
+        `Objectif : une alternance TSSR (Technicien Supérieur Systèmes et Réseaux) en Île-de-France.`
+    ],
+    // Courte presentation a la premiere personne. Uniquement des faits deja presents
+    // ailleurs sur le site (formation, stage, projets) : aucune anecdote inventee.
+    story: [
+        `L'informatique, je l'ai d'abord approchée au lycée, en spécialités NSI et sciences de l'ingénieur. Très vite, ce qui m'a attiré, c'est ce qui se passe derrière l'écran : les serveurs, le réseau, tout ce qui fait qu'un service tient debout.`,
+        `Alors j'ai appris en faisant : j'ai monté mon propre serveur à la maison pour pratiquer en conditions réelles.`,
+        `Aujourd'hui, je cherche une alternance de Technicien Supérieur Systèmes et Réseaux (TSSR) pour continuer d'apprendre sur le terrain, aux côtés d'une équipe.`
     ],
     tags: ['Support IT', 'Systèmes', 'Virtualisation', 'Réseaux', 'Cybersécurité', 'Automatisation'],
     stats: {
@@ -144,7 +150,7 @@ const portfolio = {
         },
         {
             category: 'Automatisation',
-            items: ['Scripts Python', 'Workflows n8n', 'Triage automatique de tickets', 'IA appliquée au support']
+            items: ['Scripts Python', 'PowerShell & Bash', 'Workflows n8n']
         }
     ],
     stack: [

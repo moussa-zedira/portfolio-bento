@@ -30,7 +30,7 @@
         <!-- EN-TETE : deux panneaux, l'identite et le terrain -->
         <section class="hero" id="accueil" aria-labelledby="hero-titre">
             <div class="hero__id">
-                <p class="tag-mono tag-mono--slate">Alternance BTS SIO SISR · février 2027</p>
+                <p class="tag-mono tag-mono--slate">Alternance TSSR · Systèmes et réseaux</p>
                 <h1 class="hero__name" id="hero-titre">Moussa<br>Zedira</h1>
                 <p class="hero__role"><%= portfolio.title %></p>
                 <p class="hero__lede"><%= portfolio.aboutHook %></p>
@@ -47,10 +47,10 @@
                     </a>
                     <a class="btn btn--outline-light" href="#contact">Me contacter</a>
                 </div>
-                <p class="hero__meta">3 jours en entreprise, 2 jours en cours · <span class="nowrap">Île-de-France</span></p>
+                <p class="hero__meta">Mobile en <span class="nowrap">Île-de-France</span> · permis B</p>
             </div>
             <div class="hero__terrain">
-                <%- photo('technicien-cablage', 'Technicien en train de câbler une baie réseau', 'hero__photo', true) %>
+                <%- photo('baie-ouverte', 'Baie de serveurs ouverte, câblée, voyants allumés', 'hero__photo', true) %>
                 <figure class="portrait">
                     <div class="portrait__frame">
                         <picture>
@@ -58,8 +58,25 @@
                             <img src="/img/profile.jpg" alt="Portrait de <%= portfolio.name %>" width="800" height="1000">
                         </picture>
                     </div>
-                    <figcaption class="portrait__caption"><span class="portrait__status">Disponible</span> · Argenteuil</figcaption>
+                    <figcaption class="portrait__caption"><span class="portrait__status">Disponible</span> · Île-de-France</figcaption>
                 </figure>
+            </div>
+        </section>
+
+        <!-- QUI JE SUIS : une courte presentation, puis les chiffres -->
+        <section class="section story" id="presentation" aria-labelledby="presentation-titre">
+            <div class="container story__grid">
+                <h2 class="section__title" id="presentation-titre">Qui je suis</h2>
+                <div class="story__text">
+                    <% portfolio.story.forEach(function(para, i) { %>
+                    <p<%- i === 0 ? ' class="story__lead"' : '' %>><%= para %></p>
+                    <% }); %>
+                    <dl class="about__stats">
+                        <div><dt>Certifications</dt><dd><%= portfolio.stats.certifications %></dd></div>
+                        <div><dt>Projets</dt><dd><%= portfolio.stats.projects %></dd></div>
+                        <div><dt>Langues</dt><dd><%= portfolio.languages.length %></dd></div>
+                    </dl>
+                </div>
             </div>
         </section>
 
@@ -87,18 +104,6 @@
                         <%- photo('securite-ecrans', 'Écran affichant des journaux et des données de sécurité', 'terrain__img') %>
                         <figcaption><h3>Cybersécurité</h3><p>Analyse de logs, SIEM, MITRE ATT&amp;CK, durcissement, sauvegardes.</p></figcaption>
                     </figure>
-                </div>
-                <div class="about">
-                    <ul class="about__points">
-                        <% portfolio.aboutPoints.slice(1).forEach(function(point) { %>
-                        <li><%= point %></li>
-                        <% }); %>
-                    </ul>
-                    <dl class="about__stats">
-                        <div><dt>Certifications</dt><dd><%= portfolio.stats.certifications %></dd></div>
-                        <div><dt>Projets</dt><dd><%= portfolio.stats.projects %></dd></div>
-                        <div><dt>Langues</dt><dd><%= portfolio.languages.length %></dd></div>
-                    </dl>
                 </div>
             </div>
         </section>
