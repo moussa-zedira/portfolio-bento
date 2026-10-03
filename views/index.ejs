@@ -17,34 +17,41 @@
 
     <main id="contenu">
 
-        <!-- EN-TETE -->
+        <!-- EN-TETE : une vraie photo de switch et de brassage, sous un voile bleu nuit -->
         <section class="hero" id="accueil" aria-labelledby="hero-titre">
+            <picture class="hero__bg" aria-hidden="true">
+                <source media="(max-width: 900px)" srcset="/img/photos/hero-switch-1000.webp" type="image/webp">
+                <source media="(max-width: 900px)" srcset="/img/photos/hero-switch-1000.jpg">
+                <source srcset="/img/photos/hero-switch-2000.webp" type="image/webp">
+                <img src="/img/photos/hero-switch-2000.jpg" alt="" width="2000" height="1333" fetchpriority="high">
+            </picture>
             <div class="container hero__grid">
                 <div class="hero__text">
-                    <p class="eyebrow">Alternance BTS SIO SISR · février 2027</p>
+                    <p class="eyebrow eyebrow--slate">Alternance BTS SIO SISR · février 2027</p>
                     <h1 class="hero__name" id="hero-titre"><%= portfolio.name %></h1>
                     <p class="hero__role"><%= portfolio.title %></p>
                     <p class="hero__lede"><%= portfolio.aboutHook %></p>
-                    <p class="hero__meta">Rythme : 3 jours en entreprise, 2 jours en cours</p>
+                    <ul class="hero__stack" aria-label="Environnements">
+                        <li>Windows Server · Active Directory</li>
+                        <li>Linux · Debian</li>
+                        <li>Proxmox · Docker</li>
+                        <li>Réseaux Cisco</li>
+                    </ul>
                     <div class="hero__cta">
-                        <a class="btn btn--primary" href="/CV.MoussaZedira.pdf?v=20261002" download>
+                        <a class="btn btn--light" href="/CV.MoussaZedira.pdf?v=20261002" download>
                             <svg viewBox="0 0 24 24" width="18" height="18" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M12 4v11M7 10l5 5 5-5M5 20h14"/></svg>
                             Télécharger le CV
                         </a>
-                        <a class="btn btn--ghost" href="#projets">Voir les projets</a>
+                        <a class="btn btn--outline-light" href="#projets">Voir les projets</a>
                     </div>
+                    <p class="hero__meta">Rythme : 3 jours en entreprise, 2 jours en cours · Île-de-France</p>
                 </div>
 
-                <%# Le portrait dans un galet, pose parmi d'autres pierres : la personne d'abord. %>
                 <figure class="portrait">
-                    <span class="pebble pebble--ardoise" aria-hidden="true"></span>
-                    <span class="pebble pebble--granit" aria-hidden="true"></span>
-                    <span class="pebble pebble--basalte" aria-hidden="true"></span>
-                    <span class="pebble pebble--galet" aria-hidden="true"></span>
                     <div class="portrait__frame">
                         <picture>
                             <source srcset="/img/profile.webp" type="image/webp">
-                            <img src="/img/profile.jpg" alt="Portrait de <%= portfolio.name %>" width="800" height="1000" fetchpriority="high">
+                            <img src="/img/profile.jpg" alt="Portrait de <%= portfolio.name %>" width="800" height="1000">
                         </picture>
                     </div>
                     <figcaption class="portrait__caption">
@@ -182,6 +189,24 @@
                 <div class="section__head">
                     <h2 class="section__title" id="competences-titre">Compétences</h2>
                 </div>
+                <%
+                    // Logos officiels (Simple Icons, licence CC0), uniquement pour les outils revendiques.
+                    // Microsoft retire ses logos de Simple Icons : Windows, AD et Hyper-V sont ecrits.
+                    const outils = [['debian', 'Debian'], ['ubuntu', 'Ubuntu'], ['proxmox', 'Proxmox'], ['vmware', 'VMware ESXi'],
+                        ['docker', 'Docker'], ['cisco', 'Cisco IOS'], ['nginx', 'Nginx'], ['tailscale', 'Tailscale'],
+                        ['wireshark', 'Wireshark'], ['python', 'Python'], ['gnubash', 'Bash'], ['git', 'Git'], ['n8n', 'n8n']];
+                    const sansLogo = ['Windows Server 2022', 'Active Directory', 'Hyper-V', 'PowerShell', 'GLPI'];
+                %>
+                <h3 class="sub__title">Outils du quotidien</h3>
+                <ul class="toolbelt" aria-label="Outils">
+                    <% outils.forEach(function([fichier, nom]) { %>
+                    <li><span class="toolbelt__logo" style="--logo: url('/img/logos/<%= fichier %>.svg')" aria-hidden="true"></span><%= nom %></li>
+                    <% }); %>
+                    <% sansLogo.forEach(function(nom) { %>
+                    <li class="toolbelt__text"><%= nom %></li>
+                    <% }); %>
+                </ul>
+
                 <dl class="skills">
                     <% portfolio.skills.forEach(function(skill) { %>
                     <div class="skills__row reveal">

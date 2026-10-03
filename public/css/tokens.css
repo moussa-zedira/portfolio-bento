@@ -1,4 +1,4 @@
-/* Hallmark · genre: modern-minimal · theme: custom « Encre de Prusse » (salle serveur, pierres froides)
+/* Hallmark · genre: modern-minimal · theme: custom « Encre de Prusse » (vraies photos de serveurs, voile bleu nuit)
  * paper oklch(97.5% 0.005 250) · accent oklch(44% 0.12 248) bleu de Prusse · IBM Plex Sans + IBM Plex Mono
  * axes: light / grotesk-sans / cool · design-system: design.md
  */
@@ -42,10 +42,11 @@
     --shape-galet: 58% 42% 52% 48% / 46% 56% 44% 54%;
     --shape-galet-2: 44% 56% 48% 52% / 58% 42% 58% 42%;
 
-    /* Facade de baie de serveurs : un chassis 1U dessine en SVG (rails, baies de disques,
-       ventilation, voyants). Version claire pour l'en-tete, sombre pour la bande HomeLab. */
-    --rack-light: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='240' height='44'%3E%3Cg fill='none' stroke='%23b9c3ce' stroke-width='1'%3E%3Cpath d='M2 0V44M238 0V44'/%3E%3Crect x='8' y='5' width='224' height='34' rx='2'/%3E%3Crect x='16' y='11' width='12' height='22' rx='1'/%3E%3Crect x='32' y='11' width='12' height='22' rx='1'/%3E%3Crect x='48' y='11' width='12' height='22' rx='1'/%3E%3Crect x='64' y='11' width='12' height='22' rx='1'/%3E%3Crect x='80' y='11' width='12' height='22' rx='1'/%3E%3Cpath d='M112 13v18M117 13v18M122 13v18M127 13v18M132 13v18M137 13v18M142 13v18M147 13v18M152 13v18M157 13v18'/%3E%3C/g%3E%3Cg fill='%23b9c3ce'%3E%3Ccircle cx='2' cy='11' r='1.2'/%3E%3Ccircle cx='2' cy='33' r='1.2'/%3E%3Ccircle cx='238' cy='11' r='1.2'/%3E%3Ccircle cx='238' cy='33' r='1.2'/%3E%3C/g%3E%3Ccircle cx='206' cy='15' r='2.2' fill='%2361cb7c'/%3E%3Ccircle cx='215' cy='15' r='2.2' fill='%234fa8e1'/%3E%3Ccircle cx='206' cy='28' r='2.2' fill='%2361cb7c' fill-opacity='.55'/%3E%3C/svg%3E");
-    --rack-dark: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='240' height='44'%3E%3Cg fill='none' stroke='%232c3645' stroke-width='1'%3E%3Cpath d='M2 0V44M238 0V44'/%3E%3Crect x='8' y='5' width='224' height='34' rx='2' fill='%23151f2e'/%3E%3Crect x='16' y='11' width='12' height='22' rx='1'/%3E%3Crect x='32' y='11' width='12' height='22' rx='1'/%3E%3Crect x='48' y='11' width='12' height='22' rx='1'/%3E%3Crect x='64' y='11' width='12' height='22' rx='1'/%3E%3Crect x='80' y='11' width='12' height='22' rx='1'/%3E%3Cpath d='M112 13v18M117 13v18M122 13v18M127 13v18M132 13v18M137 13v18M142 13v18M147 13v18M152 13v18M157 13v18'/%3E%3C/g%3E%3Ccircle cx='206' cy='15' r='2.2' fill='%2361cb7c'/%3E%3Ccircle cx='215' cy='15' r='2.2' fill='%234fa8e1'/%3E%3Ccircle cx='206' cy='28' r='2.2' fill='%2361cb7c' fill-opacity='.5'/%3E%3C/svg%3E");
+    /* Voile sur les vraies photos de serveurs : le texte n'est jamais pose sur l'image nue.
+       Opaque a 92 % derriere le texte, il laisse voir la photo vers la droite. */
+    --overlay-strong: oklch(17% 0.03 258 / 0.94);
+    --overlay-mid:    oklch(17% 0.03 258 / 0.72);
+    --overlay-soft:   oklch(17% 0.03 258 / 0.35);
 
     --font-sans: "IBM Plex Sans", "Segoe UI", system-ui, -apple-system, sans-serif;
     --font-mono: "IBM Plex Mono", ui-monospace, "Cascadia Mono", Consolas, monospace;

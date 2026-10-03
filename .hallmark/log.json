@@ -2,6 +2,18 @@
   {
     "date": "2026-10-03",
     "scope": "app",
+    "macrostructure": "Workbench (en-tete photo plein ecran + lignes)",
+    "theme": "custom",
+    "theme_axes": "light / grotesk-sans / cool",
+    "vibe": "salle serveur reelle, bleu de Prusse",
+    "nav": "N1b barre fixe trois zones",
+    "footer": "Ft2 une ligne",
+    "enrichment": "photos reelles Pexels sous voile + logos Simple Icons",
+    "brief": "Portfolio Moussa Zedira · on doit voir l'IT"
+  },
+  {
+    "date": "2026-10-03",
+    "scope": "app",
     "macrostructure": "Workbench (portrait galet + lignes)",
     "theme": "custom",
     "theme_axes": "light / grotesk-sans / cool",

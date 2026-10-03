@@ -10,7 +10,7 @@ telecharger le CV, appeler ou ecrire, parcourir les projets.
 
 ## Genre
 modern-minimal, theme sur mesure « Encre de Prusse » : la salle serveur, au calme.
-Les decors (baie de serveurs, galets) sont dessines en SVG et CSS, jamais en photo.
+On voit le metier : vraies photos de materiel reseau, logos officiels des outils.
 
 ## Theme « Encre de Prusse »
 Valeurs de reference : `public/css/tokens.css`. Les hex sont donnes pour lecture.
@@ -36,14 +36,22 @@ Valeurs de reference : `public/css/tokens.css`. Les hex sont donnes pour lecture
 Un bleu profond et dense, pas le bleu vif par defaut (#2563EB). Il occupe 3 % au plus
 de l'ecran : lien actif, bouton principal, focus, le filet sous la navigation.
 
-### Baie de serveurs (decor)
-Facade de chassis 1U dessinee en SVG (`--rack-light`, `--rack-dark`) : rails, baies de
-disques, ventilation, voyants vert #61cb7c et bleu #4fa8e1. En fond de l'en-tete, a
-droite, efface vers le texte ; dans la bande HomeLab, sur toute la hauteur. Les donnees de
-la bande sont posees sur un panneau plein (ecran de supervision), jamais sur le motif.
+### Photos reelles de materiel
+Vraies photos (Pexels, libres d'usage, credit en pied de page), jamais d'image generee :
+- en-tete : switch et panneau de brassage (`public/img/photos/hero-switch-*`, Vladimir Srajber) ;
+- bande HomeLab : baie cablee (`public/img/photos/baie-serveurs-*`, Sejio402).
+Deux tailles (1000 et 2000 px), WebP + JPEG. Le texte n'est jamais pose sur l'image nue :
+voile bleu nuit `--overlay-strong` (94 %) derriere le texte, qui s'eclaircit vers la droite.
+Contraste mesure sur les pixels les plus clairs de la photo : 8:1 au minimum, 14:1 pour le nom.
+Les donnees de la bande HomeLab sont posees sur un panneau plein.
+
+### Logos d'outils
+Logos officiels Simple Icons (CC0) dans `public/img/logos/`, appliques en masque a la couleur
+`--color-accent`. Uniquement pour les outils revendiques. Les marques Microsoft (Windows Server,
+Active Directory, Hyper-V, PowerShell) et GLPI sont ecrites, sans logo.
 
 ### Pierres froides (decor)
-Galets dessines en CSS autour du portrait : `--stone-ardoise` (#606a74), `--stone-granit`
+Le portrait garde sa forme de galet ; les galets dessines en CSS servent de motif : `--stone-ardoise` (#606a74), `--stone-granit`
 (#a1a5a9), `--stone-galet` (#d3d8dc), `--stone-basalte` (#383e45), `--stone-riviere`
 (#858e92). Contour `--shape-galet`, modele (reflet + ombre) et grain de granit en bruit
 procedural (`--stone-grain`, SVG feTurbulence). Jamais de texte pose sur une pierre.
