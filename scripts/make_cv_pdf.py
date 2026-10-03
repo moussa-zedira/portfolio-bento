@@ -99,10 +99,10 @@ VARIANTES = {
                 # Copie sur le bureau, a cote du CV de candidature. Le nom
                 # dit lequel des deux c'est : deux fichiers nommes presque
                 # pareil au moment d'en joindre un, c'est l'erreur assuree.
-                BUREAU / "CV-Moussa-Zedira-Alternance-BTS-SIO.pdf"],
+                BUREAU / "CV-Moussa-Zedira-Alternance-TSSR.pdf"],
         "docx": [RACINE / "cv" / "CV-Moussa-Zedira.docx",
                  RACINE / "public" / "CV.MoussaZedira.docx"],
-        "mots_cles": ["alternance", "BTS SIO", "SISR", "SIEM"],
+        "mots_cles": ["alternance", "TSSR", "SIEM"],
         "interdits": [],
     },
     # La variante a deposer sur les jobboards. Le nom de fichier est explicite :
@@ -150,8 +150,7 @@ VARIANTES = {
                 <div class="skills-row">
                     <div class="skills-label">Sécurité &amp; scripts</div>
                     <div class="skills-value">Durcissement système (fail2ban, SSH), sauvegardes,
-                        analyse de logs, scripts Python, workflows n8n,
-                        triage automatique de tickets</div>
+                        analyse de logs, scripts Python, workflows n8n</div>
                 </div>
             """,
         },
@@ -168,7 +167,7 @@ VARIANTES = {
         # ecarte d'une offre en CDI. Si une de ces mentions revient un jour
         # dans cv/cv.html ailleurs que dans l'objectif, la generation doit
         # s'arreter, pas produire un CV inutilisable sans le dire.
-        "interdits": ["alternance", "BTS SIO", "SISR"],
+        "interdits": ["alternance", "TSSR", "BTS SIO", "SISR"],
     },
 }
 
