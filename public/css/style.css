@@ -1,5 +1,5 @@
-/* Hallmark · genre: modern-minimal · macrostructure: Workbench (fiche technique + lignes) · design-system: design.md · designed-as-app
- * theme: custom « Atelier » · nav: N1b barre fixe trois zones · footer: Ft2 une ligne · enrichment: none (photo reelle seulement)
+/* Hallmark · genre: modern-minimal · macrostructure: Workbench (portrait galet + lignes) · design-system: design.md · designed-as-app
+ * theme: custom « Encre de Prusse » · nav: N1b barre fixe trois zones · footer: Ft2 une ligne · enrichment: E5 formes CSS (galets) + facade de baie serveur en SVG
  * Toutes les couleurs, polices et espacements viennent de tokens.css.
  */
 
@@ -112,7 +112,7 @@ a:hover { text-decoration-color: var(--color-accent); }
     top: 0;
     z-index: 50;
     background: var(--color-paper);
-    /* le filet cuivre « cable » sous la barre */
+    /* le filet bleu « cable » sous la barre */
     box-shadow: inset 0 -2px 0 var(--color-accent);
 }
 
@@ -235,7 +235,23 @@ a:hover { text-decoration-color: var(--color-accent); }
 .prose { max-width: var(--measure); }
 
 /* ---------------------------------------------------------------- en-tete */
-.hero { padding-block: var(--space-2xl) var(--space-2xl); }
+.hero { position: relative; padding-block: var(--space-2xl) var(--space-2xl); overflow: hidden; }
+/* Facade de baie de serveurs (SVG, voir --rack-light) : deux colonnes de chassis 1U a droite,
+   effacees vers le texte pour ne jamais gener la lecture. Decor : ignore par les lecteurs d'ecran. */
+.hero::before {
+    content: "";
+    position: absolute;
+    inset: 0 0 0 auto;
+    width: min(60%, 46rem);
+    background-image: var(--rack-light);
+    background-size: 240px 44px;
+    background-position: right top;
+    -webkit-mask-image: linear-gradient(to left, #000 35%, transparent 95%);
+    mask-image: linear-gradient(to left, #000 35%, transparent 95%);
+    opacity: 0.7;
+    pointer-events: none;
+}
+.hero__grid { position: relative; z-index: 1; }
 
 .hero__grid {
     display: grid;
@@ -257,39 +273,71 @@ a:hover { text-decoration-color: var(--color-accent); }
 .hero__lede { color: var(--color-muted); max-width: 52ch; }
 .hero__cta { display: flex; flex-wrap: wrap; gap: var(--space-xs); margin-top: var(--space-2xs); }
 
-.spec {
+.hero__meta { font: 500 var(--text-xs)/1.5 var(--font-mono); color: var(--color-muted); }
+
+/* Portrait dans un galet, pose parmi d'autres pierres naturelles.
+   Les pierres sont du decor pur : formes CSS, mouchetees comme du granit, sans image. */
+.portrait {
+    position: relative;
+    margin: 0;
+    width: min(100%, 26rem);
+    justify-self: center;
+    padding: var(--space-lg) var(--space-lg) var(--space-md);
+}
+.portrait__frame {
+    position: relative;
+    z-index: 2;
+    border-radius: var(--shape-galet);
+    overflow: hidden;
+    aspect-ratio: 4 / 5;
+    box-shadow: 0 18px 40px -18px var(--stone-speck-dark);
+}
+.portrait__frame img { width: 100%; height: 100%; object-fit: cover; }
+.portrait__caption {
+    position: relative;
+    z-index: 2;
+    width: fit-content;
+    max-width: 100%;
+    margin: var(--space-md) auto 0;
+    padding: var(--space-3xs) var(--space-sm);
     border: 1px solid var(--color-rule);
-    border-radius: var(--radius-lg);
-    background: var(--color-field);
-    padding: var(--space-md);
-}
-.spec__title {
-    font: 600 var(--text-xs)/1 var(--font-mono);
-    letter-spacing: 0.06em;
-    text-transform: uppercase;
-    color: var(--color-muted);
-    padding-bottom: var(--space-sm);
-    border-bottom: 2px solid var(--color-ink);
-}
-.spec__list div {
-    display: flex;
-    justify-content: space-between;
-    gap: var(--space-sm);
-    padding-block: var(--space-xs);
-    border-bottom: 1px solid var(--color-rule);
+    border-radius: 999px;
+    background: var(--color-paper);
+    text-align: center;
     font-size: var(--text-sm);
+    color: var(--color-muted);
 }
-.spec__list div:last-child { border-bottom: 0; padding-bottom: 0; }
-.spec__list dt { color: var(--color-muted); font-family: var(--font-mono); font-size: var(--text-xs); padding-top: 0.15em; white-space: nowrap; }
-.spec__list dd { text-align: right; font-weight: 500; min-width: 0; overflow-wrap: anywhere; }
-.spec__list dd a { font-family: var(--font-mono); text-decoration: none; }
-.spec__list dd a:hover { color: var(--color-accent); }
-.spec__status { color: var(--color-success); }
-.spec__status::before { content: "● "; }
+.portrait__status { color: var(--color-success); font-weight: 600; }
+.nowrap { white-space: nowrap; }
+.portrait__status::before { content: "● "; }
+
+.pebble {
+    position: absolute;
+    display: block;
+    border-radius: var(--shape-galet);
+    /* moucheture de granit : deux trames de petits points, sombres et clairs */
+    /* un galet lisse : reflet en haut a gauche, ombre en bas a droite, et le grain
+       irregulier du granit (bruit procedural, voir --stone-grain dans tokens.css) */
+    background-image:
+        radial-gradient(ellipse 60% 50% at 30% 25%, var(--stone-sheen), transparent 70%),
+        radial-gradient(ellipse 70% 60% at 75% 85%, var(--stone-shade), transparent 70%),
+        var(--stone-grain),
+        var(--stone-grain-light);
+    background-size: 100% 100%, 100% 100%, 140px 140px, 170px 170px;
+    box-shadow: 0 12px 20px -14px var(--stone-speck-dark);
+}
+.pebble--ardoise    { width: 46%; aspect-ratio: 1.35; left: -4%; bottom: 8%; background-color: var(--stone-ardoise); border-radius: var(--shape-galet-2); }
+.pebble--granit  { width: 24%; aspect-ratio: 1.2; right: 0; top: 4%; background-color: var(--stone-granit); }
+.pebble--basalte { width: 15%; aspect-ratio: 1.3; right: 4%; bottom: 14%; z-index: 3; background-color: var(--stone-basalte); border-radius: var(--shape-galet-2); }
+.pebble--galet   { width: 11%; aspect-ratio: 1.15; left: 6%; top: 10%; background-color: var(--stone-galet); }
 
 @media (max-width: 860px) {
-    .hero { padding-block: var(--space-xl); }
-    .hero__grid { grid-template-columns: minmax(0, 1fr); gap: var(--space-xl); }
+    .hero { padding-block: var(--space-lg) var(--space-xl); }
+    .hero__grid { grid-template-columns: minmax(0, 1fr); gap: var(--space-md); }
+    /* la baie passe en haut, derriere le portrait, et s'efface vers le bas */
+    .hero::before { width: 100%; height: 26rem; inset: 0 0 auto 0; -webkit-mask-image: linear-gradient(to bottom, #000 30%, transparent 100%); mask-image: linear-gradient(to bottom, #000 30%, transparent 100%); background-position: center top; }
+    /* sur petit ecran, la personne d'abord : le portrait passe au-dessus du nom */
+    .portrait { order: -1; width: min(100%, 17rem); padding: var(--space-md) var(--space-md) 0; }
 }
 
 /* --------------------------------------------------------------- a propos */
@@ -299,14 +347,6 @@ a:hover { text-decoration-color: var(--color-accent); }
     gap: var(--space-2xl);
     align-items: start;
 }
-.about__photo { margin: 0; }
-.about__photo img {
-    width: 100%;
-    aspect-ratio: 4 / 5;
-    object-fit: cover;
-    border-radius: var(--radius-lg);
-    border: 1px solid var(--color-rule);
-}
 .about__text { display: grid; gap: var(--space-lg); max-width: var(--measure); }
 .about__points { display: grid; gap: var(--space-sm); }
 .about__points li { padding-left: var(--space-md); position: relative; }
@@ -314,11 +354,14 @@ a:hover { text-decoration-color: var(--color-accent); }
     content: "";
     position: absolute;
     left: 0;
-    top: 0.72em;
-    width: 0.6rem;
-    height: 2px;
-    background: var(--color-accent);
+    top: 0.5em;
+    width: 0.7rem;
+    height: 0.55rem;
+    border-radius: var(--shape-galet);
+    background: var(--stone-ardoise);
 }
+.about__points li:nth-child(2)::before { background: var(--stone-granit); border-radius: var(--shape-galet-2); }
+.about__points li:nth-child(3)::before { background: var(--stone-riviere); }
 .about__stats { display: flex; flex-wrap: wrap; gap: var(--space-xl); }
 .about__stats div { display: grid; gap: var(--space-3xs); }
 .about__stats dt { font: 500 var(--text-xs) var(--font-mono); color: var(--color-muted); text-transform: uppercase; letter-spacing: 0.06em; }
@@ -326,7 +369,6 @@ a:hover { text-decoration-color: var(--color-accent); }
 
 @media (max-width: 760px) {
     .about__grid { grid-template-columns: minmax(0, 1fr); gap: var(--space-lg); }
-    .about__photo { max-width: 16rem; }
 }
 
 .tags, .pills { display: flex; flex-wrap: wrap; gap: var(--space-2xs); }
@@ -390,10 +432,26 @@ a:hover { text-decoration-color: var(--color-accent); }
 
 /* --------------------------------------------------------- bande ardoise */
 .slate {
+    position: relative;
+    overflow: hidden;
     background: var(--color-slate);
     color: var(--color-slate-ink);
     padding-block: var(--space-2xl);
 }
+/* la baie sombre, de toute la hauteur, a droite derriere les chiffres */
+.slate::before {
+    content: "";
+    position: absolute;
+    inset: 0 0 0 auto;
+    width: min(55%, 44rem);
+    background-image: var(--rack-dark);
+    background-size: 240px 44px;
+    background-position: right top;
+    -webkit-mask-image: linear-gradient(to left, #000 25%, transparent 100%);
+    mask-image: linear-gradient(to left, #000 25%, transparent 100%);
+    pointer-events: none;
+}
+.slate > .container { position: relative; z-index: 1; }
 .slate a { color: inherit; }
 .slate__grid {
     display: grid;
@@ -405,7 +463,15 @@ a:hover { text-decoration-color: var(--color-accent); }
 .slate__title { font: 700 var(--text-2xl)/1.15 var(--font-sans); letter-spacing: -0.02em; }
 .slate__title--sm { font-size: var(--text-xl); margin-bottom: var(--space-lg); }
 .slate__desc { color: var(--color-slate-muted); max-width: var(--measure); }
-.slate__data { display: grid; gap: var(--space-xl); }
+.slate__data {
+    display: grid;
+    gap: var(--space-xl);
+    /* un ecran de supervision monte dans la baie : les donnees ne sont jamais posees sur le motif */
+    background: var(--color-slate);
+    border: 1px solid var(--color-slate-rule);
+    border-radius: var(--radius-lg);
+    padding: var(--space-lg);
+}
 
 .figures--slate { border-top: 2px solid var(--color-slate-accent); padding-top: var(--space-sm); }
 .figures--slate div { border-bottom-color: var(--color-slate-rule); }
@@ -440,12 +506,13 @@ a:hover { text-decoration-color: var(--color-accent); }
     position: absolute;
     left: -6px;
     top: 0.45em;
-    width: 10px;
+    width: 12px;
     height: 10px;
-    border-radius: 50%;
-    background: var(--color-paper);
-    border: 2px solid var(--color-accent);
+    border-radius: var(--shape-galet);
+    background: var(--stone-granit);
+    border: 2px solid var(--color-paper);
 }
+.timeline li:first-child::before { background: var(--color-accent); }
 .timeline__when { font: 500 var(--text-xs)/1.4 var(--font-mono); color: var(--color-muted); }
 .timeline__what { font: 600 var(--text-md)/1.35 var(--font-sans); }
 .timeline__detail { color: var(--color-muted); font-size: var(--text-sm); max-width: var(--measure); }

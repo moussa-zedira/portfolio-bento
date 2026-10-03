@@ -1,5 +1,17 @@
 [
   {
+    "date": "2026-10-03",
+    "scope": "app",
+    "macrostructure": "Workbench (portrait galet + lignes)",
+    "theme": "custom",
+    "theme_axes": "light / grotesk-sans / cool",
+    "vibe": "salle serveur au calme, bleu de Prusse, pierres froides",
+    "nav": "N1b barre fixe trois zones",
+    "footer": "Ft2 une ligne",
+    "enrichment": "E5 galets CSS + facade de baie serveur SVG",
+    "brief": "Portfolio Moussa Zedira · passage a l'Encre de Prusse"
+  },
+  {
     "date": "2026-10-02",
     "scope": "app",
     "macrostructure": "Workbench (fiche technique + lignes)",

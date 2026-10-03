@@ -1,27 +1,51 @@
-/* Hallmark · genre: modern-minimal · theme: custom « Atelier » (pierre, noyer, cuivre, ardoise)
- * paper oklch(95.5% 0.007 85) · accent oklch(53% 0.13 48) cuivre · IBM Plex Sans + IBM Plex Mono
- * axes: light / grotesk-sans / warm · design-system: design.md
+/* Hallmark · genre: modern-minimal · theme: custom « Encre de Prusse » (salle serveur, pierres froides)
+ * paper oklch(97.5% 0.005 250) · accent oklch(44% 0.12 248) bleu de Prusse · IBM Plex Sans + IBM Plex Mono
+ * axes: light / grotesk-sans / cool · design-system: design.md
  */
 :root {
     /* Couleurs : voir le tableau de design.md pour les contrastes mesures */
-    --color-paper:        oklch(95.5% 0.007 85);
-    --color-paper-2:      oklch(92.5% 0.009 80);
-    --color-field:        oklch(97.5% 0.005 85);
-    --color-rule:         oklch(84% 0.012 75);
-    --color-field-border: oklch(62% 0.015 70);
-    --color-muted:        oklch(46% 0.02 60);
-    --color-ink:          oklch(23% 0.025 50);
-    --color-accent:       oklch(53% 0.13 48);
-    --color-accent-hover: oklch(47% 0.12 46);
-    --color-accent-ink:   oklch(97.5% 0.006 85);
-    --color-slate:        oklch(27% 0.014 250);
-    --color-slate-rule:   oklch(38% 0.014 250);
-    --color-slate-ink:    oklch(93% 0.008 85);
-    --color-slate-muted:  oklch(76% 0.012 250);
-    --color-slate-accent: oklch(78% 0.11 58);
-    --color-success:      oklch(46% 0.10 150);
+    --color-paper:        oklch(97.5% 0.005 250);
+    --color-paper-2:      oklch(95% 0.008 250);
+    --color-field:        oklch(99% 0.003 250);
+    --color-rule:         oklch(88% 0.012 250);
+    --color-field-border: oklch(62% 0.02 250);
+    --color-muted:        oklch(47% 0.02 255);
+    --color-ink:          oklch(22% 0.025 258);
+    --color-accent:       oklch(44% 0.12 248);
+    --color-accent-hover: oklch(38% 0.11 248);
+    --color-accent-ink:   oklch(98.5% 0.004 250);
+    /* la bande sombre : bleu nuit de salle serveur (les noms « slate » sont gardes pour le CSS) */
+    --color-slate:        oklch(21% 0.03 258);
+    --color-slate-rule:   oklch(33% 0.03 258);
+    --color-slate-ink:    oklch(94% 0.008 250);
+    --color-slate-muted:  oklch(76% 0.02 250);
+    --color-slate-accent: oklch(78% 0.09 240);
+    --color-success:      oklch(47% 0.10 155);
     --color-error:        oklch(50% 0.17 28);
     --color-focus:        var(--color-accent);
+
+    /* Pierres froides : decor uniquement (galets), jamais sous du texte */
+    --stone-ardoise: oklch(52% 0.02 250);
+    --stone-granit:  oklch(72% 0.008 250);
+    --stone-galet:   oklch(88% 0.008 240);
+    --stone-basalte: oklch(36% 0.015 255);
+    --stone-riviere: oklch(64% 0.012 230);
+    --stone-speck-dark:  oklch(25% 0.02 255 / 0.22);
+    --stone-speck-light: oklch(98% 0.004 250 / 0.35);
+    --stone-sheen: oklch(99% 0.004 250 / 0.45);
+    --stone-shade: oklch(22% 0.02 255 / 0.24);
+    /* Grain de granit : bruit procedural (SVG feTurbulence), pas une photo */
+    --stone-grain: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='140' height='140'%3E%3Cfilter id='g'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='1.1' numOctaves='2' seed='7' stitchTiles='stitch'/%3E%3CfeColorMatrix values='0 0 0 0 0.11 0 0 0 0 0.13 0 0 0 0 0.17 0 0 0 2.2 -1.15'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23g)'/%3E%3C/svg%3E");
+    --stone-grain-light: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='170' height='170'%3E%3Cfilter id='h'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='1' seed='3' stitchTiles='stitch'/%3E%3CfeColorMatrix values='0 0 0 0 0.97 0 0 0 0 0.98 0 0 0 0 1 0 0 0 2.4 -1.45'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23h)'/%3E%3C/svg%3E");
+
+    /* Contour organique d'un galet de riviere */
+    --shape-galet: 58% 42% 52% 48% / 46% 56% 44% 54%;
+    --shape-galet-2: 44% 56% 48% 52% / 58% 42% 58% 42%;
+
+    /* Facade de baie de serveurs : un chassis 1U dessine en SVG (rails, baies de disques,
+       ventilation, voyants). Version claire pour l'en-tete, sombre pour la bande HomeLab. */
+    --rack-light: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='240' height='44'%3E%3Cg fill='none' stroke='%23b9c3ce' stroke-width='1'%3E%3Cpath d='M2 0V44M238 0V44'/%3E%3Crect x='8' y='5' width='224' height='34' rx='2'/%3E%3Crect x='16' y='11' width='12' height='22' rx='1'/%3E%3Crect x='32' y='11' width='12' height='22' rx='1'/%3E%3Crect x='48' y='11' width='12' height='22' rx='1'/%3E%3Crect x='64' y='11' width='12' height='22' rx='1'/%3E%3Crect x='80' y='11' width='12' height='22' rx='1'/%3E%3Cpath d='M112 13v18M117 13v18M122 13v18M127 13v18M132 13v18M137 13v18M142 13v18M147 13v18M152 13v18M157 13v18'/%3E%3C/g%3E%3Cg fill='%23b9c3ce'%3E%3Ccircle cx='2' cy='11' r='1.2'/%3E%3Ccircle cx='2' cy='33' r='1.2'/%3E%3Ccircle cx='238' cy='11' r='1.2'/%3E%3Ccircle cx='238' cy='33' r='1.2'/%3E%3C/g%3E%3Ccircle cx='206' cy='15' r='2.2' fill='%2361cb7c'/%3E%3Ccircle cx='215' cy='15' r='2.2' fill='%234fa8e1'/%3E%3Ccircle cx='206' cy='28' r='2.2' fill='%2361cb7c' fill-opacity='.55'/%3E%3C/svg%3E");
+    --rack-dark: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='240' height='44'%3E%3Cg fill='none' stroke='%232c3645' stroke-width='1'%3E%3Cpath d='M2 0V44M238 0V44'/%3E%3Crect x='8' y='5' width='224' height='34' rx='2' fill='%23151f2e'/%3E%3Crect x='16' y='11' width='12' height='22' rx='1'/%3E%3Crect x='32' y='11' width='12' height='22' rx='1'/%3E%3Crect x='48' y='11' width='12' height='22' rx='1'/%3E%3Crect x='64' y='11' width='12' height='22' rx='1'/%3E%3Crect x='80' y='11' width='12' height='22' rx='1'/%3E%3Cpath d='M112 13v18M117 13v18M122 13v18M127 13v18M132 13v18M137 13v18M142 13v18M147 13v18M152 13v18M157 13v18'/%3E%3C/g%3E%3Ccircle cx='206' cy='15' r='2.2' fill='%2361cb7c'/%3E%3Ccircle cx='215' cy='15' r='2.2' fill='%234fa8e1'/%3E%3Ccircle cx='206' cy='28' r='2.2' fill='%2361cb7c' fill-opacity='.5'/%3E%3C/svg%3E");
 
     --font-sans: "IBM Plex Sans", "Segoe UI", system-ui, -apple-system, sans-serif;
     --font-mono: "IBM Plex Mono", ui-monospace, "Cascadia Mono", Consolas, monospace;
