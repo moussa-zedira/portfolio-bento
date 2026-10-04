@@ -87,8 +87,8 @@ const getMailer = () => {
  */
 const portfolio = {
     name: 'Moussa Zedira',
-    title: 'Technicien Support IT & Automatisation',
-    subtitle: 'Support IT • IA & Automatisation • Réseaux • Python',
+    title: 'Technicien Support IT',
+    subtitle: 'Support IT • Systèmes & réseaux • Virtualisation • Python',
     seeking: 'Recherche une alternance TSSR (Technicien Supérieur Systèmes et Réseaux) — Île-de-France',
     aboutHook: `Passionné d'informatique, du poste de l'utilisateur jusqu'au serveur : je dépanne, j'installe et je documente.`,
     aboutPoints: [
@@ -102,7 +102,7 @@ const portfolio = {
         `Alors j'ai appris en faisant : j'ai monté mon propre serveur à la maison pour pratiquer en conditions réelles.`,
         `Aujourd'hui, je cherche une alternance de Technicien Supérieur Systèmes et Réseaux (TSSR) pour continuer d'apprendre sur le terrain, aux côtés d'une équipe.`
     ],
-    tags: ['Support IT', 'Systèmes', 'Virtualisation', 'Réseaux', 'Cybersécurité', 'Automatisation'],
+    tags: ['Support IT', 'Systèmes', 'Virtualisation', 'Réseaux', 'Cybersécurité'],
     stats: {
         certifications: 4,
         projects: 4

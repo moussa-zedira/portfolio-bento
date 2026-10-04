@@ -1,12 +1,1 @@
-<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 64 64">
-  <defs>
-    <linearGradient id="g" x1="0" y1="0" x2="1" y2="1">
-      <stop offset="0%" stop-color="#818cf8"/>
-      <stop offset="100%" stop-color="#c084fc"/>
-    </linearGradient>
-  </defs>
-  <rect width="64" height="64" rx="10" fill="url(#g)"/>
-  <text x="32" y="44" text-anchor="middle"
-        font-family="'Segoe UI', 'Inter', Arial, sans-serif"
-        font-weight="900" font-size="34" fill="#ffffff">MZ</text>
-</svg>
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 64 64"><rect width="64" height="64" rx="11.5" fill="#f4f7fa"/><g fill="#101926"><path transform="translate(6.40 37.32) scale(0.02857 -0.02857)" d="M80 0V687H368L468 385Q474 368 482.5 340.0Q491 312 499.0 282.5Q507 253 514 230H521Q526 250 534.0 277.0Q542 304 550.0 333.0Q558 362 566 385L666 687H947V0H758V323Q758 355 759.0 390.5Q760 426 760.5 456.5Q761 487 762 504H754Q749 487 741.5 460.0Q734 433 726.0 405.0Q718 377 711 356L590 0H425L304 356Q296 379 287.5 406.5Q279 434 272.5 460.0Q266 486 261 504H253Q254 484 255.0 453.0Q256 422 256.5 388.0Q257 354 257 323V0Z"/><path transform="translate(35.71 37.32) scale(0.02857 -0.02857)" d="M30 0V69L412 542H58V687H718V619L335 145H726V0Z"/></g><rect x="6.40" y="41.80" width="51.20" height="4.48" rx="2.24" fill="#005591"/></svg>
