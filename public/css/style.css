@@ -462,7 +462,8 @@ button, input, textarea { font: inherit; color: inherit; }
 /* ============================================================ PIED DE PAGE */
 .footer { padding: var(--space-xl) var(--gutter) var(--space-2xl); border-top: var(--rule); }
 .footer__inner { display: grid; gap: var(--space-sm); font-size: var(--text-sm); color: var(--color-muted); }
-.footer__name { display: inline-flex; align-items: center; gap: var(--space-2xs); color: var(--color-ink); }
+.footer__name { color: var(--color-ink); }
+.footer__name .mono-mark__led { margin-right: var(--space-2xs); vertical-align: 0.1em; }
 .footer__links { display: flex; flex-wrap: wrap; gap: var(--space-2xs) var(--space-md); }
 .footer__links a { text-decoration: none; white-space: nowrap; }
 .footer__links a:hover { color: var(--color-ink-strong); text-decoration: underline; text-underline-offset: 0.2em; }
@@ -537,6 +538,47 @@ button, input, textarea { font: inherit; color: inherit; }
 .page-404 .container { display: grid; gap: var(--space-md); justify-items: start; }
 .page-404__title { font-family: var(--font-display); font-size: var(--text-3xl); font-weight: 700; font-variation-settings: 'opsz' 96, 'wdth' 80; line-height: 0.95; letter-spacing: -0.02em; color: var(--color-ink-strong); text-transform: uppercase; }
 .page-404__text { max-width: 44ch; color: var(--color-muted); }
+
+/* ============================================================ MOBILE */
+/* Les grands blancs du bureau deviennent des trous sur telephone : on les resserre. */
+@media (max-width: 699px) {
+    .about { padding-block: var(--space-2xl) var(--space-xl); }
+    .proofs { padding-block: var(--space-2xl); }
+    .proofs__head { margin-bottom: var(--space-xl); }
+    .proof { padding-block: var(--space-xl); }
+    .numbers { padding-block: var(--space-2xl); }
+    .numbers__list { margin-top: var(--space-lg); }
+    .path, .skills { padding-block: var(--space-2xl); }
+    .path__head { margin-bottom: var(--space-xl); }
+    .contact { padding-block: var(--space-2xl) var(--space-xl); }
+    .contact__grid { margin-top: var(--space-lg); }
+    .epigraph figcaption { text-wrap: balance; }
+}
+/* Coordonnees : l'etiquette passe au-dessus, la valeur garde toute la largeur. */
+@media (max-width: 480px) {
+    .coords div { grid-template-columns: minmax(0, 1fr); gap: var(--space-3xs); }
+}
+/* Dock a 320 px : il prend toute la largeur au lieu de deborder. */
+@media (max-width: 400px) {
+    .dock { left: var(--space-sm); right: var(--space-sm); transform: none; max-width: none; justify-content: space-between; }
+    .dock__links a { letter-spacing: 0.02em; }
+}
+@media (max-width: 360px) {
+    .dock__links a { font-size: 0.6875rem; letter-spacing: 0; }
+    .dock__cta { padding-inline: var(--space-2xs); }
+}
+/* Ecrans tactiles : zones de toucher d'au moins 44 px, sans changer le dessin. */
+@media (pointer: coarse) {
+    .topbar__cv, .arrow-link, .cartel a, .breadcrumb a { position: relative; }
+    .topbar__cv::before, .arrow-link::before, .cartel a::before, .breadcrumb a::before {
+        content: ''; position: absolute; inset: -12px -6px;
+    }
+    .dock__links a { display: flex; align-items: center; min-height: 44px; }
+    .dock__cta { min-height: 44px; }
+    .copy { min-height: 36px; padding-inline: var(--space-sm); }
+    .coords a { display: inline-block; padding-block: var(--space-2xs); }
+    .footer__links a { display: inline-block; padding-block: var(--space-2xs); }
+}
 
 /* ============================================================ APPARITIONS */
 .js .reveal { opacity: 0; transform: translateY(12px); transition: opacity var(--dur-mid) var(--ease-out), transform var(--dur-mid) var(--ease-out); }
