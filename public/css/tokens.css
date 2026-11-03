@@ -1,60 +1,46 @@
-/* Hallmark · genre: modern-minimal · theme: custom « Encre de Prusse » (vraies photos de serveurs, voile bleu nuit)
- * paper oklch(97.5% 0.005 250) · accent oklch(44% 0.12 248) bleu de Prusse · Archivo elargie + Geologica + Martian Mono
- * axes: light / grotesk-sans / cool · design-system: design.md
+/* Hallmark · genre: atmospheric · theme: custom « Salle éteinte » (fond presque noir, encre sable, une LED verte)
+ * paper oklch(16% 0.008 80) · ink oklch(87% 0.035 85) sable · accent oklch(80% 0.17 150) LED
+ * Bricolage Grotesque (titres, etroite) + Geologica (texte) + Martian Mono (etiquettes)
+ * axes: dark / grotesk-sans / chromatic-green · design-system: design.md
  */
 :root {
     /* Couleurs : voir le tableau de design.md pour les contrastes mesures */
-    --color-paper:        oklch(97.5% 0.005 250);
-    --color-paper-2:      oklch(95% 0.008 250);
-    --color-field:        oklch(99% 0.003 250);
-    --color-rule:         oklch(88% 0.012 250);
-    --color-field-border: oklch(62% 0.02 250);
-    --color-muted:        oklch(47% 0.02 255);
-    --color-ink:          oklch(22% 0.025 258);
-    --color-accent:       oklch(44% 0.12 248);
-    --color-accent-hover: oklch(38% 0.11 248);
-    --color-accent-ink:   oklch(98.5% 0.004 250);
-    /* la bande sombre : bleu nuit de salle serveur (les noms « slate » sont gardes pour le CSS) */
-    --color-slate:        oklch(21% 0.03 258);
-    --color-slate-rule:   oklch(33% 0.03 258);
-    --color-slate-ink:    oklch(94% 0.008 250);
-    --color-slate-muted:  oklch(76% 0.02 250);
-    --color-slate-accent: oklch(78% 0.09 240);
-    --color-success:      oklch(47% 0.10 155);
-    --color-error:        oklch(50% 0.17 28);
-    --color-focus:        var(--color-accent);
+    --color-paper:      oklch(16% 0.008 80);
+    --color-paper-2:    oklch(20% 0.01 80);
+    --color-paper-3:    oklch(25% 0.012 80);
+    --color-rule:       oklch(32% 0.012 80);
+    --color-field:      oklch(19% 0.009 80);
+    --color-field-border: oklch(48% 0.02 80);
+    --color-muted:      oklch(68% 0.025 85);
+    --color-ghost:      oklch(34% 0.012 80);
+    --color-ink:        oklch(87% 0.035 85);
+    --color-ink-strong: oklch(94% 0.025 85);
+    /* La LED : un point vert, jamais une surface. */
+    --color-accent:     oklch(80% 0.17 150);
+    --color-on-ink:     oklch(16% 0.008 80);
+    --color-success:    oklch(80% 0.15 150);
+    --color-error:      oklch(72% 0.15 30);
+    --color-focus:      var(--color-ink-strong);
+    --color-veil:       oklch(16% 0.008 80 / 0.55);
+    --color-veil-0:     oklch(16% 0.008 80 / 0);
 
-    /* Pierres froides : decor uniquement (galets), jamais sous du texte */
-    --stone-ardoise: oklch(52% 0.02 250);
-    --stone-granit:  oklch(72% 0.008 250);
-    --stone-galet:   oklch(88% 0.008 240);
-    --stone-basalte: oklch(36% 0.015 255);
-    --stone-riviere: oklch(64% 0.012 230);
-    --stone-speck-dark:  oklch(25% 0.02 255 / 0.22);
-    --stone-speck-light: oklch(98% 0.004 250 / 0.35);
-    --stone-sheen: oklch(99% 0.004 250 / 0.45);
-    --stone-shade: oklch(22% 0.02 255 / 0.24);
-    /* Grain de granit : bruit procedural (SVG feTurbulence), pas une photo */
-    --stone-grain: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='140' height='140'%3E%3Cfilter id='g'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='1.1' numOctaves='2' seed='7' stitchTiles='stitch'/%3E%3CfeColorMatrix values='0 0 0 0 0.11 0 0 0 0 0.13 0 0 0 0 0.17 0 0 0 2.2 -1.15'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23g)'/%3E%3C/svg%3E");
-    --stone-grain-light: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='170' height='170'%3E%3Cfilter id='h'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='1' seed='3' stitchTiles='stitch'/%3E%3CfeColorMatrix values='0 0 0 0 0.97 0 0 0 0 0.98 0 0 0 0 1 0 0 0 2.4 -1.45'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23h)'/%3E%3C/svg%3E");
+    /* Polices */
+    --font-display: 'Bricolage Grotesque', 'Arial Narrow', sans-serif;
+    --font-body:    'Geologica', system-ui, sans-serif;
+    --font-mono:    'Martian Mono', ui-monospace, monospace;
 
-    /* Contour organique d'un galet de riviere */
-    --shape-galet: 58% 42% 52% 48% / 46% 56% 44% 54%;
-    --shape-galet-2: 44% 56% 48% 52% / 58% 42% 58% 42%;
+    /* Echelle de texte */
+    --text-xs:   0.75rem;
+    --text-sm:   0.875rem;
+    --text-base: 1rem;
+    --text-md:   1.125rem;
+    --text-lg:   1.375rem;
+    --text-xl:   clamp(1.5rem, 1.1rem + 1.6vw, 2.25rem);
+    --text-2xl:  clamp(2rem, 1.2rem + 3.4vw, 4rem);
+    --text-3xl:  clamp(2.6rem, 1rem + 7vw, 7.5rem);
+    --text-giant: clamp(3.4rem, 0.5rem + 15vw, 17rem);
 
-    /* Voile sur les vraies photos de serveurs : le texte n'est jamais pose sur l'image nue.
-       Opaque a 92 % derriere le texte, il laisse voir la photo vers la droite. */
-    --overlay-strong: oklch(17% 0.03 258 / 0.94);
-    --overlay-mid:    oklch(17% 0.03 258 / 0.72);
-    --overlay-soft:   oklch(17% 0.03 258 / 0.35);
-
-    --font-display: "Archivo", "Arial Narrow", "Segoe UI", sans-serif;
-    --font-sans: "Geologica", "Segoe UI", system-ui, -apple-system, sans-serif;
-    --text-sharpness: 40;   /* axe SHRP de Geologica : 0 = arrondi, 100 = taille au biseau */
-    --font-mono: "Martian Mono", ui-monospace, "Cascadia Mono", Consolas, monospace;
-    --display-width: 118;   /* axe wdth d'Archivo : 100 = normal, 125 = elargi */
-
-    /* Echelle de 4 px */
+    /* Espacement : 4 px de base */
     --space-3xs: 0.25rem;
     --space-2xs: 0.5rem;
     --space-xs:  0.75rem;
@@ -64,25 +50,22 @@
     --space-xl:  3rem;
     --space-2xl: 4.5rem;
     --space-3xl: 7rem;
+    --space-4xl: 10rem;
 
-    --text-xs:   0.8125rem;
-    --text-sm:   0.9375rem;
-    --text-md:   1.0625rem;
-    --text-lg:   1.25rem;
-    --text-xl:   1.625rem;
-    --text-2xl:  clamp(1.75rem, 1.2rem + 1.6vw, 2.375rem);
-    --text-display: clamp(2.5rem, 1.6rem + 3.6vw, 4.25rem);
+    --gutter: clamp(1rem, 0.4rem + 3vw, 6.5rem);
+    --measure: 62ch;
 
-    --radius-sm: 4px;
-    --radius-md: 6px;
-    --radius-lg: 10px;
+    /* Formes */
+    --radius-sm:   6px;
+    --radius-md:   12px;
+    --radius-pill: 999px;
+    --rule: 1px solid var(--color-rule);
 
-    --ease-out: cubic-bezier(0.16, 1, 0.3, 1);
+    /* Mouvement */
+    --ease-out:    cubic-bezier(0.16, 1, 0.3, 1);
+    --ease-in:     cubic-bezier(0.7, 0, 0.84, 0);
     --ease-in-out: cubic-bezier(0.65, 0, 0.35, 1);
-    --dur-short: 160ms;
-    --dur-reveal: 500ms;
-
-    --nav-height: 4rem;
-    --measure: 66ch;
-    --container: 72rem;
+    --dur-short: 180ms;
+    --dur-mid:   500ms;
+    --dur-long:  900ms;
 }

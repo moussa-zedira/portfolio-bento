@@ -98,8 +98,8 @@ const portfolio = {
     // Courte presentation a la premiere personne. Uniquement des faits deja presents
     // ailleurs sur le site (formation, stage, projets) : aucune anecdote inventee.
     story: [
-        `L'informatique, je l'ai d'abord approchée au lycée, en spécialités NSI et sciences de l'ingénieur. Très vite, ce qui m'a attiré, c'est ce qui se passe derrière l'écran : les serveurs, le réseau, tout ce qui fait qu'un service tient debout.`,
-        `Alors j'ai appris en faisant : j'ai monté mon propre serveur à la maison pour pratiquer en conditions réelles.`,
+        `L'informatique, je l'ai d'abord approchée au lycée, en spécialités NSI et sciences de l'ingénieur.`,
+        `J'ai ensuite suivi la formation de Technicien d'Assistance Informatique, avec un stage de trois mois dans le secteur nucléaire : support aux utilisateurs, gestion de parc, participation à la mise en conformité cybersécurité. Titre professionnel obtenu.`,
         `Aujourd'hui, je cherche une alternance de Technicien Supérieur Systèmes et Réseaux (TSSR) pour continuer d'apprendre sur le terrain, aux côtés d'une équipe.`
     ],
     tags: ['Support IT', 'Systèmes', 'Virtualisation', 'Réseaux', 'Cybersécurité'],
@@ -182,6 +182,146 @@ const portfolio = {
     projects: [
         {
             id: '01',
+            slug: 'homelab',
+            title: 'HomeLab',
+            desc: 'Serveur Linux auto-hébergé : une douzaine de services Docker (cloud, médias, Git, DNS, supervision), accès distant chiffré sans exposition sur Internet.',
+            tech: ['Debian', 'Docker', 'Linux', 'Tailscale', 'Nginx', 'Bash'],
+            color: '#38bdf8',
+            wip: true,
+            startedAt: 'Mai 2026',
+            detail: {
+                subtitle: 'Serveur Linux auto-hébergé & conteneurs Docker',
+                overview: `Un serveur monté et administré chez moi pour pratiquer l'administration système Linux en conditions réelles. Une distribution Debian sur mini-PC, le stockage géré en LVM, et une douzaine de services applicatifs conteneurisés avec Docker : cloud personnel, médiathèque, dépôts Git, DNS local, supervision et tableau de bord. L'accès distant se fait via un réseau privé chiffré, sans ouvrir le moindre port sur Internet. L'objectif : maîtriser l'orchestration de services, le réseau, la supervision et le durcissement d'un serveur de bout en bout.`,
+                features: [
+                    {
+                        icon: '01',
+                        title: 'Serveur Linux & stockage',
+                        desc: 'Installation et administration d\'un serveur Debian sur mini-PC : partitionnement LVM, gestion du stockage de masse, services systemd, maintenance et mises à jour.',
+                        highlight: 'Administration système de bout en bout'
+                    },
+                    {
+                        icon: '02',
+                        title: 'Conteneurisation Docker',
+                        desc: 'Une douzaine de services isolés en conteneurs, chacun avec son fichier docker-compose dédié. Gestion des volumes, des réseaux Docker et des journaux, administration via interface web.',
+                        highlight: 'Architecture micro-services reproductible'
+                    },
+                    {
+                        icon: '03',
+                        title: 'Services auto-hébergés',
+                        desc: 'Cloud personnel (fichiers, photos), médiathèque, dépôts Git self-hosted, DNS local avec filtrage, orchestration de workflows automatisés et tableau de bord centralisé.',
+                        highlight: 'Indépendance vis-à-vis des services tiers'
+                    },
+                    {
+                        icon: '04',
+                        title: 'Accès distant sécurisé',
+                        desc: 'Connexion à distance via un réseau privé maillé et chiffré, sans aucun port exposé sur Internet. Résolution de noms interne et accès homogène depuis tous les appareils.',
+                        highlight: 'Zéro service exposé publiquement'
+                    },
+                    {
+                        icon: '05',
+                        title: 'Supervision & monitoring',
+                        desc: 'Surveillance de la disponibilité des services et des métriques système en temps réel, avec historique et notifications push en cas d\'incident.',
+                        highlight: 'Disponibilité suivie en continu'
+                    },
+                    {
+                        icon: '06',
+                        title: 'Sécurité & sauvegardes',
+                        desc: 'Reverse proxy, protection anti-brute-force, durcissement de l\'accès SSH et sauvegardes régulières des bases de données.',
+                        highlight: 'Bonnes pratiques de durcissement'
+                    }
+                ],
+                architecture: {
+                    serveur: 'Debian (mini-PC, stockage LVM)',
+                    conteneurs: 'Docker + docker-compose',
+                    reseau: 'Réseau privé chiffré, 0 port exposé',
+                    proxy: 'Reverse proxy + DNS local',
+                    supervision: 'Monitoring disponibilité + métriques',
+                    securite: 'fail2ban, durcissement SSH, sauvegardes'
+                },
+                stats: [
+                    { label: 'Services Docker', value: '12' },
+                    { label: 'Ports exposés sur Internet', value: '0' },
+                    { label: 'Stockage', value: '4 To' },
+                    { label: 'OS', value: 'Debian' },
+                    { label: 'Accès distant', value: 'VPN maillé' },
+                    { label: 'Supervision', value: '24/7' }
+                ]
+            }
+        },
+        {
+            id: '02',
+            slug: 'chapitres',
+            title: 'Chapitres',
+            desc: `Plateforme de révision gratuite pour lycéens, que j'ai mise en production et que j'exploite seul : domaine, déploiement, comptes utilisateurs. 2500+ utilisateurs, 504+ chapitres, annales du Bac.`,
+            tech: ['Next.js', 'React', 'Vercel', 'KaTeX', 'OAuth'],
+            color: '#818cf8',
+            link: 'https://meschapitres.fr',
+            detail: {
+                subtitle: 'Plateforme de révision gratuite pour le Baccalauréat',
+                overview: `Chapitres est une plateforme éducative 100% gratuite destinée aux lycéens
+                    qui préparent le Baccalauréat. Elle couvre l'intégralité du programme officiel
+                    (Bulletin Officiel 2025-2026) de la Seconde à la Terminale, avec des fiches de
+                    révision structurées, des quiz interactifs chronométrés et les annales du Bac.
+                    Pensée pour les lycéens, elle compte aujourd'hui plus de 2500 utilisateurs.`,
+                features: [
+                    {
+                        icon: '01',
+                        title: 'Programme complet — 504+ chapitres',
+                        desc: 'Couverture intégrale du programme officiel : Seconde (112 chapitres), Première (185 chapitres), Terminale (207 chapitres). 16 matières en Terminale, du tronc commun aux spécialités (Maths, NSI, Physique, SVT, SES, HGGSP...).',
+                        highlight: 'Aligné sur le Bulletin Officiel 2025-2026'
+                    },
+                    {
+                        icon: '02',
+                        title: 'Fiches de révision',
+                        desc: 'Fiches structurées et synthétiques pour chaque chapitre. Concepts essentiels résumés en une page, avec rendu mathématique KaTeX pour les formules.',
+                        highlight: 'Comprends. Révise. Réussis.'
+                    },
+                    {
+                        icon: '03',
+                        title: 'Quiz interactifs',
+                        desc: 'QCM chronométrés avec choix de durée (30s, 60s ou 90s par question). Score détaillé et corrections complètes à la fin de chaque quiz.',
+                        highlight: 'Suivi de progression par matière'
+                    },
+                    {
+                        icon: '04',
+                        title: 'Annales du Bac 2021-2024',
+                        desc: 'Sujets d\'examen classés par matière, année et session géographique (Métropole, Polynésie, Amérique du Nord, Asie, Liban...). Durées et coefficients indiqués.',
+                        highlight: '8 sessions géographiques disponibles'
+                    },
+                    {
+                        icon: '05',
+                        title: 'Hub Bac 2026',
+                        desc: 'Page dédiée avec le calendrier complet des épreuves, les coefficients, la répartition des notes (60% examen final / 40% contrôle continu) et les ressources de révision.',
+                        highlight: 'Calendrier, coefficients et planning de révision'
+                    },
+                    {
+                        icon: '06',
+                        title: 'Blog & Méthodologie',
+                        desc: '10 articles de conseils : méthode de dissertation en philo, formules essentielles en maths, erreurs courantes en physique, préparation du Grand Oral, planning de révision...',
+                        highlight: 'Articles de 6 à 10 min de lecture'
+                    }
+                ],
+                architecture: {
+                    frontend: 'Next.js / React — App Router',
+                    hosting: 'Vercel',
+                    auth: 'Google OAuth + Email/Password',
+                    math: 'KaTeX (rendu formules)',
+                    pwa: 'Progressive Web App installable',
+                    seo: 'Schema.org, Open Graph dynamique'
+                },
+                stats: [
+                    { label: 'Utilisateurs', value: '2500+' },
+                    { label: 'Chapitres', value: '504+' },
+                    { label: 'Matières', value: '16' },
+                    { label: 'Niveaux', value: '3' },
+                    { label: 'Sessions Annales', value: '8' },
+                    { label: 'Articles Blog', value: '10' },
+                    { label: 'Prix', value: 'Gratuit' }
+                ]
+            }
+        },
+        {
+            id: '03',
             slug: 'cyberdef',
             title: 'CyberDef',
             desc: 'Plateforme de cybersécurité tout-en-un : SIEM, détection, réponse automatisée, threat intel et pentest.',
@@ -249,79 +389,7 @@ const portfolio = {
             }
         },
         {
-            id: '02',
-            slug: 'chapitres',
-            title: 'Chapitres',
-            desc: 'Plateforme éducative gratuite pour lycéens : 2500+ utilisateurs, 504+ chapitres, quiz interactifs, annales du Bac.',
-            tech: ['Next.js', 'React', 'Vercel', 'KaTeX', 'OAuth'],
-            color: '#818cf8',
-            link: 'https://meschapitres.fr',
-            detail: {
-                subtitle: 'Plateforme de révision gratuite pour le Baccalauréat',
-                overview: `Chapitres est une plateforme éducative 100% gratuite destinée aux lycéens
-                    qui préparent le Baccalauréat. Elle couvre l'intégralité du programme officiel
-                    (Bulletin Officiel 2025-2026) de la Seconde à la Terminale, avec des fiches de
-                    révision structurées, des quiz interactifs chronométrés et les annales du Bac.
-                    Créé pour les lycéens, par les lycéens — plus de 2500 utilisateurs.`,
-                features: [
-                    {
-                        icon: '01',
-                        title: 'Programme complet — 504+ chapitres',
-                        desc: 'Couverture intégrale du programme officiel : Seconde (112 chapitres), Première (185 chapitres), Terminale (207 chapitres). 16 matières en Terminale, du tronc commun aux spécialités (Maths, NSI, Physique, SVT, SES, HGGSP...).',
-                        highlight: 'Aligné sur le Bulletin Officiel 2025-2026'
-                    },
-                    {
-                        icon: '02',
-                        title: 'Fiches de révision',
-                        desc: 'Fiches structurées et synthétiques pour chaque chapitre. Concepts essentiels résumés en une page, avec rendu mathématique KaTeX pour les formules.',
-                        highlight: 'Comprends. Révise. Réussis.'
-                    },
-                    {
-                        icon: '03',
-                        title: 'Quiz interactifs',
-                        desc: 'QCM chronométrés avec choix de durée (30s, 60s ou 90s par question). Score détaillé et corrections complètes à la fin de chaque quiz.',
-                        highlight: 'Suivi de progression par matière'
-                    },
-                    {
-                        icon: '04',
-                        title: 'Annales du Bac 2021-2024',
-                        desc: 'Sujets d\'examen classés par matière, année et session géographique (Métropole, Polynésie, Amérique du Nord, Asie, Liban...). Durées et coefficients indiqués.',
-                        highlight: '8 sessions géographiques disponibles'
-                    },
-                    {
-                        icon: '05',
-                        title: 'Hub Bac 2026',
-                        desc: 'Page dédiée avec le calendrier complet des épreuves, les coefficients, la répartition des notes (60% examen final / 40% contrôle continu) et les ressources de révision.',
-                        highlight: 'Calendrier, coefficients et planning de révision'
-                    },
-                    {
-                        icon: '06',
-                        title: 'Blog & Méthodologie',
-                        desc: '10 articles de conseils : méthode de dissertation en philo, formules essentielles en maths, erreurs courantes en physique, préparation du Grand Oral, planning de révision...',
-                        highlight: 'Articles de 6 à 10 min de lecture'
-                    }
-                ],
-                architecture: {
-                    frontend: 'Next.js / React — App Router',
-                    hosting: 'Vercel',
-                    auth: 'Google OAuth + Email/Password',
-                    math: 'KaTeX (rendu formules)',
-                    pwa: 'Progressive Web App installable',
-                    seo: 'Schema.org, Open Graph dynamique'
-                },
-                stats: [
-                    { label: 'Utilisateurs', value: '2500+' },
-                    { label: 'Chapitres', value: '504+' },
-                    { label: 'Matières', value: '16' },
-                    { label: 'Niveaux', value: '3' },
-                    { label: 'Sessions Annales', value: '8' },
-                    { label: 'Articles Blog', value: '10' },
-                    { label: 'Prix', value: 'Gratuit' }
-                ]
-            }
-        },
-        {
-            id: '03',
+            id: '04',
             slug: 'gdchess',
             title: 'GDChess',
             desc: 'Jeu d\'échecs complet avec IA multi-niveaux (Minimax alpha-beta), 3 thèmes visuels, développé en Godot 4.',
@@ -389,75 +457,7 @@ const portfolio = {
                 ]
             }
         }
-        ,
-        {
-            id: '04',
-            slug: 'homelab',
-            title: 'HomeLab',
-            desc: 'Serveur Linux auto-hébergé : une douzaine de services Docker (cloud, médias, Git, DNS, supervision), accès distant chiffré sans exposition sur Internet.',
-            tech: ['Debian', 'Docker', 'Linux', 'Tailscale', 'Nginx', 'Bash'],
-            color: '#38bdf8',
-            wip: true,
-            startedAt: 'Mai 2026',
-            detail: {
-                subtitle: 'Serveur Linux auto-hébergé & conteneurs Docker',
-                overview: `Un serveur monté et administré chez moi pour pratiquer l'administration système Linux en conditions réelles. Une distribution Debian sur mini-PC, le stockage géré en LVM, et une douzaine de services applicatifs conteneurisés avec Docker : cloud personnel, médiathèque, dépôts Git, DNS local, supervision et tableau de bord. L'accès distant se fait via un réseau privé chiffré, sans ouvrir le moindre port sur Internet. L'objectif : maîtriser l'orchestration de services, le réseau, la supervision et le durcissement d'un serveur de bout en bout.`,
-                features: [
-                    {
-                        icon: '01',
-                        title: 'Serveur Linux & stockage',
-                        desc: 'Installation et administration d\'un serveur Debian sur mini-PC : partitionnement LVM, gestion du stockage de masse, services systemd, maintenance et mises à jour.',
-                        highlight: 'Administration système de bout en bout'
-                    },
-                    {
-                        icon: '02',
-                        title: 'Conteneurisation Docker',
-                        desc: 'Une douzaine de services isolés en conteneurs, chacun avec son fichier docker-compose dédié. Gestion des volumes, des réseaux Docker et des journaux, administration via interface web.',
-                        highlight: 'Architecture micro-services reproductible'
-                    },
-                    {
-                        icon: '03',
-                        title: 'Services auto-hébergés',
-                        desc: 'Cloud personnel (fichiers, photos), médiathèque, dépôts Git self-hosted, DNS local avec filtrage, orchestration de workflows automatisés et tableau de bord centralisé.',
-                        highlight: 'Indépendance vis-à-vis des services tiers'
-                    },
-                    {
-                        icon: '04',
-                        title: 'Accès distant sécurisé',
-                        desc: 'Connexion à distance via un réseau privé maillé et chiffré, sans aucun port exposé sur Internet. Résolution de noms interne et accès homogène depuis tous les appareils.',
-                        highlight: 'Zéro service exposé publiquement'
-                    },
-                    {
-                        icon: '05',
-                        title: 'Supervision & monitoring',
-                        desc: 'Surveillance de la disponibilité des services et des métriques système en temps réel, avec historique et notifications push en cas d\'incident.',
-                        highlight: 'Disponibilité suivie en continu'
-                    },
-                    {
-                        icon: '06',
-                        title: 'Sécurité & sauvegardes',
-                        desc: 'Reverse proxy, protection anti-brute-force, durcissement de l\'accès SSH et sauvegardes régulières des bases de données.',
-                        highlight: 'Bonnes pratiques de durcissement'
-                    }
-                ],
-                architecture: {
-                    serveur: 'Debian (mini-PC, stockage LVM)',
-                    conteneurs: 'Docker + docker-compose',
-                    reseau: 'Réseau privé chiffré, 0 port exposé',
-                    proxy: 'Reverse proxy + DNS local',
-                    supervision: 'Monitoring disponibilité + métriques',
-                    securite: 'fail2ban, durcissement SSH, sauvegardes'
-                },
-                stats: [
-                    { label: 'Services Docker', value: '12' },
-                    { label: 'Ports exposés sur Internet', value: '0' },
-                    { label: 'Stockage', value: '4 To' },
-                    { label: 'OS', value: 'Debian' },
-                    { label: 'Accès distant', value: 'VPN maillé' },
-                    { label: 'Supervision', value: '24/7' }
-                ]
-            }
-        }
+        
     ],
     languages: ['Français (natif)', 'Anglais (intermédiaire)', 'Arabe (bilingue)', 'Espagnol (conversationnel)'],
     socials: {

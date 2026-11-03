@@ -9,7 +9,8 @@
     <%
         const idx = portfolio.projects.findIndex(p => p.slug === project.slug);
         const suivant = portfolio.projects[(idx + 1) % portfolio.projects.length];
-        const ancre = project.slug === 'homelab' ? 'projet-homelab' : 'projet-' + project.slug;
+        // Le HomeLab porte l'ancre #projets de la navigation (il ouvre la partie projets).
+        const ancre = project.slug === 'homelab' ? 'projets' : 'projet-' + project.slug;
     %>
 
     <main id="contenu" class="page-project">

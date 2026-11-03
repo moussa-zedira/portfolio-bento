@@ -2,8 +2,9 @@
  * Comportements du portfolio. Volontairement court : la page fonctionne sans
  * ce script (menu ouvert, contenu visible), il ne fait qu'ameliorer.
  *
- *   1. menu mobile (bouton « Menu »)
- *   2. section courante soulignee dans la navigation
+ *   0. logo qui se trace a l'arrivee
+ *   1. texte qui s'allume mot a mot au defilement
+ *   2. section courante marquee dans le dock
  *   3. apparitions legeres au defilement
  *   4. boutons « Copier » (telephone, e-mail)
  *   5. envoi du formulaire de contact
@@ -14,26 +15,38 @@
     // Signale au CSS que le script tourne : sans lui, rien n'est masque.
     document.documentElement.classList.add('js');
 
-    // ------------------------------------------------------------ 1. menu mobile
-    const toggle = document.querySelector('.nav__toggle');
-    const menu = document.getElementById('nav-menu');
-    if (toggle && menu) {
-        const setOpen = (open) => {
-            toggle.setAttribute('aria-expanded', String(open));
-            menu.dataset.open = String(open);
-            toggle.querySelector('.nav__toggle-label').textContent = open ? 'Fermer' : 'Menu';
-        };
-        setOpen(false);
-        toggle.addEventListener('click', () => setOpen(toggle.getAttribute('aria-expanded') !== 'true'));
-        // Un lien choisi ferme le menu ; Echap aussi, et le focus revient au bouton.
-        menu.addEventListener('click', (e) => { if (e.target.closest('a')) setOpen(false); });
-        document.addEventListener('keydown', (e) => {
-            if (e.key === 'Escape' && toggle.getAttribute('aria-expanded') === 'true') { setOpen(false); toggle.focus(); }
-        });
+    const reduce = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+
+    // ------------------------------------------------- 0. logo qui se trace
+    // La goutte verte dessine le M puis le Z, une fois, a l'arrivee.
+    // Les animations SVG du logo demarrent ensemble ; sans script, il reste fixe.
+    if (!reduce) {
+        document.querySelectorAll('.mono-mark__logo animate, .mono-mark__logo set, .mono-mark__logo animateMotion')
+            .forEach((a) => typeof a.beginElement === 'function' && a.beginElement());
     }
 
-    // ------------------------------------------- 2. section courante dans la nav
-    const navLinks = [...document.querySelectorAll('.nav__links a[data-section]')];
+    // ------------------------------------------------- 1. texte qui s'allume
+    // Chaque mot s'allume quand il passe sous le milieu de l'ecran. Sans script
+    // ou en mouvement reduit, le texte est simplement allume d'emblee (CSS).
+    const fills = [...document.querySelectorAll('.fill[data-fill]')];
+    if (fills.length && !reduce) {
+        const words = fills.flatMap((f) => [...f.querySelectorAll('.fill__w')]);
+        let ticking = false;
+        const paint = () => {
+            ticking = false;
+            const line = window.innerHeight * 0.62;
+            words.forEach((w) => w.classList.toggle('is-lit', w.getBoundingClientRect().top < line));
+        };
+        const onScroll = () => { if (!ticking) { ticking = true; requestAnimationFrame(paint); } };
+        window.addEventListener('scroll', onScroll, { passive: true });
+        window.addEventListener('resize', onScroll);
+        paint();
+    } else {
+        fills.forEach((f) => f.querySelectorAll('.fill__w').forEach((w) => w.classList.add('is-lit')));
+    }
+
+    // ------------------------------------------ 2. section courante dans le dock
+    const navLinks = [...document.querySelectorAll('.dock a[data-section]')];
     const sections = navLinks.map((a) => document.getElementById(a.dataset.section)).filter(Boolean);
     if ('IntersectionObserver' in window && sections.length) {
         const visible = new Map();
@@ -55,7 +68,6 @@
 
     // ------------------------------------------------------------ 3. apparitions
     const reveals = document.querySelectorAll('.reveal');
-    const reduce = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
     if (reduce || !('IntersectionObserver' in window)) {
         reveals.forEach((el) => el.classList.add('is-in'));
     } else {

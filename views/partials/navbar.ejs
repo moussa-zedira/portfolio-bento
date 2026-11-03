@@ -1,36 +1,57 @@
 <%#
-    Barre de navigation commune. Les liens pointent vers les sections de
-    l'accueil ; depuis une page projet, le prefixe "/" ramene a l'accueil.
-    La section courante est marquee par script.js (aria-current).
+    Navigation commune, en deux pieces :
+      - une barre haute, non collante : le monogramme et le CV ;
+      - un dock flottant en bas de l'ecran, toujours visible, avec les sections
+        et le bouton de contact.
+    Les liens pointent vers les sections de l'accueil ; depuis une autre page,
+    le prefixe "/" ramene a l'accueil. La section courante est marquee par
+    script.js (aria-current).
 %>
 <% const base = (typeof onHome !== 'undefined' && onHome) ? '' : '/'; %>
 <a class="skip-link" href="#contenu">Aller au contenu</a>
-<header class="nav" id="nav">
-    <div class="nav__inner">
-        <a href="<%= base || '/' %>#accueil" class="nav__brand">Moussa Zedira<span class="nav__dot">.</span></a>
-
-        <button class="nav__toggle" type="button" aria-expanded="false" aria-controls="nav-menu">
-            <span class="nav__toggle-label">Menu</span>
-            <svg viewBox="0 0 24 24" width="20" height="20" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" aria-hidden="true"><path d="M4 7h16M4 12h16M4 17h16"/></svg>
-        </button>
-
-        <nav class="nav__menu" id="nav-menu" aria-label="Navigation principale">
-            <ul class="nav__links">
-                <li><a href="<%= base %>#projets" data-section="projets">Projets</a></li>
-                <li><a href="<%= base %>#parcours" data-section="parcours">Parcours</a></li>
-                <li><a href="<%= base %>#competences" data-section="competences">Compétences</a></li>
-                <li><a href="<%= base %>#contact" data-section="contact">Contact</a></li>
-            </ul>
-            <div class="nav__actions">
-                <% if (portfolio.socials.phone) { %>
-                <a class="nav__tel" href="tel:+33<%= portfolio.socials.phone.replace(/ /g, '').slice(1) %>"><%= portfolio.socials.phone %></a>
-                <% } %>
-                <%# Le parametre ?v= force le navigateur a retelecharger le CV apres une mise a jour du PDF. %>
-                <a class="btn btn--primary btn--sm" href="/CV.MoussaZedira.pdf?v=20261004" download>
-                    <svg viewBox="0 0 24 24" width="16" height="16" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M12 4v11M7 10l5 5 5-5M5 20h14"/></svg>
-                    Télécharger le CV
-                </a>
-            </div>
-        </nav>
-    </div>
+<header class="topbar">
+    <a href="<%= base || '/' %>#accueil" class="mono-mark" aria-label="<%= portfolio.name %>, retour à l'accueil">
+        <%# Logo « trace a la main » : M et Z d'un seul fil, la LED est la goutte au bout.
+            Le filtre fait fondre les angles. Dessin fixe par defaut ; script.js
+            le fait se tracer une fois a l'arrivee (sauf mouvement reduit). %>
+        <svg class="mono-mark__logo" viewBox="0 0 64 64" aria-hidden="true" focusable="false">
+            <defs>
+                <filter id="logo-goo" x="-20%" y="-20%" width="140%" height="140%">
+                    <feGaussianBlur in="SourceGraphic" stdDeviation="2.2" result="b"/>
+                    <feColorMatrix in="b" values="1 0 0 0 0  0 1 0 0 0  0 0 1 0 0  0 0 0 22 -9"/>
+                </filter>
+                <path id="logo-fil" d="M12 50V16l11 19 11-19h20L36 49h15"/>
+            </defs>
+            <g filter="url(#logo-goo)">
+                <path class="mono-mark__fil" d="M12 50V16l11 19 11-19h20L36 49h15" pathLength="100" stroke-dasharray="100" stroke-dashoffset="0">
+                    <animate attributeName="stroke-dashoffset" values="100;0" dur="1.8s" begin="indefinite" fill="freeze" calcMode="spline" keySplines="0.45 0 0.25 1"/>
+                </path>
+                <circle class="mono-mark__goutte" cx="51" cy="49" r="5">
+                    <set attributeName="opacity" to="0" dur="1.8s" begin="indefinite"/>
+                </circle>
+                <circle class="mono-mark__goutte" r="5" opacity="0">
+                    <set attributeName="opacity" to="1" dur="1.8s" begin="indefinite"/>
+                    <animateMotion dur="1.8s" begin="indefinite" calcMode="spline" keyPoints="0;1" keyTimes="0;1" keySplines="0.45 0 0.25 1"><mpath href="#logo-fil"/></animateMotion>
+                </circle>
+            </g>
+        </svg>
+        <span class="mono-mark__name"><%= portfolio.name %></span>
+    </a>
+    <%# Le parametre ?v= force le navigateur a retelecharger le CV apres une mise a jour du PDF. %>
+    <a class="topbar__cv" href="/CV.MoussaZedira.pdf?v=20261004" download>
+        Télécharger le CV
+        <svg viewBox="0 0 24 24" width="16" height="16" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M12 4v11M7 10l5 5 5-5M5 20h14"/></svg>
+    </a>
 </header>
+
+<nav class="dock" aria-label="Navigation principale">
+    <ul class="dock__links">
+        <li><a href="<%= base %>#preuves" data-section="preuves">Projets</a></li>
+        <li><a href="<%= base %>#parcours" data-section="parcours">Parcours</a></li>
+        <li class="dock__optional"><a href="<%= base %>#competences" data-section="competences">Compétences</a></li>
+    </ul>
+    <a class="dock__cta" href="<%= base %>#contact" data-section="contact">
+        <img src="/img/profile.jpg" alt="" width="28" height="28" loading="lazy" decoding="async">
+        Me contacter
+    </a>
+</nav>
