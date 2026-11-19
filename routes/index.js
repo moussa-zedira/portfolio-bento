@@ -89,18 +89,18 @@ const portfolio = {
     name: 'Moussa Zedira',
     title: 'Technicien Support IT',
     subtitle: 'Support IT • Systèmes & réseaux • Virtualisation • Python',
-    seeking: 'Recherche une alternance TSSR (Technicien Supérieur Systèmes et Réseaux) — Île-de-France',
+    seeking: 'Recherche une alternance en BTS SIO option SISR (Solutions d\'Infrastructure, Systèmes et Réseaux) — Île-de-France',
     aboutHook: `Passionné d'informatique, du poste de l'utilisateur jusqu'au serveur : je dépanne, j'installe et je documente.`,
     aboutPoints: [
         `Le support IT, c'est le contact humain : un utilisateur bloqué, un diagnostic à poser, un problème résolu.`,
-        `Objectif : une alternance TSSR (Technicien Supérieur Systèmes et Réseaux) en Île-de-France.`
+        `Objectif : une alternance en BTS SIO option SISR (Solutions d'Infrastructure, Systèmes et Réseaux) en Île-de-France.`
     ],
     // Courte presentation a la premiere personne. Uniquement des faits deja presents
     // ailleurs sur le site (formation, stage, projets) : aucune anecdote inventee.
     story: [
         `L'informatique, je l'ai d'abord approchée au lycée, en spécialités NSI et sciences de l'ingénieur.`,
         `J'ai ensuite suivi la formation de Technicien d'Assistance Informatique, avec un stage de trois mois dans le secteur nucléaire : support aux utilisateurs, gestion de parc, participation à la mise en conformité cybersécurité. Titre professionnel obtenu.`,
-        `Aujourd'hui, je cherche une alternance de Technicien Supérieur Systèmes et Réseaux (TSSR) pour continuer d'apprendre sur le terrain, aux côtés d'une équipe.`
+        `Aujourd'hui, je cherche une alternance en BTS SIO option SISR pour continuer d'apprendre sur le terrain, aux côtés d'une équipe.`
     ],
     tags: ['Support IT', 'Systèmes', 'Virtualisation', 'Réseaux', 'Cybersécurité'],
     stats: {
@@ -108,6 +108,12 @@ const portfolio = {
         projects: 4
     },
     formation: [
+        {
+            year: '2026 - 2028',
+            title: 'BTS SIO — Services Informatiques aux Organisations, option SISR',
+            school: 'ITIC Paris',
+            detail: 'En cours · Infrastructure, systèmes et réseaux'
+        },
         {
             year: '2025 - 2026',
             title: 'Titre Professionnel — Technicien d\'Assistance Informatique',
